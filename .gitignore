@@ -1,12 +1,12 @@
 
 
 
-# lpr_train ignore files
+# training ignore files
 
-lpr_train/lpd_net/data/
-lpr_train/detectnet_v2/data/
-lpr_train/lpd_net/.ipynb_checkpoints/
-lpr_train/detectnet_v2/.ipynb_checkpoints/
-lpr_train/lpd_net/benchmarks/
-lpr_train/lpd_net/ngccli/
-lpr_train/lpd_net/experiments/
+training/lpd_net/data/
+training/detectnet_v2/data/
+training/lpd_net/.ipynb_checkpoints/
+training/detectnet_v2/.ipynb_checkpoints/
+training/lpd_net/benchmarks/
+training/lpd_net/ngccli/
+training/lpd_net/experiments/

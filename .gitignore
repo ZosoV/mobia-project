@@ -8,3 +8,5 @@ lpr_train/detectnet_v2/data/
 lpr_train/lpd_net/.ipynb_checkpoints/
 lpr_train/detectnet_v2/.ipynb_checkpoints/
 lpr_train/lpd_net/benchmarks/
+lpr_train/lpd_net/ngccli/
+lpr_train/lpd_net/experiments/

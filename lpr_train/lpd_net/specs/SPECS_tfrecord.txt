@@ -23,7 +23,7 @@
 ################################################################################
 
 kitti_config {
-  root_directory_path: "/workspace/openalpr/lpd/data"
+  root_directory_path: "/workspace/tao-experiments/lpd_net/data/lpd/data"
   image_dir_name: "image"
   label_dir_name: "label"
   image_extension: ".jpg"
@@ -33,4 +33,4 @@ kitti_config {
   num_shards: 4
 }
 
-image_directory_path: "/workspace/openalpr/lpd/data"
+image_directory_path: "/workspace/tao-experiments/lpd_net/data/lpd/data"

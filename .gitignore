@@ -27,8 +27,8 @@ training/lpd_net/experiments/
 
 
 # TrafficCamNet 
-training/trafficcamnet/data/
-training/trafficcamnet/.ipynb_checkpoints/
-training/trafficcamnet/benchmarks/
-training/trafficcamnet/ngccli/
-training/trafficcamnet/experiments/
+training/tcnet/data/
+training/tcnet/.ipynb_checkpoints/
+training/tcnet/benchmarks/
+training/tcnet/ngccli/
+training/tcnet/experiments/

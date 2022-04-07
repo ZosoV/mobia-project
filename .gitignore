@@ -3,10 +3,17 @@
 
 # training ignore files
 
-training/lpd_net/data/
+# detectnet_v2
+training/data/
 training/detectnet_v2/data/
-training/lpd_net/.ipynb_checkpoints/
 training/detectnet_v2/.ipynb_checkpoints/
+training/ngccli/
+training/detectnet_v2/pretrained_resnet18/
+training/detectnet_v2/experiment_dir_unpruned/
+
+# lpd_net
+training/lpd_net/data/
+training/lpd_net/.ipynb_checkpoints/
 training/lpd_net/benchmarks/
 training/lpd_net/ngccli/
 training/lpd_net/experiments/

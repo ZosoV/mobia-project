@@ -106,7 +106,7 @@ model_config {
 }
 evaluation_config {
   validation_period_during_training: 10
-  first_validation_epoch: 30
+  first_validation_epoch: 10
   minimum_detection_ground_truth_overlap {
     key: "car"
     value: 0.699999988079
@@ -200,7 +200,7 @@ cost_function_config {
 }
 training_config {
   batch_size_per_gpu: 4
-  num_epochs: 120
+  num_epochs: 30
   learning_rate {
     soft_start_annealing_schedule {
       min_learning_rate: 5e-06

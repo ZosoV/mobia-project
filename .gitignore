@@ -10,3 +10,18 @@ training/detectnet_v2/.ipynb_checkpoints/
 training/lpd_net/benchmarks/
 training/lpd_net/ngccli/
 training/lpd_net/experiments/
+
+
+
+
+
+
+
+
+
+# TrafficCamNet 
+training/trafficcamnet/data/
+training/trafficcamnet/.ipynb_checkpoints/
+training/trafficcamnet/benchmarks/
+training/trafficcamnet/ngccli/
+training/trafficcamnet/experiments/

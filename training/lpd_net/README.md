@@ -17,10 +17,16 @@ docker login nvcr.io
 
 ## Install Anaconda
 * Please, refer to [Installation — Anaconda documentation](https://docs.anaconda.com/anaconda/install/).
-* When Anaconda is installed, create a new environment and install Jupyter Lab, Pip and Python 3.7.13 inside it.
+* When Anaconda is installed, create a new environment for this model and install Jupyter Lab, Pip and Python 3.7.13 inside it.
 ```
-conda create -n mobia_project jupyterlab pip python=3.7.13
-conda activate mobia_project
+conda create -n mobia_lpd jupyterlab pip python=3.7.13
+conda activate mobia_lpd
+```
+
+## Create IPyKernel
+* In order to run the correct Python kernel version, create a new IPyKernel.
+```
+python -m ipykernel install --user --name=mobia_lpd
 ```
 
 ## Activate Jupyter Lab
@@ -36,7 +42,7 @@ ssh -N -L localhost:<local-port>:localhost:<remote-port> <remote-user>@<remote-h
 ```
 http://localhost:<local-port>/
 ```
-* Activate mobia_project kernel.
+* Activate mobia_lpd kernel.
 
 ## Follow the Notebook
 * Open the [lpdnet_train.ipynb](lpdnet_train.ipynb) and follow the instructions.

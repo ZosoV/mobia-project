@@ -34,8 +34,8 @@ training/tcnet/ngccli/
 training/tcnet/experiments/
 
 # lpr_net
-training/lpr_net/data/
-training/lpr_net/.ipynb_checkpoints/
-training/lpr_net/benchmarks/
-training/lpr_net/ngccli/
-training/lpr_net/experiments/
+training/lprnet/data/
+training/lprnet/.ipynb_checkpoints/
+training/lprnet/benchmarks/
+training/lprnet/ngccli/
+training/lprnet/experiments/

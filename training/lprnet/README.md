@@ -45,4 +45,4 @@ http://localhost:<local-port>/
 * Activate mobia_lpr kernel.
 
 ## Follow the Notebook
-* Open the [lprnet_train.ipynb](lprnet_train.ipynb) and follow the instructions.
+* Open the [lprnet.ipynb](lprnet.ipynb) and follow the instructions.

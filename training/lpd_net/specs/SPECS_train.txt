@@ -64,7 +64,7 @@ model_config {
 }
 
 evaluation_config {
-  validation_period_during_training: 10
+  validation_period_during_training: 1
   first_validation_epoch: 1
   minimum_detection_ground_truth_overlap {
     key: "lpd"
@@ -103,7 +103,7 @@ cost_function_config {
 }
 training_config {
   batch_size_per_gpu: 4
-  num_epochs: 30
+  num_epochs: 2
   learning_rate {
     soft_start_annealing_schedule {
       min_learning_rate: 5e-06

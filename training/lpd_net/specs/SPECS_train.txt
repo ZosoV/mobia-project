@@ -1,27 +1,3 @@
-################################################################################
-# The MIT License (MIT)
-#
-# Copyright (c) 2019-2021 NVIDIA CORPORATION
-#
-# Permission is hereby granted, free of charge, to any person obtaining a
-# copy of this software and associated documentation files (the "Software"),
-# to deal in the Software without restriction, including without limitation
-# the rights to use, copy, modify, merge, publish, distribute, sublicense,
-# and/or sell copies of the Software, and to permit persons to whom the
-# Software is furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
-################################################################################
-
 random_seed: 42
 dataset_config {
   data_sources {
@@ -62,6 +38,8 @@ postprocessing_config {
     key: "lpd"
     value {
       clustering_config {
+        clustering_algorithm: DBSCAN
+        dbscan_confidence_threshold: 0.1
         coverage_threshold: 0.00499999988824
         dbscan_eps: 0.20000000298
         dbscan_min_samples: 0.0500000007451
@@ -82,11 +60,9 @@ model_config {
     cov {
     }
   }
-  training_precision {
-    backend_floatx: FLOAT32
-  }
   arch: "resnet"
 }
+
 evaluation_config {
   validation_period_during_training: 10
   first_validation_epoch: 1
@@ -127,8 +103,7 @@ cost_function_config {
 }
 training_config {
   batch_size_per_gpu: 4
-  num_epochs: 120
-  enable_qat: False
+  num_epochs: 30
   learning_rate {
     soft_start_annealing_schedule {
       min_learning_rate: 5e-06

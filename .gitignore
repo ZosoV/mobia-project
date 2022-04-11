@@ -39,3 +39,5 @@ training/lprnet/.ipynb_checkpoints/
 training/lprnet/benchmarks/
 training/lprnet/ngccli/
 training/lprnet/experiments/
+
+training/base_models.zip

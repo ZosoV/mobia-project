@@ -1,6 +1,6 @@
 
 .ipynb_checkpoints
-
+.__pycache__
 # training ignore files
 
 # detectnet_v2
@@ -19,13 +19,6 @@ training/lpd_net/ngccli/
 training/lpd_net/experiments/
 
 
-
-
-
-
-
-
-
 # TrafficCamNet 
 training/tcnet/data/
 training/tcnet/.ipynb_checkpoints/
@@ -41,3 +34,9 @@ training/lprnet/ngccli/
 training/lprnet/experiments/
 
 training/base_models.zip
+
+
+# deployment 
+# ignoring sample apps
+deployment/deepstream-main/data/
+deployment/deepstream_python_apps/

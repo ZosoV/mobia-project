@@ -32,7 +32,7 @@ python -m ipykernel install --user --name=mobia_lpd
 ## Activate Jupyter Lab
 * Open Jupyter Lab with tunneling configuration.
 ```
-jupyter lab --no-browser --port <port-number>
+jupyter-lab --no-browser --port <port-number>
 ```
 * In local machine, open CLI and run the following command with the correct values to connect with remote Jupyter Lab.
 ```

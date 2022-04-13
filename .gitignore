@@ -1,6 +1,6 @@
 
 .ipynb_checkpoints
-.__pycache__
+__pycache__
 # training ignore files
 
 # detectnet_v2

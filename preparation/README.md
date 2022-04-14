@@ -7,4 +7,4 @@
 * Create a free [Cloud Object Storage](https://cloud.ibm.com/objectstorage/create).
 * Start a [new project](https://cloud.annotations.ai/buckets).
   * Name: mobia.
-  * Annotation type: clasification.
+  * Annotation type: localization.

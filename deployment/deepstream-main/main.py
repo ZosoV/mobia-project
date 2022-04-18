@@ -105,7 +105,7 @@ def tiler_src_pad_buffer_probe(pad,info,u_data):
         # send the display overlay to the screen
         pyds.nvds_add_display_meta_to_frame(frame_meta, display_meta)
 
-        print("Frame Number=", frame_number, "Number of Objects=",num_rects,"Vehicle_count=",obj_counter[PGIE_CLASS_ID_VEHICLE],"Person_count=",obj_counter[PGIE_CLASS_ID_PERSON])
+        #print("Frame Number=", frame_number, "Number of Objects=",num_rects,"Vehicle_count=",obj_counter[PGIE_CLASS_ID_VEHICLE],"Person_count=",obj_counter[PGIE_CLASS_ID_PERSON])
 
         # Get frame rate through this probe
         fps_streams["stream{0}".format(frame_meta.pad_index)].get_fps()
@@ -237,12 +237,16 @@ def main(args):
     queue5=Gst.ElementFactory.make("queue","queue5")
     queue6=Gst.ElementFactory.make("queue","queue6")
     queue7=Gst.ElementFactory.make("queue","queue7")
+    queue8=Gst.ElementFactory.make("queue","queue8")
 
     pipeline.add(queue1)
     pipeline.add(queue2)
     pipeline.add(queue3)
     pipeline.add(queue4)
     pipeline.add(queue5)
+    pipeline.add(queue6)
+    pipeline.add(queue7)
+    pipeline.add(queue8)
     print("Creating Pgie \n ")
     pgie = Gst.ElementFactory.make("nvinfer", "primary-inference")
     if not pgie:
@@ -258,10 +262,13 @@ def main(args):
     if not sgie1:
         sys.stderr.write(" Unable to make sgie1 \n")
 
+    sgie2 = Gst.ElementFactory.make("nvinfer", "secondary2-nvinference-engine")
+    if not sgie2:
+        sys.stderr.write(" Unable to make sgie2 \n")
     # -------------
     #Set properties of tracker
     config = configparser.ConfigParser()
-    config.read('dstest2_tracker_config.txt')
+    config.read('configs/general_tracker_config.txt')
     config.sections()
 
     for key in config['tracker']:
@@ -358,11 +365,14 @@ def main(args):
         pgie.set_property("batch-size",number_sources)
 
     # Adding properties
-    sgie1.set_property('config-file-path', "configs/dstest2_sgie1_config.txt")
+    sgie1.set_property('config-file-path', "configs/lpdnet_sgie1_config.txt")
     # Es importante configurar esto tambien para el secundario?
     # if(pgie_batch_size != number_sources):
     #     print("WARNING: Overriding infer-config batch-size",pgie_batch_size," with number of sources ", number_sources," \n")
     #     pgie.set_property("batch-size",number_sources)
+
+    sgie2.set_property('config-file-path', "configs/lprnet_sgie2_config.txt")
+
 
     tiler_rows=int(math.sqrt(number_sources))
     tiler_columns=int(math.ceil((1.0*number_sources)/tiler_rows))
@@ -374,8 +384,9 @@ def main(args):
 
     print("Adding elements to Pipeline \n")
     pipeline.add(pgie)
-    pipeline.add(tracker)
+    pipeline.add(tracker) # adding tracker
     pipeline.add(sgie1) # adding second classifier
+    pipeline.add(sgie2) # adding a third classifier
     pipeline.add(tiler)
     pipeline.add(nvvidconv)
     pipeline.add(nvosd)
@@ -395,15 +406,17 @@ def main(args):
     tracker.link(queue3)
     queue3.link(sgie1)
     sgie1.link(queue4)
+    queue4.link(sgie2)
+    sgie2.link(queue5)
     # ------------------------------------
 
-    queue4.link(tiler)
-    tiler.link(queue5)
-    queue5.link(nvvidconv)
-    nvvidconv.link(queue6)
-    queue6.link(nvosd)
-    nvosd.link(queue7)
-    queue7.link(nvvidconv_postosd)
+    queue5.link(tiler)
+    tiler.link(queue6)
+    queue6.link(nvvidconv)
+    nvvidconv.link(queue7)
+    queue7.link(nvosd)
+    nvosd.link(queue8)
+    queue8.link(nvvidconv_postosd)
     nvvidconv_postosd.link(caps)
     caps.link(encoder)
     encoder.link(rtppay)

@@ -38,5 +38,9 @@ training/base_models.zip
 
 # deployment 
 # ignoring sample apps
-deployment/deepstream-main/data/
+deployment/deepstream-main/data/pgies/
+deployment/deepstream-main/data/sgies/
+deployment/deepstream-main/data/videos/
 deployment/deepstream_python_apps/
+deployment/deepstream-main/nvinfer_custom_lpr_parser/libnvdsinfer_custom_impl_lpr.so
+deployment/deepstream-main/output/

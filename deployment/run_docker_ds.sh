@@ -7,4 +7,6 @@
     # --device /dev/video0 \
 
 sudo docker run -it --rm --net=host --runtime nvidia  \
-        nvcr.io/nvidia/deepstream-l4t:6.0.1-samples
+        -v /tmp/argus_socket:/tmp/argus_socket \
+        -v ~/Documents/mobia-project/deployment:/workspace \
+        mobia-deployment:jetsonv2

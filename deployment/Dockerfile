@@ -2,9 +2,6 @@
 # Before building this image, check that docker build with nvidia runtime is activated
 # Check the following link: https://stackoverflow.com/questions/59691207/docker-build-with-nvidia-runtime
 
-# TODO: Depurar hay algunos paquetes que no son necesarios en especial
-# los instalados con apt y los de python 3 creo
-
 # For GPUs
 # FROM nvcr.io/nvidia/deepstream:6.0.1-devel
 
@@ -12,13 +9,16 @@
 FROM nvcr.io/nvidia/deepstream-l4t:6.0.1-samples
 
 
-# To get video driver libraries at runtime (libnvidia-encode.so/libnvcuvid.so)
+# To get video driver libraries at runtime
 ENV LD_LIBRARY_PATH /usr/local/cuda-10.2/lib64
 ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES all
 ENV LOGLEVEL="INFO"
-ENV GST_DEBUG=2
-ENV GST_DEBUG_FILE=/workspace/output/GST_DEBUG.log
+ENV SHELL="/bin/bash"
+# To save logs into a file
+# RUN mkdir /workspace/output/
+# ENV GST_DEBUG="INFO"
+# ENV GST_DEBUG_FILE=/workspace/output/GST_DEBUG.log
 
 # First update
 RUN apt-get update --fix-missing
@@ -40,7 +40,7 @@ RUN update-alternatives --verbose --install /usr/bin/python python /usr/bin/pyth
 RUN apt install -y cmake g++ build-essential \
     libglib2.0-dev libglib2.0-dev-bin python-gi-dev libtool m4 autoconf automake
 # Compile Gstream for python bindings
-RUN cd /opt/nvidia/deepstream/deepstream/sources/apps/ \
+RUN cd /opt/nvidia/deepstream/deepstream/sources/ \
     && git clone https://github.com/NVIDIA-AI-IOT/deepstream_python_apps.git \
     && cd deepstream_python_apps \
     && git submodule update --init \
@@ -52,7 +52,7 @@ RUN cd /opt/nvidia/deepstream/deepstream/sources/apps/ \
     && make install
 
 # Compile Deepstream Python Bindings (# For Jetson devices)
-RUN cd /opt/nvidia/deepstream/deepstream/sources/apps/ \
+RUN cd /opt/nvidia/deepstream/deepstream/sources/ \
     && cd deepstream_python_apps/bindings/ \
     && mkdir build \
     && cd build \
@@ -61,7 +61,7 @@ RUN cd /opt/nvidia/deepstream/deepstream/sources/apps/ \
     && make \
     && pip3 install ./pyds-1.1.1-py3-none*.whl
 
-# For GPUs devices
+# For compiling in GPUs devices
 # Replace the line:
 #    && cmake .. -DPYTHON_MAJOR_VERSION=3 -DPYTHON_MINOR_VERSION=8 \
             # -DPIP_PLATFORM=linux_aarch64 -DDS_PATH=/opt/nvidia/deepstream/deepstream
@@ -72,7 +72,7 @@ RUN cd /opt/nvidia/deepstream/deepstream/sources/apps/ \
 # RTSP and Additional libraries
 RUN apt-get install -y libgstrtspserver-1.0-0 gstreamer1.0-rtsp \
     libgirepository1.0-dev gobject-introspection gir1.2-gst-rtsp-server-1.0
-# RUN apt install python3-gi python-gst-1.0 gir1.2-gstreamer-1.0 
+RUN apt -y install python3-gi python-gst-1.0 gir1.2-gstreamer-1.0 
 
 # COPY . /workspace
 WORKDIR /workspace

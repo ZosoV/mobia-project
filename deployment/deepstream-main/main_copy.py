@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
+import logging
 import argparse
 import sys
 sys.path.append('../')
-import logging
 
 import gi
 import configparser
@@ -11,9 +11,9 @@ gi.require_version('Gst', '1.0')
 from gi.repository import GObject, Gst
 gi.require_version('GstRtspServer', '1.0')
 from gi.repository import GstRtspServer
-
 from gi.repository import GLib
 from ctypes import *
+
 import time
 import sys
 import math
@@ -27,24 +27,24 @@ import pyds
 
 fps_streams={}
 
-MAX_DISPLAY_LEN=64
-PGIE_CLASS_ID_VEHICLE = 0
-PGIE_CLASS_ID_BICYCLE = 1
-PGIE_CLASS_ID_PERSON = 2
-PGIE_CLASS_ID_ROADSIGN = 3
-MUXER_OUTPUT_WIDTH=1920
-MUXER_OUTPUT_HEIGHT=1080
-MUXER_BATCH_TIMEOUT_USEC=4000000
-TILED_OUTPUT_WIDTH=1280
-TILED_OUTPUT_HEIGHT=720
-GST_CAPS_FEATURES_NVMM="memory:NVMM"
+MAX_DISPLAY_LEN         = 64
+PGIE_CLASS_ID_VEHICLE   = 0
+PGIE_CLASS_ID_BICYCLE   = 1
+PGIE_CLASS_ID_PERSON    = 2
+PGIE_CLASS_ID_ROADSIGN  = 3
+MUXER_OUTPUT_WIDTH      = 1920
+MUXER_OUTPUT_HEIGHT     = 1080
+MUXER_BATCH_TIMEOUT_USEC= 4000000
+TILED_OUTPUT_WIDTH      = 1280
+TILED_OUTPUT_HEIGHT     = 720
+GST_CAPS_FEATURES_NVMM  = "memory:NVMM"
 
 # tiler_sink_pad_buffer_probe  will extract metadata received on OSD sink pad
 # and update params for drawing rectangle, object information etc.
 def tiler_src_pad_buffer_probe(pad,info,u_data):
-    frame_number=0
-    num_rects=0
-    gst_buffer = info.get_buffer()
+    frame_number= 0
+    num_rects   = 0
+    gst_buffer  = info.get_buffer()
     if not gst_buffer:
         print("Unable to get GstBuffer ")
         return
@@ -52,8 +52,8 @@ def tiler_src_pad_buffer_probe(pad,info,u_data):
     # Retrieve batch metadata from the gst_buffer
     # Note that pyds.gst_buffer_get_nvds_batch_meta() expects the
     # C address of gst_buffer as input, which is obtained with hash(gst_buffer)
-    batch_meta = pyds.gst_buffer_get_nvds_batch_meta(hash(gst_buffer))
-    l_frame = batch_meta.frame_meta_list
+    batch_meta  = pyds.gst_buffer_get_nvds_batch_meta(hash(gst_buffer))
+    l_frame     = batch_meta.frame_meta_list
     while l_frame is not None:
         try:
             # Note that l_frame.data needs a cast to pyds.NvDsFrameMeta
@@ -65,27 +65,26 @@ def tiler_src_pad_buffer_probe(pad,info,u_data):
         except StopIteration:
             break
 
-        frame_number=frame_meta.frame_num
-        l_obj=frame_meta.obj_meta_list
-        num_rects = frame_meta.num_obj_meta
-        obj_counter = {
-        PGIE_CLASS_ID_VEHICLE:0,
-        PGIE_CLASS_ID_PERSON:0,
-        PGIE_CLASS_ID_BICYCLE:0,
-        PGIE_CLASS_ID_ROADSIGN:0
+        frame_number= frame_meta.frame_num
+        l_obj       = frame_meta.obj_meta_list
+        num_rects   = frame_meta.num_obj_meta
+        obj_counter = {PGIE_CLASS_ID_VEHICLE    : 0,
+                       PGIE_CLASS_ID_PERSON     : 0,
+                       PGIE_CLASS_ID_BICYCLE    : 0,
+                       PGIE_CLASS_ID_ROADSIGN   : 0
         }
         while l_obj is not None:
             try: 
                 # Casting l_obj.data to pyds.NvDsObjectMeta
-                obj_meta=pyds.NvDsObjectMeta.cast(l_obj.data)
+                obj_meta = pyds.NvDsObjectMeta.cast(l_obj.data)
             except StopIteration:
                 break
             obj_counter[obj_meta.class_id] += 1
             try: 
-                l_obj=l_obj.next
+                l_obj = l_obj.next
             except StopIteration:
                 break
-        display_meta=pyds.nvds_acquire_display_meta_from_pool(batch_meta)
+        display_meta = pyds.nvds_acquire_display_meta_from_pool(batch_meta)
         display_meta.num_labels = 1
         py_nvosd_text_params = display_meta.text_params[0]
 #         py_nvosd_text_params.display_text = "Frame Number={}
@@ -116,7 +115,7 @@ def tiler_src_pad_buffer_probe(pad,info,u_data):
         # Get frame rate through this probe
         fps_streams["stream{0}".format(frame_meta.pad_index)].get_fps()
         try:
-            l_frame=l_frame.next
+            l_frame = l_frame.next
         except StopIteration:
             break
 
@@ -126,23 +125,23 @@ def tiler_src_pad_buffer_probe(pad,info,u_data):
 
 def cb_newpad(decodebin, decoder_src_pad,data):
     print("In cb_newpad\n")
-    caps=decoder_src_pad.get_current_caps()
-    gststruct=caps.get_structure(0)
-    gstname=gststruct.get_name()
-    source_bin=data
-    features=caps.get_features(0)
+    caps        = decoder_src_pad.get_current_caps()
+    gststruct   = caps.get_structure(0)
+    gstname     = gststruct.get_name()
+    source_bin  = data
+    features    = caps.get_features(0)
 
     # Need to check if the pad created by the decodebin is for video and not
     # audio.
-    print("gstname=",gstname)
+    print("gstname=", gstname)
     if(gstname.find("video")!=-1):
         # Link the decodebin pad only if decodebin has picked nvidia
         # decoder plugin nvdec_*. We do this by checking if the pad caps contain
         # NVMM memory features.
-        print("features=",features)
+        print("features=", features)
         if features.contains("memory:NVMM"):
             # Get the source bin ghost pad
-            bin_ghost_pad=source_bin.get_static_pad("src")
+            bin_ghost_pad = source_bin.get_static_pad("src")
             if not bin_ghost_pad.set_target(decoder_src_pad):
                 sys.stderr.write("Failed to link decoder src pad to source bin ghost pad\n")
         else:
@@ -151,9 +150,9 @@ def cb_newpad(decodebin, decoder_src_pad,data):
 def decodebin_child_added(child_proxy,Object,name,user_data):
     print("Decodebin child added:", name, "\n")
     if(name.find("decodebin") != -1):
-        Object.connect("child-added",decodebin_child_added,user_data)
+        Object.connect("child-added", decodebin_child_added, user_data)
 
-def create_source_bin(index,uri):
+def create_source_bin(index, uri):
     print("Creating source bin")
 
     # Create a source GstBin to abstract this bin's content from the rest of the
@@ -171,11 +170,11 @@ def create_source_bin(index,uri):
     if not uri_decode_bin:
         sys.stderr.write(" Unable to create uri decode bin \n")
     # We set the input uri to the source element
-    uri_decode_bin.set_property("uri",uri)
+    uri_decode_bin.set_property("uri", uri)
     # Connect to the "pad-added" signal of the decodebin which generates a
     # callback once a new pad for raw data has beed created by the decodebin
-    uri_decode_bin.connect("pad-added",cb_newpad,nbin)
-    uri_decode_bin.connect("child-added",decodebin_child_added,nbin)
+    uri_decode_bin.connect("pad-added", cb_newpad, nbin)
+    uri_decode_bin.connect("child-added", decodebin_child_added, nbin)
 
     # We need to create a ghost pad for the source bin which will act as a proxy
     # for the video decoder src pad. The ghost pad will not have a target right
@@ -183,7 +182,7 @@ def create_source_bin(index,uri):
     # cb_newpad callback, we will set the ghost pad target to the video decoder
     # src pad.
     Gst.Bin.add(nbin,uri_decode_bin)
-    bin_pad=nbin.add_pad(Gst.GhostPad.new_no_target("src",Gst.PadDirection.SRC))
+    bin_pad=nbin.add_pad(Gst.GhostPad.new_no_target("src", Gst.PadDirection.SRC))
     if not bin_pad:
         sys.stderr.write(" Failed to add ghost pad in source bin \n")
         return None
@@ -196,8 +195,8 @@ def main(args):
         sys.exit(1)
 
     for i in range(0,len(args)-1):
-        fps_streams["stream{0}".format(i)]=GETFPS(i)
-    number_sources=len(args)-1
+        fps_streams["stream{0}".format(i)] = GETFPS(i)
+    number_sources = len(args)-1
 
     # Standard GStreamer initialization
     GObject.threads_init()
@@ -207,7 +206,7 @@ def main(args):
     # Create Pipeline element that will form a connection of other elements
     print("Creating Pipeline \n ")
     pipeline = Gst.Pipeline()
-    is_live = False
+    is_live  = False
 
     if not pipeline:
         sys.stderr.write(" Unable to create Pipeline \n")
@@ -220,16 +219,16 @@ def main(args):
 
     pipeline.add(streammux)
     for i in range(number_sources):
-        print("Creating source_bin ",i," \n ")
-        uri_name=args[i+1]
+        print("Creating source_bin ", i, " \n ")
+        uri_name = args[i+1]
         if uri_name.find("rtsp://") == 0 :
             is_live = True
-        source_bin=create_source_bin(i, uri_name)
+        source_bin = create_source_bin(i, uri_name)
         if not source_bin:
             sys.stderr.write("Unable to create source bin \n")
         pipeline.add(source_bin)
-        padname="sink_%u" %i
-        sinkpad= streammux.get_request_pad(padname) 
+        padname = "sink_%u" %i
+        sinkpad = streammux.get_request_pad(padname) 
         if not sinkpad:
             sys.stderr.write("Unable to create sink pad bin \n")
         srcpad=source_bin.get_static_pad("src")
@@ -300,7 +299,7 @@ def main(args):
             tracker_enable_past_frame = config.getint('tracker', key)
             tracker.set_property('enable_past_frame', tracker_enable_past_frame)
 
-    tiler=Gst.ElementFactory.make("nvmultistreamtiler", "nvtiler")
+    tiler = Gst.ElementFactory.make("nvmultistreamtiler", "nvtiler")
     if not tiler:
         sys.stderr.write(" Unable to create tiler \n")
     print("Creating nvvidconv \n ")
@@ -355,7 +354,7 @@ def main(args):
     
     sink.set_property('host', '224.224.255.255')
     sink.set_property('port', updsink_port_num)
-    sink.set_property('async', False)
+    sink.set_property('async',False)
     sink.set_property('sync', 1)
 
     if is_live:
@@ -398,17 +397,17 @@ def main(args):
 
     tiler_rows=int(math.sqrt(number_sources))
     tiler_columns=int(math.ceil((1.0*number_sources)/tiler_rows))
-    tiler.set_property("rows",tiler_rows)
-    tiler.set_property("columns",tiler_columns)
-    tiler.set_property("width", TILED_OUTPUT_WIDTH)
-    tiler.set_property("height", TILED_OUTPUT_HEIGHT)
-    sink.set_property("qos",0)
+    tiler.set_property("rows",      tiler_rows)
+    tiler.set_property("columns",   tiler_columns)
+    tiler.set_property("width",     TILED_OUTPUT_WIDTH)
+    tiler.set_property("height",    TILED_OUTPUT_HEIGHT)
+    sink.set_property("qos",        0)
 
     print("Adding elements to Pipeline \n")
     pipeline.add(pgie)
-    pipeline.add(tracker) # adding tracker
-    pipeline.add(sgie1) # adding second classifier
-    pipeline.add(sgie2) # adding a third classifier
+    pipeline.add(tracker)   # adding tracker
+    pipeline.add(sgie1)     # adding second classifier
+    pipeline.add(sgie2)     # adding a third classifier
     pipeline.add(tiler)
     pipeline.add(nvvidconv)
     pipeline.add(nvosd)
@@ -431,7 +430,6 @@ def main(args):
     queue4.link(sgie2)
     sgie2.link(queue5)
     # ------------------------------------
-
     queue5.link(tiler)
     tiler.link(queue6)
     queue6.link(nvvidconv)
@@ -453,7 +451,8 @@ def main(args):
     if not tiler_src_pad:
         sys.stderr.write(" Unable to get src pad \n")
     else:
-        tiler_src_pad.add_probe(Gst.PadProbeType.BUFFER, tiler_src_pad_buffer_probe, 0)
+        tiler_src_pad.add_probe(Gst.PadProbeType.BUFFER,
+                                tiler_src_pad_buffer_probe, 0)
 
 #####################  RTSP
 # Start streaming

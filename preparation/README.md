@@ -11,3 +11,25 @@
 * Features:
   * Auto-save mode: `View > Auto Save Mode`
   * Default label: `Box Labels > Use default label`
+
+# Coversion
+
+## kitti2yolo.py
+
+Convert from KITTI to YOLO annotation format.
+
+`python3 kitti2yolo.py --source_dir <annotations and images directory> --output_dir <YOLO annotations directory>`
+
+## yolo2kitti.py
+
+Convert from YOLO to KITTI annotation format.
+
+`python3 yolo2kitti.py --source_dir <annotations and images directory> --output_dir <KITTI annotations directory>`
+
+# Image resize
+
+## resize.py
+
+The width and height are assigned inside the script.
+
+`python3 resize.py --img_dir <image directory> --output_dir <directory of resized images>`

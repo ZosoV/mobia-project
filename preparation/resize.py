@@ -16,7 +16,7 @@ def return_parse():
     parser.add_argument('--output_dir',
                         default = 'resized',
                         type    = str,
-                        help    = 'directory of saved images')
+                        help    = 'directory of resized images')
 
     return parser.parse_args()
 

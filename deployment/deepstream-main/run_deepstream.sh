@@ -1,4 +1,4 @@
-STREAMS=/opt/nvidia/deepstream/deepstream/samples/streams
+#STREAMS=/opt/nvidia/deepstream/deepstream/samples/streams
 STREAMS_NEW=/workspace/deepstream-main/data/videos
 
 python3 main_copy.py -i \

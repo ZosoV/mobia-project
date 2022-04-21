@@ -407,7 +407,7 @@ def main(args):
     print("Adding elements to Pipeline \n")
     pipeline.add(pgie)
     pipeline.add(tracker) # adding tracker
-    pipeline.add(sgie1) # adding second classifier
+    pipeline.add(sgie1) # adding second detector
     pipeline.add(sgie2) # adding a third classifier
     pipeline.add(tiler)
     pipeline.add(nvvidconv)

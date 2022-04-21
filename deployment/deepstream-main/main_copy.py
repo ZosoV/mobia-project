@@ -4,7 +4,7 @@ import argparse
 import logging
 import sys
 
-import utils
+import multistream
 
 sys.path.append("../")
 
@@ -24,7 +24,7 @@ import pyds
 from common.bus_call import bus_call
 from common.FPS import GETFPS
 from common.is_aarch_64 import is_aarch64
-from gi.repository import GLib, GstRtspServer
+from gi.repository import GstRtspServer
 
 fps_streams = {}
 
@@ -48,12 +48,22 @@ def parse_args():
     codec_help = "RTSP Streaming Codec H264/H265 , default=H264"
 
     parser = argparse.ArgumentParser(description=parser_description)
-    parser.add_argument("-i", "--input", nargs="+", help=input_help, required=True)
     parser.add_argument(
-        "-c", "--codec", default="H264", help=codec_help, choices=["H264", "H265"]
+        "-i", "--input", nargs="+", help=input_help, required=True
     )
     parser.add_argument(
-        "-b", "--bitrate", default=4000000, help="Set the encoding bitrate ", type=int
+        "-c",
+        "--codec",
+        default="H264",
+        help=codec_help,
+        choices=["H264", "H265"],
+    )
+    parser.add_argument(
+        "-b",
+        "--bitrate",
+        default=4000000,
+        help="Set the encoding bitrate ",
+        type=int,
     )
     # Exit if any error exists from input
     if len(sys.argv) == 1:
@@ -99,9 +109,7 @@ def tiler_src_pad_buffer_probe(pad, info, u_data):
         except StopIteration:
             break
 
-        frame_number = frame_meta.frame_num
         l_obj = frame_meta.obj_meta_list
-        num_rects = frame_meta.num_obj_meta
         obj_counter = {
             PGIE_CLASS_ID_VEHICLE: 0,
             PGIE_CLASS_ID_PERSON: 0,
@@ -122,10 +130,10 @@ def tiler_src_pad_buffer_probe(pad, info, u_data):
         display_meta = pyds.nvds_acquire_display_meta_from_pool(batch_meta)
         display_meta.num_labels = 1
         py_nvosd_text_params = display_meta.text_params[0]
-        #         py_nvosd_text_params.display_text = "Frame Number={}
-        #         Number of Objects={} Vehicle_count={} Person_count={}".
-        #         format(frame_number,num_rects, obj_counter[PGIE_CLASS_ID_VEHICLE],
-        #         obj_counter[PGIE_CLASS_ID_PERSON])
+        # py_nvosd_text_params.display_text = "Frame Number={}
+        # Number of Objects={} Vehicle_count={} Person_count={}".
+        # format(frame_number,num_rects, obj_counter[PGIE_CLASS_ID_VEHICLE],
+        # obj_counter[PGIE_CLASS_ID_PERSON])
         py_nvosd_text_params.x_offset = 10
         py_nvosd_text_params.y_offset = 12
 
@@ -188,7 +196,7 @@ def main(args):
         uri_name = args[i + 1]
         if uri_name.find("rtsp://") == 0:
             is_live = True
-        source_bin = utils.create_source_bin(i, uri_name)
+        source_bin = multistream.create_source_bin(i, uri_name)
         if not source_bin:
             sys.stderr.write("Unable to create source bin \n")
         pipeline.add(source_bin)
@@ -250,39 +258,45 @@ def main(args):
         if key == "tracker-width":
             tracker_width = config.getint("tracker", key)
             tracker.set_property("tracker-width", tracker_width)
-        if key == "tracker-height":
+        elif key == "tracker-height":
             tracker_height = config.getint("tracker", key)
             tracker.set_property("tracker-height", tracker_height)
-        if key == "gpu-id":
+        elif key == "gpu-id":
             tracker_gpu_id = config.getint("tracker", key)
             tracker.set_property("gpu_id", tracker_gpu_id)
-        if key == "ll-lib-file":
+        elif key == "ll-lib-file":
             tracker_ll_lib_file = config.get("tracker", key)
             tracker.set_property("ll-lib-file", tracker_ll_lib_file)
-        if key == "ll-config-file":
+        elif key == "ll-config-file":
             tracker_ll_config_file = config.get("tracker", key)
             tracker.set_property("ll-config-file", tracker_ll_config_file)
-        if key == "enable-batch-process":
+        elif key == "enable-batch-process":
             tracker_enable_batch_process = config.getint("tracker", key)
-            tracker.set_property("enable_batch_process", tracker_enable_batch_process)
-        if key == "enable-past-frame":
+            tracker.set_property(
+                "enable_batch_process", tracker_enable_batch_process
+            )
+        elif key == "enable-past-frame":
             tracker_enable_past_frame = config.getint("tracker", key)
-            tracker.set_property("enable_past_frame", tracker_enable_past_frame)
-
+            tracker.set_property(
+                "enable_past_frame", tracker_enable_past_frame
+            )
+    # Creating nvvidconv
     print("Creating nvvidconv \n ")
     nvvidconv = Gst.ElementFactory.make("nvvideoconvert", "convertor")
     if not nvvidconv:
         sys.stderr.write(" Unable to create nvvidconv \n")
+    # Creating nvosd
     print("Creating nvosd \n ")
     nvosd = Gst.ElementFactory.make("nvdsosd", "onscreendisplay")
     if not nvosd:
         sys.stderr.write(" Unable to create nvosd \n")
-
-    nvvidconv_postosd = Gst.ElementFactory.make("nvvideoconvert", "convertor_postosd")
+    # Creating nvvidconv
+    nvvidconv_postosd = Gst.ElementFactory.make(
+        "nvvideoconvert", "convertor_postosd"
+    )
     if not nvvidconv_postosd:
         sys.stderr.write(" Unable to create nvvidconv_postosd \n")
-
-    # Create a caps filter
+    # Create a capsfilter
     caps = Gst.ElementFactory.make("capsfilter", "filter")
     caps.set_property(
         "caps", Gst.Caps.from_string("video/x-raw(memory:NVMM), format=I420")
@@ -332,7 +346,12 @@ def main(args):
     config_global.read("configs/global_config.cfg")
     config_global.sections()
 
-    streammux_properties = ["width", "height", "batched-push-timeout"]
+    streammux_properties = [
+        "width",
+        "height",
+        "batched-push-timeout",
+        "batch-size",
+    ]
 
     for key, value in config_global.items("streammux"):
         if key in streammux_properties:
@@ -422,9 +441,11 @@ def main(args):
     if not tiler_src_pad:
         sys.stderr.write(" Unable to get src pad \n")
     else:
-        tiler_src_pad.add_probe(Gst.PadProbeType.BUFFER, tiler_src_pad_buffer_probe, 0)
+        tiler_src_pad.add_probe(
+            Gst.PadProbeType.BUFFER, tiler_src_pad_buffer_probe, 0
+        )
 
-    #####################  RTSP
+    # -----------------RTSP-----------------
     # Start streaming
     rtsp_port_num = 8554
 
@@ -433,17 +454,28 @@ def main(args):
     server.attach(None)
 
     factory = GstRtspServer.RTSPMediaFactory.new()
-    factory.set_launch(
-        '( udpsrc name=pay0 port=%d buffer-size=524288 caps="application/x-rtp, media=video, clock-rate=90000, encoding-name=(string)%s, payload=96 " )'
-        % (updsink_port_num, codec)
+    factory_msg = ("""( udpsrc name=pay0 port=%d buffer-size=524288 
+    caps="application/x-rtp, media=video, clock-rate=90000,
+    encoding-name=(string)%s, payload=96 " )""" % (updsink_port_num, codec))
+
     )
+    # factory.set_launch(
+    #     '( udpsrc name=pay0 port=%d buffer-size=524288 caps="application/x-rtp, media=video, clock-rate=90000, encoding-name=(string)%s, payload=96 " )'
+    #     % (updsink_port_num, codec)
+    # )
+    factory.set_launch(factory_msg)
     factory.set_shared(True)
     server.get_mount_points().add_factory("/ds-test", factory)
 
-    print(
-        "\n *** DeepStream: Launched RTSP Streaming at rtsp://localhost:%d/ds-test ***\n\n"
-        % rtsp_port_num
-    )
+    print_msg = ("""\n *** DeepStream: Launched RTSP Streaming at
+    rtsp://localhost:%d/ds-test ***\n\n""" % rtsp_port_num)
+
+    print(print_msg)
+
+    # print(
+    #     "\n *** DeepStream: Launched RTSP Streaming at rtsp://localhost:%d/ds-test ***\n\n"
+    #     % rtsp_port_num
+    # )
     #####################
 
     # List the sources

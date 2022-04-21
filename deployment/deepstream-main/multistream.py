@@ -1,45 +1,50 @@
 import sys
 
-sys.path.append('../')
+sys.path.append("../")
 
 import gi
-gi.require_version('Gst', '1.0')
-from gi.repository import GObject, Gst
 
-def cb_newpad(decoder_src_pad,data):
+gi.require_version("Gst", "1.0")
+from gi.repository import Gst
+
+def cb_newpad(decodebin, decoder_src_pad, data):
     print("In cb_newpad\n")
-    caps        = decoder_src_pad.get_current_caps()
-    gststruct   = caps.get_structure(0)
-    gstname     = gststruct.get_name()
-    source_bin  = data
-    features    = caps.get_features(0)
+    caps = decoder_src_pad.get_current_caps()
+    gststruct = caps.get_structure(0)
+    gstname = gststruct.get_name()
+    source_bin = data
+    features = caps.get_features(0)
 
     # Need to check if the pad created by the decodebin is for video and not
     # audio.
     print("gstname=", gstname)
-    if(gstname.find("video")!=-1):
+    if gstname.find("video") != -1:
         # Link the decodebin pad only if decodebin has picked nvidia
-        # decoder plugin nvdec_*. We do this by checking if the pad caps contain
-        # NVMM memory features.
+        # decoder plugin nvdec_*. We do this by checking if the pad caps
+        # contain NVMM memory features.
         print("features=", features)
         if features.contains("memory:NVMM"):
             # Get the source bin ghost pad
             bin_ghost_pad = source_bin.get_static_pad("src")
             if not bin_ghost_pad.set_target(decoder_src_pad):
-                sys.stderr.write("Failed to link decoder src pad to source bin ghost pad\n")
+                err_msg = "No link decoder src pad to source bin ghost pad\n"
+                sys.stderr.write(err_msg)
         else:
-            sys.stderr.write(" Error: Decodebin did not pick nvidia decoder plugin.\n")
+            err_msg = " Error: Decodebin did not pick nvidia decoder plugin.\n"
+            sys.stderr.write(err_msg)
 
-def decodebin_child_added(Object, name, user_data):
+
+def decodebin_child_added(child_proxy, Object, name, user_data):
     print("Decodebin child added:", name, "\n")
-    if(name.find("decodebin") != -1):
+    if name.find("decodebin") != -1:
         Object.connect("child-added", decodebin_child_added, user_data)
+
 
 def create_source_bin(index, uri):
     print("Creating source bin for {}...".format(index))
     # Create a source GstBin to abstract this bin's content from the rest of
     # the pipeline
-    bin_name = "source-bin-%02d" %index
+    bin_name = "source-bin-%02d" % index
     print(bin_name)
     nbin = Gst.Bin.new(bin_name)
     if not nbin:
@@ -61,9 +66,10 @@ def create_source_bin(index, uri):
     # right now. Once the decode bin creates the video decoder and generates
     # the cb_newpad callback, we will set the ghost pad target to the video
     # decoder src pad.
-    Gst.Bin.add(nbin,uri_decode_bin)
-    bin_pad = nbin.add_pad(Gst.GhostPad.new_no_target("src",
-                                                      Gst.PadDirection.SRC))
+    Gst.Bin.add(nbin, uri_decode_bin)
+    bin_pad = nbin.add_pad(
+        Gst.GhostPad.new_no_target("src", Gst.PadDirection.SRC)
+    )
     if not bin_pad:
         sys.stderr.write(" Failed to add ghost pad in source bin \n")
         return None

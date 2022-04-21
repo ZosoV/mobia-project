@@ -55,11 +55,11 @@
 [property]
 gpu-id=0
 net-scale-factor=0.0039215697906911373
-model-file=Primary_Detector/resnet10.caffemodel
-proto-file=Primary_Detector/resnet10.prototxt
-model-engine-file=Primary_Detector/resnet10.caffemodel_b1_gpu0_int8.engine
-labelfile-path=Primary_Detector/labels.txt
-int8-calib-file=Primary_Detector/cal_trt.bin
+model-file=../data/pgies/Primary_Detector/resnet10.caffemodel
+proto-file=../data/pgies/Primary_Detector/resnet10.prototxt
+model-engine-file=../data/pgies/Primary_Detector/resnet10.caffemodel_b1_gpu0_int8.engine
+labelfile-path=../data/pgies/Primary_Detector/labels.txt
+int8-calib-file=../data/pgies/Primary_Detector/cal_trt.bin
 force-implicit-batch-dim=1
 batch-size=1
 process-mode=1

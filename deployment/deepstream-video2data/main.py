@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import logging
 import sys
 
 sys.path.append('../')
@@ -29,27 +30,29 @@ from os import path
 fps_streams = {}
 frame_count = {}
 saved_count = {}
-global PGIE_CLASS_ID_VEHICLE
-PGIE_CLASS_ID_VEHICLE = 0
-global PGIE_CLASS_ID_PERSON
-PGIE_CLASS_ID_PERSON = 2
 
 MAX_DISPLAY_LEN = 64
 PGIE_CLASS_ID_VEHICLE = 0
 PGIE_CLASS_ID_BICYCLE = 1
 PGIE_CLASS_ID_PERSON = 2
 PGIE_CLASS_ID_ROADSIGN = 3
+SGIE_CLASS_NAME_LPD = "lpd"
 MUXER_OUTPUT_WIDTH = 1920
 MUXER_OUTPUT_HEIGHT = 1080
 MUXER_BATCH_TIMEOUT_USEC = 4000000
 TILED_OUTPUT_WIDTH = 1920
 TILED_OUTPUT_HEIGHT = 1080
 GST_CAPS_FEATURES_NVMM = "memory:NVMM"
-pgie_classes_str = ["Vehicle", "TwoWheeler", "Person", "RoadSign"]
+SAVING_OUTPUT = True
+pgie_classes_str = ["car", "lpd"]
+CLASS_MAPPING = {"car":"0", "lpd":"1"}
 
-MIN_CONFIDENCE = 0.3
-MAX_CONFIDENCE = 0.4
 
+MIN_CONFIDENCE = 0.6
+MAX_CONFIDENCE = 1.0
+
+MIN_LPR_CONFIDENCE = 0.6
+MAX_LPR_CONFIDENCE = 1.0
 
 # tiler_sink_pad_buffer_probe  will extract metadata received on tiler src pad
 # and update params for drawing rectangle, object information etc.
@@ -84,7 +87,6 @@ def tiler_sink_pad_buffer_probe(pad, info, u_data):
         frame_number = frame_meta.frame_num
         l_obj = frame_meta.obj_meta_list
         num_rects = frame_meta.num_obj_meta
-        is_first_obj = True
         save_image = False
         obj_counter = {
             PGIE_CLASS_ID_VEHICLE: 0,
@@ -93,7 +95,18 @@ def tiler_sink_pad_buffer_probe(pad, info, u_data):
             PGIE_CLASS_ID_ROADSIGN: 0
         }
 
-        kittie_lines_per_frame = []
+        # Getting Image data using nvbufsurface
+        # the input should be address of buffer and batch_id
+        n_frame = pyds.get_nvds_buf_surface(hash(gst_buffer), frame_meta.batch_id)
+        # convert python array into numpy array format in the copy mode.
+        frame_copy = np.array(n_frame, copy=True, order='C')
+
+        # convert the array into cv2 default color format
+        frame_copy = cv2.cvtColor(frame_copy, cv2.COLOR_RGBA2BGRA)
+
+
+        annotations_per_frame = []
+        plates_per_frame = {}
 
         while l_obj is not None:
             try:
@@ -107,42 +120,86 @@ def tiler_sink_pad_buffer_probe(pad, info, u_data):
             # Save the annotated frame to file.
             if saved_count["stream_{}".format(frame_meta.pad_index)] % 30 == 0 and (
                     MIN_CONFIDENCE < obj_meta.confidence < MAX_CONFIDENCE):
-                if is_first_obj:
-                    is_first_obj = False
-                    # Getting Image data using nvbufsurface
-                    # the input should be address of buffer and batch_id
-                    n_frame = pyds.get_nvds_buf_surface(hash(gst_buffer), frame_meta.batch_id)
-                    n_frame = draw_bounding_boxes(n_frame, obj_meta, obj_meta.confidence)
-                    # convert python array into numpy array format in the copy mode.
-                    frame_copy = np.array(n_frame, copy=True, order='C')
-                    # convert the array into cv2 default color format
-                    frame_copy = cv2.cvtColor(frame_copy, cv2.COLOR_RGBA2BGRA)
 
-                kitti_line  = "{} 0.00 0 0.00 {} {} {} {} 0.00 0.00 0.00 0.00 0.00 0.00 0.00"
-                kitti_line.format(label, xmin, ymin, xmax, ymax)
-                kittie_lines_per_frame.append(kitti_line)
+                frame_copy = draw_bounding_boxes(frame_copy, obj_meta, obj_meta.confidence)
+                
+                annotation_line = create_yolo_annotation(obj_meta, frame_copy.shape)
+                annotations_per_frame.append(annotation_line)
 
                 save_image = True
+
+                if obj_meta.obj_label == SGIE_CLASS_NAME_LPD:
+                    
+                    # TODO: loop through classifier meta and save that annotations
+                    rect_params = obj_meta.rect_params
+                    xmin = int(rect_params.left)
+                    ymin = int(rect_params.top)
+                    xmax = int(rect_params.left) + int(rect_params.width)
+                    ymax = int(rect_params.top) + int(rect_params.height)
+                    crop_plate = frame_copy[ymin:ymax, xmin:xmax]
+                    
+                    # Here I access the label information whitout while loops
+                    # because I'm sure that there is just one label
+                    class_obj=obj_meta.classifier_meta_list
+                    try:
+                        class_meta=pyds.NvDsClassifierMeta.cast(class_obj.data)
+                    except StopIteration:
+                        break
+                    c_obj=class_meta.label_info_list
+                    try:
+                        c_meta=pyds.NvDsLabelInfo.cast(c_obj.data)
+                    except StopIteration:
+                        break
+                    if MIN_LPR_CONFIDENCE < c_meta < MAX_LPR_CONFIDENCE:
+                        plates_per_frame[str(c_meta.result_label)] = crop_plate
 
             try:
                 l_obj = l_obj.next
             except StopIteration:
                 break
 
-        print("Frame Number=", frame_number, "Number of Objects=", num_rects, "Vehicle_count=",
-              obj_counter[PGIE_CLASS_ID_VEHICLE], "Person_count=", obj_counter[PGIE_CLASS_ID_PERSON])
+        # print("Frame Number=", frame_number, "Number of Objects=", num_rects, "Vehicle_count=",
+        #       obj_counter[PGIE_CLASS_ID_VEHICLE], "Person_count=", obj_counter[PGIE_CLASS_ID_PERSON])
         # Get frame rate through this probe
         fps_streams["stream{0}".format(frame_meta.pad_index)].get_fps()
         if save_image:
             
-            # Saving Image
+            # Saving Image Frame
             img_path = "{}/stream_{}/frame_{}.jpg".format(folder_name, frame_meta.pad_index, frame_number)
             cv2.imwrite(img_path, frame_copy)
 
-            # Saving Label Annotation
+            # Saving Plate and Cars Detection Annotation
             annotation_path = "{}/stream_{}/frame_{}.txt".format(folder_name, frame_meta.pad_index, frame_number)
+            print("Saving annotation: {}".format(annotation_path))
 
-            
+            with open(annotation_path, "w+") as file:
+                for idx, line in enumerate(annotations_per_frame):
+                    if idx != len(annotations_per_frame) - 1:
+                        line += "\n"
+                    file.write(line)
+
+           
+            crop_number = 0
+            for label, crop in plates_per_frame.items():
+                # Saving Crop Plate
+                img_path = "{}/stream_{}_crops/frame_{}_crop_{}.jpg".format(
+                    folder_name, 
+                    frame_meta.pad_index, 
+                    frame_number,
+                    crop_number)
+                cv2.imwrite(img_path, crop)
+                
+
+                # Saving LPR Annotations
+                label_path = "{}/stream_{}_crops/frame_{}_crop_{}.txt".format(
+                    folder_name, 
+                    frame_meta.pad_index, 
+                    frame_number,
+                    crop_number)
+                with open(label_path, "w+") as file:
+                    file.write(label)
+                crop_number += 1
+
         saved_count["stream_{}".format(frame_meta.pad_index)] += 1
         try:
             l_frame = l_frame.next
@@ -151,8 +208,37 @@ def tiler_sink_pad_buffer_probe(pad, info, u_data):
 
     return Gst.PadProbeReturn.OK
 
-def saving_annotation(obj_meta, annotation_path):
-    pass
+def create_yolo_annotation(obj_meta, img_shape):
+    img_height, img_width, _  = img_shape
+    rect_params = obj_meta.rect_params
+    xmin = float(rect_params.left)
+    ymin = float(rect_params.top)
+    xmax = float(rect_params.left) + float(rect_params.width)
+    ymax = float(rect_params.top) + float(rect_params.height)
+
+    x = (xmin + xmax) / (2 * img_width)
+    y = (ymin + ymax) / (2 * img_height)
+    width = float(rect_params.width) / img_width
+    height = float(rect_params.height) / img_height
+
+    label = CLASS_MAPPING[str(obj_meta.obj_label)]
+
+    yolo_line = "{} {:.6f} {:.6f} {:.6f} {:.6f}"
+
+    return yolo_line.format(label,x,y,width, height)
+
+def create_kitti_annotation(obj_meta):
+    rect_params = obj_meta.rect_params
+    xmin = float(rect_params.left)
+    ymin = float(rect_params.top)
+    xmax = float(rect_params.left) + float(rect_params.width)
+    ymax = float(rect_params.top) + float(rect_params.height)
+
+    label = pgie_classes_str[obj_meta.class_id]
+
+    kitti_line  = "{} 0.00 0 0.00 {:.2f} {:.2f} {:.2f} {:.2f} 0.00 0.00 0.00 0.00 0.00 0.00 0.00"
+    
+    return kitti_line.format(label, xmin, ymin, xmax, ymax)
 
 def draw_bounding_boxes(image, obj_meta, confidence):
     confidence = '{0:.2f}'.format(confidence)
@@ -161,25 +247,12 @@ def draw_bounding_boxes(image, obj_meta, confidence):
     left = int(rect_params.left)
     width = int(rect_params.width)
     height = int(rect_params.height)
-    obj_name = pgie_classes_str[obj_meta.class_id]
-    # image = cv2.rectangle(image, (left, top), (left + width, top + height), (0, 0, 255, 0), 2, cv2.LINE_4)
-    color = (0, 0, 255, 0)
-    w_percents = int(width * 0.05) if width > 100 else int(width * 0.1)
-    h_percents = int(height * 0.05) if height > 100 else int(height * 0.1)
-    linetop_c1 = (left + w_percents, top)
-    linetop_c2 = (left + width - w_percents, top)
-    image = cv2.line(image, linetop_c1, linetop_c2, color, 6)
-    linebot_c1 = (left + w_percents, top + height)
-    linebot_c2 = (left + width - w_percents, top + height)
-    image = cv2.line(image, linebot_c1, linebot_c2, color, 6)
-    lineleft_c1 = (left, top + h_percents)
-    lineleft_c2 = (left, top + height - h_percents)
-    image = cv2.line(image, lineleft_c1, lineleft_c2, color, 6)
-    lineright_c1 = (left + width, top + h_percents)
-    lineright_c2 = (left + width, top + height - h_percents)
-    image = cv2.line(image, lineright_c1, lineright_c2, color, 6)
+    # obj_name = pgie_classes_str[obj_meta.class_id]
+    obj_name = str(obj_meta.obj_label)
+    image = cv2.rectangle(image, (left, top), (left + width, top + height), (0, 0, 255, 0), 2, cv2.LINE_4)
+
     # Note that on some systems cv2.putText erroneously draws horizontal lines across the image
-    image = cv2.putText(image, obj_name + ',C=' + str(confidence), (left - 10, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
+    image = cv2.putText(image, obj_name + '--c=' + str(confidence), (left - 10, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 1,
                         (0, 0, 255, 0), 2)
     return image
 
@@ -293,6 +366,7 @@ def main(args):
     pipeline.add(streammux)
     for i in range(number_sources):
         os.mkdir(folder_name + "/stream_" + str(i))
+        os.mkdir(folder_name + "/stream_" + str(i) + "_crops")
         frame_count["stream_" + str(i)] = 0
         saved_count["stream_" + str(i)] = 0
         print("Creating source_bin ", i, " \n ")
@@ -311,10 +385,54 @@ def main(args):
         if not srcpad:
             sys.stderr.write("Unable to create src pad bin \n")
         srcpad.link(sinkpad)
+        
     print("Creating Pgie \n ")
     pgie = Gst.ElementFactory.make("nvinfer", "primary-inference")
     if not pgie:
         sys.stderr.write(" Unable to create pgie \n")
+
+    # Adding tracker and secondary classifier
+    tracker = Gst.ElementFactory.make("nvtracker", "tracker")
+    if not tracker:
+        sys.stderr.write(" Unable to create tracker \n")
+
+    sgie1 = Gst.ElementFactory.make("nvinfer", "secondary1-nvinference-engine")
+    if not sgie1:
+        sys.stderr.write(" Unable to make sgie1 \n")
+
+    sgie2 = Gst.ElementFactory.make("nvinfer", "secondary2-nvinference-engine")
+    if not sgie2:
+        sys.stderr.write(" Unable to make sgie2 \n")
+    # -------------
+    #Set properties of tracker
+    config = configparser.ConfigParser()
+    config.read('configs/general_tracker_config.txt')
+    config.sections()
+
+    for key in config['tracker']:
+        if key == 'tracker-width' :
+            tracker_width = config.getint('tracker', key)
+            tracker.set_property('tracker-width', tracker_width)
+        if key == 'tracker-height' :
+            tracker_height = config.getint('tracker', key)
+            tracker.set_property('tracker-height', tracker_height)
+        if key == 'gpu-id' :
+            tracker_gpu_id = config.getint('tracker', key)
+            tracker.set_property('gpu_id', tracker_gpu_id)
+        if key == 'll-lib-file' :
+            tracker_ll_lib_file = config.get('tracker', key)
+            tracker.set_property('ll-lib-file', tracker_ll_lib_file)
+        if key == 'll-config-file' :
+            tracker_ll_config_file = config.get('tracker', key)
+            tracker.set_property('ll-config-file', tracker_ll_config_file)
+        if key == 'enable-batch-process' :
+            tracker_enable_batch_process = config.getint('tracker', key)
+            tracker.set_property('enable_batch_process', tracker_enable_batch_process)
+        if key == 'enable-past-frame' :
+            tracker_enable_past_frame = config.getint('tracker', key)
+            tracker.set_property('enable_past_frame', tracker_enable_past_frame)
+
+
     # Add nvvidconv1 and filter1 to convert the frames to RGBA
     # which is easier to work with in Python.
     print("Creating nvvidconv1 \n ")
@@ -342,85 +460,51 @@ def main(args):
 
 
     # FOR RSTP and mp4
-    # nvvidconv_postosd = Gst.ElementFactory.make("nvvideoconvert", "convertor_postosd")
-    # if not nvvidconv_postosd:
-    #     sys.stderr.write(" Unable to create nvvidconv_postosd \n")
+    if SAVING_OUTPUT:
+        nvvidconv_postosd = Gst.ElementFactory.make("nvvideoconvert", "convertor_postosd")
+        if not nvvidconv_postosd:
+            sys.stderr.write(" Unable to create nvvidconv_postosd \n")
 
-    # # Create a caps filter
-    # caps_postosd = Gst.ElementFactory.make("capsfilter", "filter")
-    # caps_postosd.set_property("caps", Gst.Caps.from_string("video/x-raw(memory:NVMM), format=I420"))
+        # Create a caps filter
+        caps_postosd = Gst.ElementFactory.make("capsfilter", "filter")
+        caps_postosd.set_property("caps", Gst.Caps.from_string("video/x-raw(memory:NVMM), format=I420"))
 
-    # # Make the encoder
-    # if codec == "H264":
-    #     encoder = Gst.ElementFactory.make("nvv4l2h264enc", "encoder")
-    #     print("Creating H264 Encoder")
-    # elif codec == "H265":
-    #     encoder = Gst.ElementFactory.make("nvv4l2h265enc", "encoder")
-    #     print("Creating H265 Encoder")
-    # if not encoder:
-    #     sys.stderr.write(" Unable to create encoder")
-    # encoder.set_property('bitrate', bitrate)
-    # if is_aarch64():
-    #     encoder.set_property('preset-level', 1)
-    #     encoder.set_property('insert-sps-pps', 1)
-    #     encoder.set_property('bufapi-version', 1)
-    
-    # Make the payload-encode video into RTP packets
-    # if codec == "H264":
-    #     rtppay = Gst.ElementFactory.make("rtph264pay", "rtppay")
-    #     print("Creating H264 rtppay")
-    # elif codec == "H265":
-    #     rtppay = Gst.ElementFactory.make("rtph265pay", "rtppay")
-    #     print("Creating H265 rtppay")
-    # if not rtppay:
-    #     sys.stderr.write(" Unable to create rtppay")
-    
-    # # Make the UDP sink
-    # updsink_port_num = 5400
-    # sink = Gst.ElementFactory.make("udpsink", "udpsink")
-    # if not sink:
-    #     sys.stderr.write(" Unable to create udpsink")
-    
-    # sink.set_property('host', '224.224.255.255')
-    # sink.set_property('port', updsink_port_num)
-    # sink.set_property('async', False)
-    # sink.set_property('sync', 1)
+        # Make the encoder
+        if codec == "H264":
+            encoder = Gst.ElementFactory.make("nvv4l2h264enc", "encoder")
+            print("Creating H264 Encoder")
+        elif codec == "H265":
+            encoder = Gst.ElementFactory.make("nvv4l2h265enc", "encoder")
+            print("Creating H265 Encoder")
+        if not encoder:
+            sys.stderr.write(" Unable to create encoder")
+        encoder.set_property('bitrate', bitrate)
+        if is_aarch64():
+            encoder.set_property('preset-level', 1)
+            encoder.set_property('insert-sps-pps', 1)
+            encoder.set_property('bufapi-version', 1)
 
+        codecparse = Gst.ElementFactory.make("h264parse", "h264_parse")
+        if not codecparse:
+            sys.stderr.write(" Unable to create codecparse \n")
+            
+        mux = Gst.ElementFactory.make("mp4mux", "mux")
+        if not mux:
+            sys.stderr.write(" Unable to create mux \n")
 
-    # Eglsink and fakesink
+        sink = Gst.ElementFactory.make("filesink", "filesink")
+        if not sink:
+            sys.stderr.write(" Unable to create filesink \n")
+        sink.set_property('location', output_path)
 
-    # if (is_aarch64()):
-    #     print("Creating transform \n ")
-    #     transform = Gst.ElementFactory.make("nvegltransform", "nvegl-transform")
-    #     if not transform:
-    #         sys.stderr.write(" Unable to create transform \n")
+        sink.set_property("sync", 0)
+        sink.set_property("qos", 0)
 
-    print("Creating FakeSink \n")
-    sink = Gst.ElementFactory.make("fakesink", "fakesink")
-    if not sink:
-        sys.stderr.write(" Unable to create fake sink \n")
-    
-
-    # print("Creating EGLSink \n")
-    # sink = Gst.ElementFactory.make("nveglglessink", "nvvideo-renderer")
-    # if not sink:
-    #     sys.stderr.write(" Unable to create egl sink \n")
-
-    codecparse = Gst.ElementFactory.make("h264parse", "h264_parse")
-    if not codecparse:
-        sys.stderr.write(" Unable to create codecparse \n")
-        
-    mux = Gst.ElementFactory.make("mp4mux", "mux")
-    if not mux:
-        sys.stderr.write(" Unable to create mux \n")
-
-    sink = Gst.ElementFactory.make("filesink", "filesink")
-    if not sink:
-        sys.stderr.write(" Unable to create filesink \n")
-    sink.set_property('location', output_path)
-
-    sink.set_property("sync", 0)
-    sink.set_property("qos", 0)
+    if not SAVING_OUTPUT:
+        print("Creating FakeSink \n")
+        sink = Gst.ElementFactory.make("fakesink", "fakesink")
+        if not sink:
+            sys.stderr.write(" Unable to create fake sink \n")
 
     if is_live:
         print("Atleast one of the sources is live")
@@ -429,13 +513,21 @@ def main(args):
     streammux.set_property('width', 1920)
     streammux.set_property('height', 1080)
     streammux.set_property('batch-size', number_sources)
-    streammux.set_property('batched-push-timeout', 4000000)
-    pgie.set_property('config-file-path', "dstest_imagedata_config.txt")
+    streammux.set_property('batched-push-timeout', bitrate)
+    pgie.set_property('config-file-path', "configs/tcnet_pgie_config.txt")
     pgie_batch_size = pgie.get_property("batch-size")
     if (pgie_batch_size != number_sources):
         print("WARNING: Overriding infer-config batch-size", pgie_batch_size, " with number of sources ",
               number_sources, " \n")
         pgie.set_property("batch-size", number_sources)
+
+    # TODO: add to config file
+    sgie1.set_property('config-file-path', "configs/lpdnet_sgie1_config.txt")
+
+    # TODO: add to config file
+    sgie2.set_property('config-file-path', "configs/lprnet_sgie2_config.txt")
+
+
     tiler_rows = int(math.sqrt(number_sources))
     tiler_columns = int(math.ceil((1.0 * number_sources) / tiler_rows))
     tiler.set_property("rows", tiler_rows)
@@ -456,20 +548,22 @@ def main(args):
 
     print("Adding elements to Pipeline \n")
     pipeline.add(pgie)
+    pipeline.add(tracker) # adding tracker
+    pipeline.add(sgie1) # adding second detector
+    pipeline.add(sgie2) # adding a third classifier
     pipeline.add(tiler)
     pipeline.add(nvvidconv)
     pipeline.add(filter1)
     pipeline.add(nvvidconv1)
     pipeline.add(nvosd)
-    # if is_aarch64():
-    #     pipeline.add(transform)
-    # pipeline.add(sink)
-    # pipeline.add(nvvidconv_postosd)
-    # pipeline.add(caps_postosd)
-    # pipeline.add(encoder)
-    # pipeline.add(rtppay)
-    # pipeline.add(codecparse)
-    # pipeline.add(mux)
+
+    if SAVING_OUTPUT:
+        pipeline.add(nvvidconv_postosd)
+        pipeline.add(caps_postosd)
+        pipeline.add(encoder)
+        pipeline.add(codecparse)
+        pipeline.add(mux)
+
     pipeline.add(sink)
 
     print("Linking elements in the Pipeline \n")
@@ -478,7 +572,10 @@ def main(args):
     # Here filter1 is a caps, but here it is used before nvosd
     # why?
     streammux.link(pgie)
-    pgie.link(nvvidconv1)
+    pgie.link(tracker)
+    tracker.link(sgie1)
+    sgie1.link(sgie2)
+    sgie2.link(nvvidconv1)
     nvvidconv1.link(filter1)
     filter1.link(tiler)
 
@@ -486,42 +583,22 @@ def main(args):
 
     tiler.link(nvvidconv)
     nvvidconv.link(nvosd)
-    # if is_aarch64():
-    #     nvosd.link(transform)
-    #     transform.link(sink)
-    # else:
-        # nvosd.link(sink)
-    nvosd.link(sink)
+    if not SAVING_OUTPUT:
+        nvosd.link(sink)
 
-    # nvosd.link(nvvidconv_postosd)
-    # nvvidconv_postosd.link(caps_postosd)
-    # caps_postosd.link(encoder)
-    # encoder.link(rtppay)
-    # rtppay.link(sink)
-    # encoder.link(codecparse)
-    # codecparse.link(mux)
-    # mux.link(sink)
+    if SAVING_OUTPUT:
+        nvosd.link(nvvidconv_postosd)
+        nvvidconv_postosd.link(caps_postosd)
+        caps_postosd.link(encoder)
+        encoder.link(codecparse)
+        codecparse.link(mux)
+        mux.link(sink)
 
     # create an event loop and feed gstreamer bus mesages to it
     loop = GObject.MainLoop()
     bus = pipeline.get_bus()
     bus.add_signal_watch()
     bus.connect("message", bus_call, loop)
-
-    # Start streaming
-    # rtsp_port_num = 8554
-    
-    # server = GstRtspServer.RTSPServer.new()
-    # server.props.service = "%d" % rtsp_port_num
-    # server.attach(None)
-    
-    # factory = GstRtspServer.RTSPMediaFactory.new()
-    # factory.set_launch( "( udpsrc name=pay0 port=%d buffer-size=524288 caps=\"application/x-rtp, media=video, clock-rate=90000, encoding-name=(string)%s, payload=96 \" )" % (updsink_port_num, codec))
-    # factory.set_shared(True)
-    # server.get_mount_points().add_factory("/ds-test", factory)
-
-    # print("\n *** DeepStream: Launched RTSP Streaming at rtsp://localhost:%d/ds-test ***\n\n" % rtsp_port_num)
-
     
     # Lets add probe to get informed of the meta data generated, we add probe to
     # the sink pad of the osd element, since by that time, the buffer would have
@@ -558,7 +635,7 @@ if __name__ == '__main__':
     bitrate = 4000000
 
     global output_path
-    output_path = '/workspace/deepstream-video2data/result.mp4'
+    output_path = '/workspace/deepstream-video2data/output/result.mp4'
 
     sys.exit(main(sys.argv))
 

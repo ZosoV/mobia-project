@@ -1,7 +1,4 @@
 import sys
-
-sys.path.append("../")
-
 import gi
 
 gi.require_version("Gst", "1.0")
@@ -41,11 +38,9 @@ def decodebin_child_added(child_proxy, Object, name, user_data):
 
 
 def create_source_bin(index, uri):
-    print("Creating source bin for {}...".format(index))
     # Create a source GstBin to abstract this bin's content from the rest of
     # the pipeline
     bin_name = "source-bin-%02d" % index
-    print(bin_name)
     nbin = Gst.Bin.new(bin_name)
     if not nbin:
         sys.stderr.write(" Unable to create source bin \n")

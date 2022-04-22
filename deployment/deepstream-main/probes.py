@@ -1,4 +1,10 @@
 
+import globals as G
+import gi
+gi.require_version('Gst', '1.0')
+from gi.repository import Gst
+
+import pyds
 
 # tiler_sink_pad_buffer_probe  will extract metadata received on OSD sink pad
 # and update params for drawing rectangle, object information etc.
@@ -28,10 +34,10 @@ def tiler_src_pad_buffer_probe(pad, info, u_data):
 
         l_obj = frame_meta.obj_meta_list
         obj_counter = {
-            PGIE_CLASS_ID_VEHICLE: 0,
-            PGIE_CLASS_ID_PERSON: 0,
-            PGIE_CLASS_ID_BICYCLE: 0,
-            PGIE_CLASS_ID_ROADSIGN: 0,
+            G.PGIE_CLASS_ID_VEHICLE: 0,
+            G.PGIE_CLASS_ID_PERSON: 0,
+            G.PGIE_CLASS_ID_BICYCLE: 0,
+            G.PGIE_CLASS_ID_ROADSIGN: 0,
         }
         while l_obj is not None:
             try:
@@ -73,7 +79,7 @@ def tiler_src_pad_buffer_probe(pad, info, u_data):
         # "Person_count=",obj_counter[PGIE_CLASS_ID_PERSON])
 
         # Get frame rate through this probe
-        fps_streams["stream{0}".format(frame_meta.pad_index)].get_fps()
+        G.FPS_STREAMS["stream{0}".format(frame_meta.pad_index)].get_fps()
         try:
             l_frame = l_frame.next
         except StopIteration:

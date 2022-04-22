@@ -1,3 +1,33 @@
+import globals as G
+import argparse
+import sys
+
+sys.path.append("../")
+import logging
+
+import gi
+import configparser
+
+gi.require_version("Gst", "1.0")
+from gi.repository import GObject, Gst
+
+gi.require_version("GstRtspServer", "1.0")
+from gi.repository import GstRtspServer
+
+from gi.repository import GLib
+from ctypes import *
+import sys
+import math
+
+from common.is_aarch_64 import is_aarch64
+from common.bus_call import bus_call
+from common.FPS import GETFPS
+
+import pyds
+
+# Additional imports
+import multistream
+import probes
 
 # TODO: aqui van a recidir las variables globales
 
@@ -5,32 +35,36 @@
 # instancia de pipeline
 # en core vamos añadir tambien la funcion callback de los probes
 
-class Pipeline():
 
-    def __init__(self) -> None:
+class Pipeline:
+    def __init__(self, path_config_global = "configs/global_config.cfg") -> None:
+
+        self.logger = logging.getLogger(__name__ + "." + self.__class__.__name__)
 
         self.config_global = configparser.ConfigParser()
-        self.config_global.read("configs/global_config.cfg")
+        self.config_global.read(path_config_global)
         self.config_global.sections()
 
-        # TODO: read a section of uris and set this value
-        self.number_sources = 5
-
-        self.fps_streams = {}
-
+        self.general_batch_size = self.config_global.getint("streammux", "batch-size")
         
+        self.sources = [ val for _, val in self.config_global.items("sources")]
+        self.number_sources = len(self.sources)
 
-        self.plugins = []
+        self.codec = self.config_global.get("protocols",'codec')
+        self.bitrate = self.config_global.getint("protocols","bitrate")
 
-        self.codec = 5
-        self.bitrate = 1
+        # Sink
+        self.updsink_port_num = self.config_global.getint("sink","updsink_port_num")
 
-    
+
+        self.create_pipeline()
+
     def _create_element(self, factory_name, name, detail=""):
         """Creates an element with Gst Element Factory make.
-        Return the element if successfully created, otherwise print to stderr and return None.
+        Return the element if successfully created, otherwise print to stderr
+        and return None.
         """
-        self.logger.info(f"Creating {name}")
+        print(f"Creating {name}")
         elm = Gst.ElementFactory.make(factory_name, name)
 
         if not elm:
@@ -44,30 +78,27 @@ class Pipeline():
         streammux = self._create_element("nvstreammux", "stream-muxer")
 
         streammux_properties = [
-        "width",
-        "height",
-        "batched-push-timeout",
-        "batch-size",
+            "width",
+            "height",
+            "batched-push-timeout",
+            "batch-size",
         ]
         for key, value in self.config_global.items("streammux"):
             if key in streammux_properties:
                 streammux.set_property(key, int(value))
             else:
-                logging.exception("DANGER!")
-        streammux.set_property("batch-size", self.number_sources)
-
+                logging.exception(f"Key {key} is not a property of streammux. Check config file")
 
         return streammux
 
     def _prepare_multistream(self, streammux):
-        
-        
+
         # Creating sources bin
-        for i in range(self. number_sources):
+        for i in range(self.number_sources):
             print("\nCreating source_bin {}...".format(i))
 
             # TODO: leer del archivo de configuracion
-            uri_name = args[i + 1]
+            uri_name = self.sources[i]
             if uri_name.find("rtsp://") == 0:
                 is_live = True
             source_bin = multistream.create_source_bin(i, uri_name)
@@ -86,33 +117,43 @@ class Pipeline():
     def _create_pgie(self):
 
         # Creating pgie
-        pgie =  self._create_element("nvinfer", "primary-inference")
+        pgie = self._create_element("nvinfer", "primary-inference")
 
         # TODO: set the config file in global file
-        pgie.set_property("config-file-path", "configs/tcnet_pgie_config.txt")
+        config_path = self.config_global.get("models","pgie_config")
+        pgie.set_property("config-file-path", config_path)
         pgie_batch_size = pgie.get_property("batch-size")
 
-        if pgie_batch_size != self.number_sources:
+        if pgie_batch_size != self.general_batch_size :
             print(
                 "WARNING: Overriding infer-config batch-size",
                 pgie_batch_size,
                 " with number of sources ",
-                self.number_sources,
+                self.general_batch_size,
                 " \n",
             )
-            pgie.set_property("batch-size", self.number_sources)
+            pgie.set_property("batch-size", self.general_batch_size)
 
         return pgie
 
     def _create_tiler(self):
+
         tiler = self._create_element("nvmultistreamtiler", "nvtiler")
 
         tiler_rows = int(math.sqrt(self.number_sources))
-        tiler_columns = int(math.ceil((1.0 * self.number_sources) / tiler_rows))
+        tiler_columns = int(
+            math.ceil((1.0 * self.number_sources) / tiler_rows)
+        )
         tiler.set_property("rows", tiler_rows)
         tiler.set_property("columns", tiler_columns)
-        tiler.set_property("width", TILED_OUTPUT_WIDTH)
-        tiler.set_property("height", TILED_OUTPUT_HEIGHT)
+
+        # TODO: hacer una funcion para contralar las excepciones
+        # al llamar config_globalss
+        width = self.config_global.getint("tiler", "width")
+        height = self.config_global.getint("tiler", "height")
+
+        tiler.set_property("width", width)
+        tiler.set_property("height", height)
 
         return tiler
 
@@ -153,11 +194,16 @@ class Pipeline():
 
         return tracker
 
-    def _create_sgie(self, number, config_path ):
-        sgie = self._create_element("nvinfer", "secondary{}-nvinference-engine".format(number))
-        sgie.set_property("config-file-path", config_path)
+    def _create_sgie(self, config):
+        sgie = self._create_element(
+            "nvinfer", "secondary{}-nvinference-engine".format(G.SGIE_INITIAL)
+        )
+        sgie.set_property("config-file-path", config)
+        G.SGIE_INITIAL +=1
 
         return sgie
+        
+    # TODO: Aqui nos quedamos
 
     def _create_nvvidconv(self, name):
         # Creating nvvidconv
@@ -170,19 +216,22 @@ class Pipeline():
         # Create a capsfilter
         caps = self._create_element("capsfilter", "filter")
         caps.set_property(
-            "caps", Gst.Caps.from_string("video/x-raw(memory:NVMM), format=I420")
+            "caps",
+            Gst.Caps.from_string("video/x-raw(memory:NVMM), format=I420"),
         )
         return caps
 
     def _create_nvv4l2h264enc(self):
         # Make the encoder
-        # TODO: el codec tambien se podria configurar desde el archivo de configuracion global
+        # TODO: el codec tambien se podria configurar desde el archivo de
+        # configuracion global
         if self.codec == "H264":
             encoder = self._create_element("nvv4l2h264enc", "encoder H264")
         elif self.codec == "H265":
             encoder = self._create_element("nvv4l2h265enc", "encoder H265")
 
-        # TODO: este bitrate podria configurarse desde el archivo de configuracion global
+        # TODO: este bitrate podria configurarse desde el archivo de
+        # configuracion global
         encoder.set_property("bitrate", self.bitrate)
         if is_aarch64():
             encoder.set_property("preset-level", 1)
@@ -193,34 +242,36 @@ class Pipeline():
 
     def _create_rtppay(self):
         # Make the payload-encode video into RTP packets
-        if codec == "H264":
+        if self.codec == "H264":
             rtppay = self._create_element("rtph264pay", "rtppay H264")
-        elif codec == "H265":
+        elif self.codec == "H265":
             rtppay = self._create_element("rtph265pay", "rtppay H265")
 
-    def _create_sink(self, type_sink = "udp"):
+        return rtppay
+
+    def _create_sink(self, type_sink="udp"):
 
         # TODO: place a parameter to choose a type sink
         # UDP, Eglsink, Fakesink, MP4
 
         # Make the UDP sink
-        updsink_port_num = 5400
-        sink = Gst.ElementFactory.make("udpsink", "udpsink")
+        self.updsink_port_num = 5400
+        sink = self._create_element("udpsink", "udpsink")
         if not sink:
             sys.stderr.write(" Unable to create udpsink")
 
         sink.set_property("host", "224.224.255.255")
-        sink.set_property("port", updsink_port_num)
+        sink.set_property("port", self.updsink_port_num)
         sink.set_property("async", False)
         sink.set_property("sync", 1)
         sink.set_property("qos", 0)
 
         return sink
 
-    def main(self):
+    def create_pipeline(self):
 
         for i in range(self.number_sources):
-            self.fps_streams["stream{0}".format(i)] = GETFPS(i)
+            G.FPS_STREAMS["stream{0}".format(i)] = GETFPS(i)
 
         # Standard GStreamer initialization
         GObject.threads_init()
@@ -228,43 +279,48 @@ class Pipeline():
 
         # Create gstreamer elements */
         # Create Pipeline element that will form a connection of other elements
-        # TODO: Check if I can change this pipeline in the init of the whole class
         print("Creating pipeline...\n")
         self.pipeline = Gst.Pipeline()
         self.is_live = False
-        
-        if not pipeline:
+
+        if not self.pipeline:
             sys.stderr.write(" Unable to create Pipeline \n")
 
         # Create nvstreammux instance to form batches from one or more sources.
-        print("Creating streamux...")
         streammux = self._create_streammux()
-
         self.pipeline.add(streammux)
+
+        # Creating multistream mechanism
         self._prepare_multistream(streammux)
 
-        queue1 = Gst.ElementFactory.make("queue", "queue1")
-        queue2 = Gst.ElementFactory.make("queue", "queue2")
-        queue3 = Gst.ElementFactory.make("queue", "queue3")
-        queue4 = Gst.ElementFactory.make("queue", "queue4")
-        queue5 = Gst.ElementFactory.make("queue", "queue5")
-        queue6 = Gst.ElementFactory.make("queue", "queue6")
-        queue7 = Gst.ElementFactory.make("queue", "queue7")
-        queue8 = Gst.ElementFactory.make("queue", "queue8")
+        # Create queues
+        print("\nCreating queues")
+        queue1 = self._create_element("queue", "queue1")
+        queue2 = self._create_element("queue", "queue2")
+        queue3 = self._create_element("queue", "queue3")
+        queue4 = self._create_element("queue", "queue4")
+        queue5 = self._create_element("queue", "queue5")
+        queue6 = self._create_element("queue", "queue6")
+        queue7 = self._create_element("queue", "queue7")
+        queue8 = self._create_element("queue", "queue8")
 
+        # Getting configs paths
+        sgie1_cfg_path = self.config_global.get("models","sgie1_config")
+        sgie2_cfg_path = self.config_global.get("models","sgie2_config")
+        
+        # Create main plugins
+        print("\nCreating main plugins")
         pgie = self._create_pgie()
         tiler = self._create_tiler()
         tracker = self._create_tracker()
-        sgie1 = self._create_sgie(number = 1, config_path="configs/lpdnet_sgie1_config.txt")
-        sgie2 = self._create_sgie(number = 1, config_path="configs/lprnet_sgie2_config.txt")
-        nvvidconv = self._create_nvvidconv(name = "convertor")
-
+        sgie1 = self._create_sgie(config=sgie1_cfg_path)
+        sgie2 = self._create_sgie(config=sgie2_cfg_path)
+        nvvidconv = self._create_nvvidconv(name="convertor")
         nvosd = self._create_nvosd()
-        nvvidconv_postosd = self._create_nvvidconv(name = "convertor_postosd")
+        nvvidconv_postosd = self._create_nvvidconv(name="convertor_postosd")
         caps = self._create_capsfilter()
         encoder = self._create_nvv4l2h264enc()
         rtppay = self._create_rtppay()
-
         sink = self._create_sink()
 
         # TODO: Revisar si se lo puede incluir dentro de la funcion de configuracin
@@ -281,7 +337,7 @@ class Pipeline():
             tracker,
             queue3,
             sgie1,
-            queue4, 
+            queue4,
             sgie2,
             queue5,
             tiler,
@@ -291,10 +347,10 @@ class Pipeline():
             nvosd,
             queue8,
             nvvidconv_postosd,
-            caps,     
+            caps,
             encoder,
             rtppay,
-            sink
+            sink,
         ]
 
         print("Adding elements to Pipeline \n")
@@ -302,23 +358,26 @@ class Pipeline():
             self.pipeline.add(plugin)
 
         print("Linking elements in the Pipeline \n")
-        for i in range(len(plugins)-1):
-            plugins[i].link(plugins[i+1])
+        for i in range(len(plugins) - 1):
+            plugins[i].link(plugins[i + 1])
+
+        # TODO: You can add probe callbacks
+        tiler_src_pad = pgie.get_static_pad("src")
+        if not tiler_src_pad:
+            sys.stderr.write(" Unable to get src pad \n")
+        else:
+            tiler_src_pad.add_probe(
+                Gst.PadProbeType.BUFFER, probes.tiler_src_pad_buffer_probe, 0
+            )
+
+
+    def run_main_loop(self):
 
         # create an event loop and feed gstreamer bus mesages to it
         loop = GObject.MainLoop()
         bus = self.pipeline.get_bus()
         bus.add_signal_watch()
         bus.connect("message", bus_call, loop)
-
-        # HERE: You can add probe callbacks
-        tiler_src_pad = pgie.get_static_pad("src")
-        if not tiler_src_pad:
-            sys.stderr.write(" Unable to get src pad \n")
-        else:
-            tiler_src_pad.add_probe(
-                Gst.PadProbeType.BUFFER, tiler_src_pad_buffer_probe, 0
-            )
 
         # -----------------RTSP-----------------
         # Start streaming
@@ -329,21 +388,12 @@ class Pipeline():
         server.attach(None)
 
         factory = GstRtspServer.RTSPMediaFactory.new()
-        # factory_msg = (("""( udpsrc name=pay0 port=%d buffer-size=524288 
-        # caps="application/x-rtp, media=video, clock-rate=90000,
-        # encoding-name=(string)%s, payload=96 " )""" % (updsink_port_num, codec)))
         factory.set_launch(
             '( udpsrc name=pay0 port=%d buffer-size=524288 caps="application/x-rtp, media=video, clock-rate=90000, encoding-name=(string)%s, payload=96 " )'
-            % (updsink_port_num, codec)
+            % (self.updsink_port_num, self.codec)
         )
-        factory.set_launch(factory_msg)
         factory.set_shared(True)
         server.get_mount_points().add_factory("/ds-test", factory)
-
-        # print_msg = ("""\n *** DeepStream: Launched RTSP Streaming at
-        # rtsp://localhost:%d/ds-test ***\n\n""" % rtsp_port_num)
-
-        # print(print_msg)
 
         print(
             "\n *** DeepStream: Launched RTSP Streaming at rtsp://localhost:%d/ds-test ***\n\n"
@@ -354,9 +404,8 @@ class Pipeline():
         # List the sources
         print("Now playing...")
         # TODO: cargar desde el archivo de configuracion
-        for i, source in enumerate(args):
-            if i != 0:
-                print(i, ": ", source)
+        for i, source in enumerate(self.sources):
+            print(i, ": ", source)
 
         print("Starting pipeline \n")
         # start play back and listed to events

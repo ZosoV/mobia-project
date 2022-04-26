@@ -37,6 +37,6 @@ Note: There are some volumes that must be added if you want to connect your disp
 
 There are two deepstream applications in this project.
 
-1. The first application [deepstream-main](./deepstream-main/) is the main deployments
+1. The first application [deepstream-main](./deepstream-main/) is the main deployment
 2. The second application [deepstream-video2data](./deepstream-video2data/) is an util application to extract frames from videos, where there are correct detections.
 

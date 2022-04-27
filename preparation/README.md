@@ -12,6 +12,8 @@
   * Auto-save mode: `View > Auto Save Mode`
   * Default label: `Box Labels > Use default label`
 
+### Editing previously generated YOLO annotations 
+* Create the `classes.txt` file in the data folder. Each line order corresponds to the class described in the YOLO annotations. For example: If the word `car` is in the first line then it corresponds to class 0 and so on.
 # Coversion
 
 ## kitti2yolo.py

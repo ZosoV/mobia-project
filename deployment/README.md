@@ -62,7 +62,7 @@ deployment
 |   ├── README.md   -> App instructions
 |   ├── globals.py  -> Variables
 |   ├── main.py     -> Core
-|   ├── probes.py   -> Display
+|   ├── probes.py   -> Display and metadata extraction
 |   └── run_deepstream.sh   -> Bash script to run the app
 ├── deepstream-msg2kafka
 |   ├── configs
@@ -96,7 +96,7 @@ deployment
 |   ├── globals.py  -> Variables
 |   ├── imagedata-app-block-diagram.png -> Pipeline design
 |   ├── main.py     -> Core
-|   ├── probes.py   -> Display
+|   ├── probes.py   -> Display and metadata extraction
 |   └── run_deepstream.sh   -> Bash script to run the app
 └── nvinfer_custom_lpr_parser
     ├── Makefile    -> Building
@@ -110,3 +110,7 @@ There are two DeepStream applications in this project.
 1. The first application [deepstream-main](./deepstream-main/) is the main deployment
 2. The second application [deepstream-msg2kafka](./deepstream-msg2kafka/) is an application under development for analytica.
 3. The third application [deepstream-video2data](./deepstream-video2data/) is an util application to extract frames from videos, where there are correct detections.
+
+## Pipeline Architecture
+
+_Pass_

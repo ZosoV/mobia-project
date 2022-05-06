@@ -31,10 +31,82 @@ We followed the steps below to build this project on Jetson Xavier NX with JetPa
 
     *Note*: There are some volumes that must be added if you want to connect your display to see the video frames on the same computer.
 
+## Directory Structure
+
+```
+deployment
+|   Dockerfile          -> Instructions to build the Docker image
+|   README.md           -> Repo instructions
+|   run_docker_ds.sh    -> Bash file to run Docker
+├── commons -> Useful libraries
+|   ├── FPS.py          -> FPS handling
+|   ├── __init__.py     -> Treat directory as package container
+|   ├── bus_call.py     -> For streamming message
+|   ├── is_aarch_64.py  -> Check ARM 64-bits architecture
+|   ├── multistream.py  -> Creation and handling of GstElements
+|   ├── pipeline.py     -> Inheritance pipeline mold
+|   └── utils.py        -> Unsigned int codification
+├── configs
+|   ├── dstest2_sgie1_config.txt    -> Testing secondary detector
+|   ├── dstest3_pgie_config.txt     -> Testing primary detector
+|   ├── general_tracker_config.txt  -> Tracker
+|   ├── lpdnet_sgie1_config.txt     -> LPDNet
+|   ├── lprnet_sgie2_config.txt     -> LPRNet
+|   ├── tcnet_pgie_config.txt       -> TrafficCamNet
+|   └── tracker_config.yml          -> Tracker complement
+├── data
+|   └── download_base_models.sh -> Bash script to download detection models
+├── deepstream-main
+|   ├── configs
+|   |   └── global_config.cfg   -> App configuration
+|   ├── README.md   -> App instructions
+|   ├── globals.py  -> Variables
+|   ├── main.py     -> Core
+|   ├── probes.py   -> Display
+|   └── run_deepstream.sh   -> Bash script to run the app
+├── deepstream-msg2kafka
+|   ├── configs
+|   |   └── global_config.cfg
+|   ├── nvmsgconv
+|   |   ├── deepstream_schema
+|   |   |   ├── deepstream_schema.cpp
+|   |   |   ├── deepstream_schema.h
+|   |   |   ├── dsmeta_payload.cpp
+|   |   |   └── eventmsg_payload.cpp
+|   |   ├── Makefile
+|   |   ├── README
+|   |   ├── nvmsgconv.cpp
+|   |   └── nvmsgconv.h
+|   ├── README.md
+|   ├── cfg_kafka.txt
+|   ├── create_topic.sh
+|   ├── deepstream_test_4.py
+|   ├── download_kafka.sh
+|   ├── dstest4_pgie_config.txt
+|   ├── globals.py
+|   ├── main.py
+|   ├── probes.py
+|   ├── run_consumer.py
+|   ├── run_deepstream.sh
+|   ├── run_kafka_server.sh
+├── deepstream-video2data
+|   ├── configs
+|   |   └── global_config.cfg   -> App configuration
+|   ├── README.md   -> App instructions
+|   ├── globals.py  -> Variables
+|   ├── imagedata-app-block-diagram.png -> Pipeline design
+|   ├── main.py     -> Core
+|   ├── probes.py   -> Display
+|   └── run_deepstream.sh   -> Bash script to run the app
+└── nvinfer_custom_lpr_parser
+    ├── Makefile    -> Building
+    └── nvinfer_custom_lpr_parser.cpp   -> Character processing
+```
+
 ## DeepStream Applications
 
 There are two DeepStream applications in this project.
 
 1. The first application [deepstream-main](./deepstream-main/) is the main deployment
-2. The second application [deepstream-video2data](./deepstream-video2data/) is an util application to extract frames from videos, where there are correct detections.
-
+2. The second application [deepstream-msg2kafka](./deepstream-msg2kafka/) is an application under development for analytica.
+3. The third application [deepstream-video2data](./deepstream-video2data/) is an util application to extract frames from videos, where there are correct detections.

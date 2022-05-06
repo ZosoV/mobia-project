@@ -33,6 +33,8 @@ from os import path
 
 from common.pipeline import Pipeline
 
+from datetime import datetime
+
 class Video2DataPipeline(Pipeline):
     def __init__(self,  *args, **kw):
         super().__init__(*args, **kw)
@@ -56,6 +58,12 @@ class Video2DataPipeline(Pipeline):
         # Loading specific attributes for this application
         video2data_attribs = dict(self.config_global["video2data"])
 
+        # Set current date and time
+        if video2data_attribs["save_with_date_time"] == "1":
+            now = datetime.now()
+            dt_string = now.strftime("--%d_%m_%Y--%H:%M:%S")
+            video2data_attribs["output_folder"] += dt_string
+        
         # Create output folder
         output_folder = video2data_attribs["output_folder"]
         if path.exists(output_folder):
@@ -65,12 +73,10 @@ class Video2DataPipeline(Pipeline):
         os.mkdir(output_folder)
         print("Frames will be saved in ", output_folder)
 
-        # Create subfolders and init global counters
+        # Create subfolders
         for i in range(self.number_sources):
             os.mkdir(output_folder + "/stream_" + str(i))
             os.mkdir(output_folder + "/stream_" + str(i) + "_crops")
-            G.FRAME_COUNT["stream_" + str(i)] = 0
-            G.SAVED_COUNT["stream_" + str(i)] = 0
 
         # Standard GStreamer initialization
         GObject.threads_init()
@@ -196,14 +202,11 @@ class Video2DataPipeline(Pipeline):
         for i in range(len(plugins) - 1):
             plugins[i].link(plugins[i + 1])
 
-        # TODO: You can add probe callbacks
-        tiler_sink_pad = tiler.get_static_pad("sink")
-        if not tiler_sink_pad:
-            sys.stderr.write(" Unable to get src pad \n")
-        else:
-            tiler_sink_pad.add_probe(
-                Gst.PadProbeType.BUFFER, probes.tiler_sink_pad_buffer_probe(video2data_attribs), 0
-            )
+        # TODO: You can add probe callbacks here
+        self.set_probe(plugin = tiler, 
+                       pad_type = "sink", 
+                       function = probes.tiler_sink_pad_buffer_probe(video2data_attribs), 
+                       plugin_name = "tiler")
 
     def run_main_loop(self):
 

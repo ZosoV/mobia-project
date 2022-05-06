@@ -3,7 +3,6 @@ import argparse
 import sys
 
 sys.path.append("../")
-import logging
 
 import gi
 import configparser
@@ -27,16 +26,15 @@ import pyds
 
 # Additional imports
 import probes
+import coloredlogs, logging
+# you can use %(asctime)s if you need
+coloredlogs.install(fmt= '[%(levelname)s] | (%(filename)s:%(levelno)s) | %(message)s',level='DEBUG')
 
 from common.pipeline import Pipeline
 
 class MainDeepstreamPipeline(Pipeline):
     def __init__(self,  *args, **kw):
         super().__init__(*args, **kw)
-        
-        # Get the sink type
-        # Types-> RTSP: 0, MP4: 1, FakeSink: 2
-        self.sink_type = self.config_global.getint("sink", "type")
 
         # Get the sink type
         # Types-> RTSP: 0, MP4: 1, FakeSink: 2
@@ -58,14 +56,13 @@ class MainDeepstreamPipeline(Pipeline):
         GObject.threads_init()
         Gst.init(None)
 
-        # Create gstreamer elements */
         # Create Pipeline element that will form a connection of other elements
-        print("Creating pipeline...\n")
+        logging.info("Creating pipeline...\n")
         self.pipeline = Gst.Pipeline()
         self.is_live = False
 
         if not self.pipeline:
-            sys.stderr.write(" Unable to create Pipeline \n")
+            logging.error(" Unable to create Pipeline \n")
 
         # Create nvstreammux instance to form batches from one or more sources.
         streammux = self._create_streammux()
@@ -75,7 +72,7 @@ class MainDeepstreamPipeline(Pipeline):
         self._prepare_multistream(streammux)
 
         # Create queues
-        print("\nCreating queues")
+        logging.info("Creating queues")
         queue1 = self._create_element("queue", "queue1")
         queue2 = self._create_element("queue", "queue2")
         queue3 = self._create_element("queue", "queue3")
@@ -92,7 +89,7 @@ class MainDeepstreamPipeline(Pipeline):
         tracker_cfg_path = self.config_global.get("models", "tracker_config")
 
         # Create main plugins
-        print("\nCreating main plugins")
+        logging.info("Creating main plugins")
         pgie = self._create_pgie(config_path=pgie_cfg_path)
         tiler = self._create_tiler()
         tracker = self._create_tracker(config_path=tracker_cfg_path)
@@ -122,7 +119,7 @@ class MainDeepstreamPipeline(Pipeline):
 
         # TODO: Revisar si se puede incluir en la funcion de configuracion
         if self.is_live:
-            print("At least one of the sources is live")
+            logging.info("At least one of the sources is live")
             streammux.set_property("live-source", 1)
 
         # This list defines the order for linking the pluggins
@@ -158,22 +155,30 @@ class MainDeepstreamPipeline(Pipeline):
 
         plugins = plugins + temp_list
 
-        print("Adding elements to Pipeline \n")
+        logging.info("Adding elements to Pipeline \n")
         for plugin in plugins[1:]:
+            logging.info(f"Adding plugin: {plugin.name}")
             self.pipeline.add(plugin)
 
-        print("Linking elements in the Pipeline \n")
+        logging.info("Linking elements in the Pipeline \n")
         for i in range(len(plugins) - 1):
+            logging.info(f"Linking {plugins[i].name} --> {plugins[i+1].name}")
             plugins[i].link(plugins[i + 1])
 
-        # TODO: You can add probe callbacks
-        tiler_src_pad = pgie.get_static_pad("src")
-        if not tiler_src_pad:
-            sys.stderr.write(" Unable to get src pad \n")
-        else:
-            tiler_src_pad.add_probe(
-                Gst.PadProbeType.BUFFER, probes.tiler_src_pad_buffer_probe, 0
-            )
+        # TODO: You can add probe callbacks here
+
+        # Example to display classes counter per frame
+        # self.set_probe(plugin = pgie, 
+        #                pad_type = "src", 
+        #                function = probes.tiler_src_pad_buffer_probe, 
+        #                plugin_name = "tiler")        
+        
+        # Probe to display FPS per frame
+        self.set_probe(plugin = tiler, 
+                       pad_type = "sink", 
+                       function = probes.tiler_sink_pad_buffer_probe, 
+                       plugin_name = "tiler")
+
 
     def run_main_loop(self):
 
@@ -185,37 +190,38 @@ class MainDeepstreamPipeline(Pipeline):
 
         # -----------------RTSP-----------------
         # Start streaming
-        rtsp_port_num = 8554
-        codec = self.config_global.get("sink", "codec")
-        updsink_port_num = self.config_global.getint(
-            "sink", "updsink_port_num"
-        )
+        if self.sink_type == 0:
+            codec = self.config_global.get("sink", "codec")
+            rtsp_port_num = self.config_global.getint("sink", "rtsp_port_num")
+            updsink_port_num = self.config_global.getint(
+                "sink", "updsink_port_num"
+            )
 
-        server = GstRtspServer.RTSPServer.new()
-        server.props.service = "%d" % rtsp_port_num
-        server.attach(None)
+            server = GstRtspServer.RTSPServer.new()
+            server.props.service = "%d" % rtsp_port_num
+            server.attach(None)
 
-        factory = GstRtspServer.RTSPMediaFactory.new()
-        factory.set_launch(
-            '( udpsrc name=pay0 port=%d buffer-size=524288 caps="application/x-rtp, media=video, clock-rate=90000, encoding-name=(string)%s, payload=96 " )'
-            % (updsink_port_num, codec)
-        )
-        factory.set_shared(True)
-        server.get_mount_points().add_factory("/ds-test", factory)
+            factory = GstRtspServer.RTSPMediaFactory.new()
+            factory.set_launch(
+                '( udpsrc name=pay0 port=%d buffer-size=524288 caps="application/x-rtp, media=video, clock-rate=90000, encoding-name=(string)%s, payload=96 " )'
+                % (updsink_port_num, codec)
+            )
+            factory.set_shared(True)
+            server.get_mount_points().add_factory("/ds-test", factory)
 
-        print(
-            "\n *** DeepStream: Launched RTSP Streaming at rtsp://localhost:%d/ds-test ***\n\n"
-            % rtsp_port_num
-        )
+            logging.info(
+                "\n *** DeepStream: Launched RTSP Streaming at rtsp://localhost:%d/ds-test ***\n\n"
+                % rtsp_port_num
+            )
         ####################
 
         # List the sources
-        print("Now playing...")
+        logging.info("Now playing...")
         # TODO: cargar desde el archivo de configuracion
         for i, source in enumerate(self.sources):
-            print(i, ": ", source)
+            logging.info(f" {i} : {source}")
 
-        print("Starting pipeline \n")
+        logging.info("Starting pipeline \n")
         # start play back and listed to events
         self.pipeline.set_state(Gst.State.PLAYING)
         try:
@@ -223,7 +229,7 @@ class MainDeepstreamPipeline(Pipeline):
         except:
             pass
         # cleanup
-        print("Exiting app\n")
+        logging.info("Exiting app\n")
         self.pipeline.set_state(Gst.State.NULL)
 
 

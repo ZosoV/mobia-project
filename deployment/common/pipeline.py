@@ -48,7 +48,7 @@ class Pipeline:
         Return the element if successfully created, otherwise print to stderr
         and return None.
         """
-        print(f"Creating {name}")
+        self.logger.info(f"Creating {name}")
         elm = Gst.ElementFactory.make(factory_name, name)
 
         if not elm:
@@ -58,13 +58,17 @@ class Pipeline:
 
         return elm
 
+    def _create_h264parser(self):
+        return self._create_element("h264parse", "h264-parser")
+
+    def _decoder(self):
+        return self._create_element("nvv4l2decoder", "nvv4l2-decoder")
+
     def _create_streammux(self):
         # Load attributes from global config file
         width = self.config_global.getint("streammux", "width")
         height = self.config_global.getint("streammux", "height")
-        batched_push_timeout = self.config_global.getint(
-            "streammux", "batched-push-timeout"
-        )
+        batched_push_timeout = self.config_global.getint("streammux", "batched-push-timeout")
         batch_size = self.config_global.getint("streammux", "batch-size")
 
         # Create plugin and set properties
@@ -83,7 +87,7 @@ class Pipeline:
 
         # Creating sources bin
         for i in range(self.number_sources):
-            print("\nCreating source_bin {}...".format(i))
+            self.logger.info("Creating source_bin {}...".format(i))
 
             # TODO: leer del archivo de configuracion
             uri_name = self.sources[i]
@@ -91,7 +95,7 @@ class Pipeline:
                 self.is_live = True
             source_bin = multistream.create_source_bin(i, uri_name)
             if not source_bin:
-                sys.stderr.write("Unable to create source bin \n")
+                self.logger.error("Unable to create source bin \n")
             self.pipeline.add(source_bin)
             padname = "sink_%u" % i
             sinkpad = streammux.get_request_pad(padname)
@@ -105,9 +109,7 @@ class Pipeline:
     def _create_pgie(self, config_path):
 
         # Load attributes from global config file
-        streammux_batch_size = self.config_global.getint(
-            "streammux", "batch-size"
-        )
+        streammux_batch_size = self.config_global.getint("streammux", "batch-size")
 
         # Creating plugin and set properties
         pgie = self._create_element("nvinfer", "primary-inference")
@@ -118,14 +120,22 @@ class Pipeline:
         # Override the batch size with the streammux batch size
         # if there is not coincidence
         if pgie_batch_size != streammux_batch_size:
-            print(
-                "WARNING: Overriding infer-config batch-size",
-                pgie_batch_size,
-                " with number of sources ",
-                streammux_batch_size,
-                " \n",
+            self.logger.warning(
+                "Overriding infer-config batch-size {} with streammux batch-size={}".format(
+                    pgie_batch_size,
+                    streammux_batch_size
+                )
             )
+
+            # Overriding the bath-size property
             pgie.set_property("batch-size", streammux_batch_size)
+            
+            # Overriding the engine property
+            model_engine = pgie.get_property("model-engine-file")
+            idx = model_engine.find("_b") + 2
+            model_engine = model_engine[:idx] + str(streammux_batch_size) + model_engine[idx+1:]
+            pgie.set_property("model-engine-file", model_engine)
+
 
         return pgie
 
@@ -158,14 +168,13 @@ class Pipeline:
         config.sections()
 
         # Load attributes from config tracker
-        tracker_width = config.getint("tracker", "tracker-width")
+        tracker_width = config.getint("tracker", "tracker-width", )
         tracker_height = config.getint("tracker", "tracker-height")
         gpu_id = config.getint("tracker", "gpu-id")
         ll_lib_file = config.get("tracker", "ll-lib-file")
         ll_config_file = config.get("tracker", "ll-config-file")
         enable_batch_process = config.getint("tracker", "enable-batch-process")
-        if "enable-past-frame" in config["tracker"]:
-            enable_past_frame = config.getint("tracker", "enable-past-frame")
+        enable_past_frame = config.getint("tracker", "enable-past-frame", fallback=None)
 
         # Create the plugin and set the properties
         tracker = self._create_element("nvtracker", "tracker")
@@ -176,7 +185,7 @@ class Pipeline:
         tracker.set_property("ll-lib-file", ll_lib_file)
         tracker.set_property("ll-config-file", ll_config_file)
         tracker.set_property("enable_batch_process", enable_batch_process)
-        if "enable-past-frame" in config["tracker"]:
+        if enable_past_frame:
             tracker.set_property("enable_past_frame", enable_past_frame)
 
         return tracker
@@ -260,15 +269,59 @@ class Pipeline:
         
         # MP4 Sink
         elif sink_type == 1:
+            output_file = self.config_global.get("sink", "output_file")
             sink = self._create_element("filesink", "filesink")
-            output_path = self.config_global.get("sink", "outpath_file")
-            sink.set_property('location', output_path)
+            sink.set_property('location', output_file)
 
         # Fake Sink 
         elif sink_type == 2:
             sink = self._create_element("fakesink", "fakesink")
 
         return sink
+
+    def _create_tee(self):
+        return self._create_element("tee", "nvsink-tee")
+
+    def _create_msgconv(self):
+
+        # Load attributes from global config file
+        config_file = self.config_global.get("nvmsgconv", "config_file")
+        schema_type = self.config_global.getint("nvmsgconv", "schema_type")
+
+        # Create plugin and set properties
+        msgconv = self._create_element("nvmsgconv", "nvmsg-converter")
+        msgconv.set_property('config', config_file)
+        msgconv.set_property('payload-type', schema_type)
+
+        return msgconv
+
+    def _create_msgbroker(self):
+
+        # Load attributes from global config file
+        proto_lib = self.config_global.get("nvmsgbroker", "proto_lib")
+        cfg_file = self.config_global.get("nvmsgbroker", "cfg_file", fallback=None)
+
+        conn_str = self.config_global.get("nvmsgbroker", "host") + ";"
+        conn_str += self.config_global.get("nvmsgbroker", "port") + ";"
+        conn_str += self.config_global.get("nvmsgbroker", "topic")
+
+        # Create plugin and set properties
+        msgbroker = self._create_element("nvmsgbroker", "nvmsg-broker")
+        msgbroker.set_property('proto-lib', proto_lib)
+        msgbroker.set_property('conn-str', conn_str)
+        if cfg_file is not None:
+            msgbroker.set_property('config', cfg_file)
+        msgbroker.set_property('sync', False)
+
+        return msgbroker
+
+    def set_probe(self, plugin, pad_type, function, plugin_name = ""):
+        # pad_type: sink or src
+        pad = plugin.get_static_pad(pad_type)
+        if not pad:
+            sys.stderr.write(f"Unable to get {plugin_name}_{pad_type} pad \n")
+        else:
+            pad.add_probe(Gst.PadProbeType.BUFFER, function, 0)
 
     def create_pipeline(self):
         # method to override

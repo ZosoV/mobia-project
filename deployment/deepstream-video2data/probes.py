@@ -21,6 +21,8 @@ def tiler_sink_pad_buffer_probe(video2data_attribs):
     min_confidence_car = float(video2data_attribs['min_confidence_car'])
     min_confidence_plate = float(video2data_attribs['min_confidence_plate'])
     min_confidence_characters = float(video2data_attribs['min_confidence_characters'])
+    save_labeled_copy = bool(video2data_attribs['save_labeled_copy'])
+
 
     def auxiliar_func(pad, info, u_data):
         # pad – the GstPad that is blocked
@@ -50,139 +52,18 @@ def tiler_sink_pad_buffer_probe(video2data_attribs):
             except StopIteration:
                 break
             
-            # Get frame_meta attributes
-            frame_number = frame_meta.frame_num
-
-            # Getting Image data using nvbufsurface
-            # the input should be address of buffer and batch_id
-            n_frame = pyds.get_nvds_buf_surface(hash(gst_buffer), frame_meta.batch_id)
-            # convert python array into numpy array format in the copy mode.
-            frame_copy = np.array(n_frame, copy=True, order='C')
-            # convert the array into cv2 default color format
-            frame_copy = cv2.cvtColor(frame_copy, cv2.COLOR_RGBA2BGRA)
-            
-            save_image = False
-
-            # Variables to same temporal anotations and crops
-            annotations_per_frame = []
-            crops_plates_per_frame = {}
-
-            # Each frame_meta is composed of a list of obj_meta
-            # We iterate thourgh this list
-            l_obj = frame_meta.obj_meta_list
-            while l_obj is not None:
-                try:
-                    # Casting l_obj.data to pyds.NvDsObjectMeta
-                    obj_meta = pyds.NvDsObjectMeta.cast(l_obj.data)
-                except StopIteration:
-                    break
-
-                # Periodically check for objects
-                if G.SAVED_COUNT["stream_{}".format(frame_meta.pad_index)] % period_per_save == 0:
-                    
-
-                    # If the object is a CAR and higher that the threshold,
-                    # we save the anotation with respect to the current frame to a file
-                    # OR
-                    # If the object is a PLATE and higher that the threshold,
-                    # we save the anotation with respect to the current frame to a file
-                    if (obj_meta.obj_label == G.PGIE_CLASS_NAME_CAR \
-                        and  min_confidence_car < obj_meta.confidence) \
-                        or (obj_meta.obj_label == G.SGIE_CLASS_NAME_LPD \
-                        and  min_confidence_plate < obj_meta.confidence):
-
-                        # Draw bounding box of an object. User just to check
-                        # frame_copy = draw_bounding_boxes(frame_copy, obj_meta, obj_meta.confidence)
-                        # Create and append annotations for car and plate detection
-                        annotation_line = create_yolo_annotation(obj_meta, frame_copy.shape)
-                        annotations_per_frame.append(annotation_line)
-
-                        save_image = True
-
-                    # Additionally, if the object is a PLATE, we check the
-                    # classification of this object.
-                    # If the confidence/prob is higher than the minimum, then 
-                    # we save the crop of the plate and its label (characters)
-                    if obj_meta.obj_label == G.SGIE_CLASS_NAME_LPD:
-                        
-                        # TODO: loop through classifier meta and save that annotations
-                        # Here I access the label information whitout while loops
-                        # because I'm sure that there is just one label
-                        class_obj=obj_meta.classifier_meta_list
-                        if class_obj:
-                            try:
-                                class_meta=pyds.NvDsClassifierMeta.cast(class_obj.data)
-                            except StopIteration:
-                                break
-                            c_obj=class_meta.label_info_list
-                            try:
-                                c_meta=pyds.NvDsLabelInfo.cast(c_obj.data)
-                            except StopIteration:
-                                break
-
-                            if min_confidence_characters < c_meta.result_prob :                            
-                                # Creating a crop of the plate
-                                crop_plate = crop_an_image(frame_copy, obj_meta)
-                                # Saving a file
-                                crops_plates_per_frame[str(c_meta.result_label)] = crop_plate
-
-                try:
-                    l_obj = l_obj.next
-                except StopIteration:
-                    break
-
             # Get frame rate through this probe
             G.FPS_STREAMS["stream{0}".format(frame_meta.pad_index)].get_fps()
 
-            # We save information of the current frame 
-            # (frame_img, crops and annotations)
-            # from the previous collected information
-            if save_image:
-                
-                # Saving Image Frame
-                img_path = "{}/stream_{}/frame_{}.jpg".format(
-                                                output_folder, 
-                                                frame_meta.pad_index, 
-                                                frame_number)
-                cv2.imwrite(img_path, frame_copy)
-
-                # Saving Plate and Cars Detection Annotations
-                annotation_path = "{}/stream_{}/frame_{}.txt".format(
-                                                output_folder, 
-                                                frame_meta.pad_index, 
-                                                frame_number)
-                print("Saving annotation: {}".format(annotation_path))
-                with open(annotation_path, "w+") as file:
-                    for idx, line in enumerate(annotations_per_frame):
-                        if idx != len(annotations_per_frame) - 1:
-                            line += "\n"
-                        file.write(line)
-
-
-                # Saving the crops and character annotations
-                # if there are crops.
-                crop_number = 0
-                for label, crop in crops_plates_per_frame.items():
-                    # Saving Crops Plate
-                    img_path = "{}/stream_{}_crops/frame_{}_crop_{}.jpg".format(
-                        output_folder, 
-                        frame_meta.pad_index, 
-                        frame_number,
-                        crop_number)
-                    cv2.imwrite(img_path, crop)
-                    
-
-                    # Saving characters annotations
-                    label_path = "{}/stream_{}_crops/frame_{}_crop_{}.txt".format(
-                        output_folder, 
-                        frame_meta.pad_index, 
-                        frame_number,
-                        crop_number)
-                    with open(label_path, "w+") as file:
-                        file.write(label)
-                    crop_number += 1
-
-            G.SAVED_COUNT["stream_{}".format(frame_meta.pad_index)] += 1
+            # Saving data and annotation per period
+            if frame_meta.frame_num % period_per_save == 0:
+                extract_save_data(frame_meta, 
+                        gst_buffer, 
+                        save_labeled_copy, 
+                        output_folder,
+                        min_confidence_car, 
+                        min_confidence_plate, 
+                        min_confidence_characters)          
             try:
                 l_frame = l_frame.next
             except StopIteration:
@@ -191,6 +72,149 @@ def tiler_sink_pad_buffer_probe(video2data_attribs):
         return Gst.PadProbeReturn.OK
 
     return auxiliar_func
+
+def extract_save_data(frame_meta, gst_buffer, save_labeled_copy, output_folder,
+                min_confidence_car, min_confidence_plate, min_confidence_characters):
+
+    # Getting Image data using nvbufsurface
+    # the input should be address of buffer and batch_id
+    n_frame = pyds.get_nvds_buf_surface(hash(gst_buffer), frame_meta.batch_id)
+    # convert python array into numpy array format in the copy mode.
+    frame_copy = np.array(n_frame, copy=True, order='C')
+    # convert the array into cv2 default color format
+    frame_copy = cv2.cvtColor(frame_copy, cv2.COLOR_RGBA2BGRA)
+    # copy to draw bboxes and check detections
+    if save_labeled_copy:
+        labeled_copy = frame_copy.copy()
+        
+    save_image = False
+
+    # Variables to same temporal anotations and crops
+    annotations_per_frame = []
+    crops_plates_per_frame = {}
+
+    # Each frame_meta is composed of a list of obj_meta
+    # We iterate thourgh this list
+    l_obj = frame_meta.obj_meta_list
+    while l_obj is not None:
+        try:
+            # Casting l_obj.data to pyds.NvDsObjectMeta
+            obj_meta = pyds.NvDsObjectMeta.cast(l_obj.data)
+        except StopIteration:
+            break
+
+        # If the object is a CAR and higher that the threshold,
+        # we save the anotation with respect to the current frame to a file
+        # OR
+        # If the object is a PLATE and higher that the threshold,
+        # we save the anotation with respect to the current frame to a file
+        if (obj_meta.obj_label == G.PGIE_CLASS_NAME_CAR \
+            and  min_confidence_car < obj_meta.confidence) \
+            or (obj_meta.obj_label == G.SGIE_CLASS_NAME_LPD \
+            and  min_confidence_plate < obj_meta.confidence):
+
+            # Draw bounding box of an object. Use just to check the label
+            if save_labeled_copy:
+                labeled_copy = draw_bounding_boxes(labeled_copy, obj_meta, obj_meta.confidence)
+            
+            # Create and append annotations for car and plate detection
+            annotation_line = create_yolo_annotation(obj_meta, frame_copy.shape)
+            annotations_per_frame.append(annotation_line)
+
+            save_image = True
+
+        # Additionally, if the object is a PLATE, we check the
+        # classification of this object.
+        # If the confidence/prob of classification is higher than 
+        # the minimum, then we save the crop of the plate and 
+        # its label (characters)
+        if (obj_meta.obj_label == G.SGIE_CLASS_NAME_LPD \
+            and  min_confidence_plate < obj_meta.confidence):
+            
+            # TODO: loop through classifier meta and save that annotations
+            # Here I access the label information whitout while loops
+            # because I'm sure that there is just one label
+            class_obj=obj_meta.classifier_meta_list
+            if class_obj:
+                try:
+                    class_meta=pyds.NvDsClassifierMeta.cast(class_obj.data)
+                except StopIteration:
+                    break
+                c_obj=class_meta.label_info_list
+                try:
+                    c_meta=pyds.NvDsLabelInfo.cast(c_obj.data)
+                except StopIteration:
+                    break
+                
+                # Include the crop if the prob is greater that the min confidence
+                if min_confidence_characters < c_meta.result_prob :                            
+                    # Creating a crop of the plate
+                    crop_plate = crop_an_image(frame_copy, obj_meta)
+                    # Including a crop for later saving
+                    crops_plates_per_frame[str(c_meta.result_label)] = crop_plate
+
+        try:
+            l_obj = l_obj.next
+        except StopIteration:
+            break
+
+
+    # We save information of the current frame 
+    # (frame_img, crops and annotations)
+    # from the previous collected information
+    if save_image:
+        
+        if save_labeled_copy:
+            # Saving Labeled Image Frame
+            img_path = "{}/stream_{}/frame_{}_labeled.jpg".format(
+                                            output_folder, 
+                                            frame_meta.pad_index, 
+                                            frame_meta.frame_num)
+            cv2.imwrite(img_path, labeled_copy)
+
+
+        # Saving Image Frame
+        img_path = "{}/stream_{}/frame_{}.jpg".format(
+                                        output_folder, 
+                                        frame_meta.pad_index, 
+                                        frame_meta.frame_num)
+        cv2.imwrite(img_path, frame_copy)
+
+        # Saving Plate and Cars Detection Annotations
+        annotation_path = "{}/stream_{}/frame_{}.txt".format(
+                                        output_folder, 
+                                        frame_meta.pad_index, 
+                                        frame_meta.frame_num)
+        print("Saving annotation: {}".format(annotation_path))
+        with open(annotation_path, "w+") as file:
+            for idx, line in enumerate(annotations_per_frame):
+                if idx != len(annotations_per_frame) - 1:
+                    line += "\n"
+                file.write(line)
+
+
+        # Saving the crops and character annotations
+        # if there are crops.
+        crop_number = 0
+        for label, crop in crops_plates_per_frame.items():
+            # Saving Crops Plate
+            img_path = "{}/stream_{}_crops/frame_{}_crop_{}.jpg".format(
+                output_folder, 
+                frame_meta.pad_index, 
+                frame_meta.frame_num,
+                crop_number)
+            cv2.imwrite(img_path, crop)
+            
+
+            # Saving characters annotations
+            label_path = "{}/stream_{}_crops/frame_{}_crop_{}.txt".format(
+                output_folder, 
+                frame_meta.pad_index, 
+                frame_meta.frame_num,
+                crop_number)
+            with open(label_path, "w+") as file:
+                file.write(label)
+            crop_number += 1
 
 # FROM THIS POINT
 # Utils functiond to edit image with OpenCV or create annotations

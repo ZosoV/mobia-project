@@ -69,10 +69,18 @@ RUN cd /opt/nvidia/deepstream/deepstream/sources/ \
 #    && cmake .. 
 # without any flags
 
+# Installing additional python libraries
+RUN pip3 install coloredlogs
+
 # RTSP and Additional libraries
 RUN apt-get install -y libgstrtspserver-1.0-0 gstreamer1.0-rtsp \
     libgirepository1.0-dev gobject-introspection gir1.2-gst-rtsp-server-1.0
-RUN apt -y install python3-gi python-gst-1.0 gir1.2-gstreamer-1.0 
+RUN apt -y install python3-gi python-gst-1.0 gir1.2-gstreamer-1.0
+
+# Note: If your are not using Kafka locally avoid this step
+# Install Java libraries for runing kafka locally
+RUN apt -y install default-jre
+RUN apt -y install default-jdk
 
 # COPY . /workspace
 WORKDIR /workspace

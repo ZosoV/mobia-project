@@ -35,7 +35,7 @@ using namespace std;
 using std::string;
 using std::vector;
 
-string DICT_DIR = "data/sgies/lprnet/us_lp_characters.txt";
+string DICT_DIR = "../data/sgies/lprnet/us_lp_characters.txt";
 
 static bool dict_ready=false;
 std::vector<string> dict_table;
@@ -69,7 +69,7 @@ bool NvDsInferParseCustomNVPlate(std::vector<NvDsInferLayerInfo> const &outputLa
         fdict.open(DICT_DIR);
         if(!fdict.is_open())
         {
-            cout << "open dictionary file failed." << endl;
+            cout << "[ERROR] In parser, open dictionary file failed. Review the path DICT_DIR." << endl;
 	        return false;
         }
 	    while(!fdict.eof()) {

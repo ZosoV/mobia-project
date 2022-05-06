@@ -36,17 +36,19 @@ training/lprnet/experiments/
 training/base_models.zip
 
 
-# deployment 
+# deployment
+# ignoring configs, data and custom parser
+deployment/data/pgies/
+deployment/data/sgies/
+deployment/data/videos/
+deployment/nvinfer_custom_lpr_parser/libnvdsinfer_custom_impl_lpr.so
+
+
 # ignoring sample apps
-deployment/deepstream-main/data/pgies/
-deployment/deepstream-main/data/sgies/
-deployment/deepstream-main/data/videos/
-deployment/deepstream-main/nvinfer_custom_lpr_parser/libnvdsinfer_custom_impl_lpr.so
 deployment/deepstream-main/output/
 
 # ignoring folder/files from deepstream-video2data
-deployment/deepstream-video2data/data/pgies/
-deployment/deepstream-video2data/data/sgies/
-deployment/deepstream-video2data/data/videos/
-deployment/deepstream-video2data/nvinfer_custom_lpr_parser/libnvdsinfer_custom_impl_lpr.so
 deployment/deepstream-video2data/output/
+
+# ignoring folder/files from deepstream-msg2kafka
+deployment/deepstream-msg2kafka/kafka_*

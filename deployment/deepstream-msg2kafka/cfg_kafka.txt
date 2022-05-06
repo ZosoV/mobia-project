@@ -14,13 +14,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ################################################################################
-
-import ctypes
-import sys
-import logging
-
-sys.path.append('/opt/nvidia/deepstream/deepstream/lib')
-
-def long_to_uint64(l):
-    value = ctypes.c_uint64(l & 0xffffffffffffffff).value
-    return value
+[message-broker]
+partition-key = sensor.id

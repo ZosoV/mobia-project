@@ -18,7 +18,7 @@
 [sensor0]
 enable=1
 type=Camera
-id=CAMERA_ID
+id=CAMERA_ID_0
 location=45.293701447;-75.8303914499;48.1557479338
 description="Entrance of Garage Right Lane"
 coordinate=5.2;10.1;11.2
@@ -27,7 +27,7 @@ coordinate=5.2;10.1;11.2
 enable=1
 id=1
 type=garage
-name=XYZ
+name=XYZ_0
 location=30.32;-40.55;100.0
 coordinate=1.0;2.0;3.0
 place-sub-field1=walsh
@@ -38,7 +38,7 @@ place-sub-field3=P2
 enable=1
 id=1
 type=garage
-name=XYZ
+name=XYZ_1
 location=28.47;47.46;1.53
 coordinate=1.0;2.0;3.0
 place-sub-field1="C-76-2"

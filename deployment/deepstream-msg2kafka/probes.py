@@ -13,6 +13,7 @@ from gi.repository import Gst
 from common.utils import long_to_uint64
 
 import pyds
+import logging
 
 # Callback function for deep-copying an NvDsEventMsgMeta struct
 def meta_copy_func(data, user_data):
@@ -127,38 +128,60 @@ def generate_person_meta(data):
     return obj
 
 
-def generate_event_msg_meta(data, class_id):
-    meta = pyds.NvDsEventMsgMeta.cast(data)
-    meta.sensorId = 0
-    meta.placeId = 0
-    meta.moduleId = 0
-    meta.sensorStr = "sensor-0"
-    meta.ts = pyds.alloc_buffer(G.MAX_TIME_STAMP_LEN + 1)
-    pyds.generate_ts_rfc3339(meta.ts, G.MAX_TIME_STAMP_LEN)
+def generate_event_msg_meta(data, obj_meta, frame_number):
+    msg_meta = pyds.NvDsEventMsgMeta.cast(data)
+
+    msg_meta.bbox.top = obj_meta.rect_params.top
+    msg_meta.bbox.left = obj_meta.rect_params.left
+    msg_meta.bbox.width = obj_meta.rect_params.width
+    msg_meta.bbox.height = obj_meta.rect_params.height
+    msg_meta.frameId = frame_number
+    msg_meta.trackingId = long_to_uint64(obj_meta.object_id)
+    msg_meta.confidence = obj_meta.confidence
+
+    msg_meta.sensorId = 0
+    msg_meta.placeId = 0
+    msg_meta.moduleId = 0
+    msg_meta.sensorStr = "sensor-0"
+    msg_meta.ts = pyds.alloc_buffer(G.MAX_TIME_STAMP_LEN + 1)
+    pyds.generate_ts_rfc3339(msg_meta.ts, G.MAX_TIME_STAMP_LEN)
 
     # This demonstrates how to attach custom objects.
     # Any custom object as per requirement can be generated and attached
     # like NvDsVehicleObject / NvDsPersonObject. Then that object should
     # be handled in payload generator library (nvmsgconv.cpp) accordingly.
-    if class_id == G.PGIE_CLASS_ID_VEHICLE:
-        meta.type = pyds.NvDsEventType.NVDS_EVENT_MOVING
-        meta.objType = pyds.NvDsObjectType.NVDS_OBJECT_TYPE_VEHICLE
-        meta.objClassId = G.PGIE_CLASS_ID_VEHICLE
+    if obj_meta.class_id == G.PGIE_CLASS_ID_VEHICLE:
+        msg_meta.type = pyds.NvDsEventType.NVDS_EVENT_MOVING
+        msg_meta.objType = pyds.NvDsObjectType.NVDS_OBJECT_TYPE_VEHICLE
+        msg_meta.objClassId = G.PGIE_CLASS_ID_VEHICLE
         obj = pyds.alloc_nvds_vehicle_object()
         obj = generate_vehicle_meta(obj)
-        meta.extMsg = obj
-        meta.extMsgSize = sys.getsizeof(pyds.NvDsVehicleObject)
-    if class_id == G.PGIE_CLASS_ID_PERSON:
-        meta.type = pyds.NvDsEventType.NVDS_EVENT_ENTRY
-        meta.objType = pyds.NvDsObjectType.NVDS_OBJECT_TYPE_PERSON
-        meta.objClassId = G.PGIE_CLASS_ID_PERSON
+        msg_meta.extMsg = obj
+        msg_meta.extMsgSize = sys.getsizeof(pyds.NvDsVehicleObject)
+    if obj_meta.class_id == G.PGIE_CLASS_ID_PERSON:
+        msg_meta.type = pyds.NvDsEventType.NVDS_EVENT_ENTRY
+        msg_meta.objType = pyds.NvDsObjectType.NVDS_OBJECT_TYPE_PERSON
+        msg_meta.objClassId = G.PGIE_CLASS_ID_PERSON
         obj = pyds.alloc_nvds_person_object()
         obj = generate_person_meta(obj)
-        meta.extMsg = obj
-        meta.extMsgSize = sys.getsizeof(pyds.NvDsPersonObject)
-    return meta
+        msg_meta.extMsg = obj
+        msg_meta.extMsgSize = sys.getsizeof(pyds.NvDsPersonObject)
+    return msg_meta
 
-
+def send_msg_to_frame(msg_meta, batch_meta, frame_meta):
+    user_event_meta = pyds.nvds_acquire_user_meta_from_pool(batch_meta)
+    if user_event_meta:
+        user_event_meta.user_meta_data = msg_meta
+        user_event_meta.base_meta.meta_type = pyds.NvDsMetaType.NVDS_EVENT_MSG_META
+        # Setting callbacks in the event msg meta. The bindings
+        # layer will wrap these callables in C functions.
+        # Currently only one set of callbacks is supported.
+        pyds.user_copyfunc(user_event_meta, meta_copy_func)
+        pyds.user_releasefunc(user_event_meta, meta_free_func)
+        pyds.nvds_add_user_meta_to_frame(frame_meta,
+                                        user_event_meta)
+    else:
+        logging.error("Error in attaching event meta to buffer\n")
 
 # osd_sink_pad_buffer_probe  will extract metadata received on OSD sink pad
 # and update params for drawing rectangle, object information etc.
@@ -167,98 +190,86 @@ def generate_event_msg_meta(data, class_id):
 #    (info.get_buffer()) from traversing the pipeline until user return.
 # b) loops inside probe() callback could be costly in python.
 #    So users shall optimize according to their use-case.
-def osd_sink_pad_buffer_probe(pad, info, u_data):
-    gst_buffer = info.get_buffer()
-    if not gst_buffer:
-        print("Unable to get GstBuffer ")
-        return
 
-    # Retrieve batch metadata from the gst_buffer
-    # Note that pyds.gst_buffer_get_nvds_batch_meta() expects the
-    # C address of gst_buffer as input, which is obtained with hash(gst_buffer)
-    batch_meta = pyds.gst_buffer_get_nvds_batch_meta(hash(gst_buffer))
-    if not batch_meta:
+def osd_sink_pad_buffer_probe(nvmsgconv_attribs):
+
+    # Loading specific attributes for this probe
+    period_per_msg = int(nvmsgconv_attribs['period_per_msg'])
+
+    def aux_function(pad, info, u_data):
+        gst_buffer = info.get_buffer()
+        if not gst_buffer:
+            logging.error("Unable to get GstBuffer ")
+            return
+
+        # Retrieve batch metadata from the gst_buffer
+        # Note that pyds.gst_buffer_get_nvds_batch_meta() expects the
+        # C address of gst_buffer as input, which is obtained with hash(gst_buffer)
+        batch_meta = pyds.gst_buffer_get_nvds_batch_meta(hash(gst_buffer))
+        if not batch_meta:
+            return Gst.PadProbeReturn.OK
+        l_frame = batch_meta.frame_meta_list
+        while l_frame is not None:
+            try:
+                # Note that l_frame.data needs a cast to pyds.NvDsFrameMeta
+                # The casting is done by pyds.NvDsFrameMeta.cast()
+                # The casting also keeps ownership of the underlying memory
+                # in the C code, so the Python garbage collector will leave
+                # it alone.
+                frame_meta = pyds.NvDsFrameMeta.cast(l_frame.data)
+            except StopIteration:
+                continue
+
+            # Frequency of messages to be send will be based on use case.
+            # Sending messages per period
+            # One message per object if there is detection
+            if (frame_meta.frame_num % period_per_msg) == 0:
+
+                is_first_object = True
+                l_obj = frame_meta.obj_meta_list
+                while l_obj is not None:
+                    try:
+                        obj_meta = pyds.NvDsObjectMeta.cast(l_obj.data)
+                    except StopIteration:
+                        continue
+
+                    # Ideally NVDS_EVENT_MSG_META should be attached to buffer by the
+                    # component implementing detection / recognition logic.
+                    # Here it demonstrates how to use / attach that meta data.
+                    if is_first_object:
+                        # Here message is being sent for first object every x frames.
+
+                        # Allocating an NvDsEventMsgMeta instance and getting
+                        # reference to it. The underlying memory is not managed by
+                        # Python so that downstream plugins can access it. Otherwise
+                        # the garbage collector will free it when this probe exits.
+                        msg_meta = pyds.alloc_nvds_event_msg_meta()
+
+                        # This step fills the required information into the msg_meta
+                        msg_meta = generate_event_msg_meta(msg_meta, obj_meta, frame_meta.frame_num)
+
+                        # This step send the msg at a frame level
+                        send_msg_to_frame(msg_meta, batch_meta, frame_meta)
+
+                        is_first_object = False
+                    try:
+                        l_obj = l_obj.next
+                    except StopIteration:
+                        break
+  
+            # Get frame rate through this probe
+            G.FPS_STREAMS["stream{0}".format(frame_meta.pad_index)].get_fps()
+            try:
+                l_frame = l_frame.next
+            except StopIteration:
+                break
+
+        # print("Frame Number =", frame_number, "Vehicle Count =",
+        #       obj_counter[G.PGIE_CLASS_ID_VEHICLE], "Person Count =",
+        #       obj_counter[G.PGIE_CLASS_ID_PERSON])
         return Gst.PadProbeReturn.OK
-    l_frame = batch_meta.frame_meta_list
-    while l_frame is not None:
-        try:
-            # Note that l_frame.data needs a cast to pyds.NvDsFrameMeta
-            # The casting is done by pyds.NvDsFrameMeta.cast()
-            # The casting also keeps ownership of the underlying memory
-            # in the C code, so the Python garbage collector will leave
-            # it alone.
-            frame_meta = pyds.NvDsFrameMeta.cast(l_frame.data)
-        except StopIteration:
-            continue
-        is_first_object = True
+    
+    return aux_function
 
-        # Short example of attribute access for frame_meta:
-        # print("Frame Number is ", frame_meta.frame_num)
-        # print("Source id is ", frame_meta.source_id)
-        # print("Batch id is ", frame_meta.batch_id)
-        # print("Source Frame Width ", frame_meta.source_frame_width)
-        # print("Source Frame Height ", frame_meta.source_frame_height)
-        # print("Num object meta ", frame_meta.num_obj_meta)
 
-        frame_number = frame_meta.frame_num
-        print(frame_number, frame_meta.pad_index, frame_meta.source_id)
 
-        # Sending messages per period
-        if (frame_number % 60) == 0:
-            l_obj = frame_meta.obj_meta_list
-            while l_obj is not None:
-                try:
-                    obj_meta = pyds.NvDsObjectMeta.cast(l_obj.data)
-                except StopIteration:
-                    continue
-
-                # Ideally NVDS_EVENT_MSG_META should be attached to buffer by the
-                # component implementing detection / recognition logic.
-                # Here it demonstrates how to use / attach that meta data.
-                if is_first_object:
-                    # Frequency of messages to be send will be based on use case.
-                    # Here message is being sent for first object every 30 frames.
-
-                    # Allocating an NvDsEventMsgMeta instance and getting
-                    # reference to it. The underlying memory is not managed by
-                    # Python so that downstream plugins can access it. Otherwise
-                    # the garbage collector will free it when this probe exits.
-                    msg_meta = pyds.alloc_nvds_event_msg_meta()
-                    msg_meta.bbox.top = obj_meta.rect_params.top
-                    msg_meta.bbox.left = obj_meta.rect_params.left
-                    msg_meta.bbox.width = obj_meta.rect_params.width
-                    msg_meta.bbox.height = obj_meta.rect_params.height
-                    msg_meta.frameId = frame_number
-                    msg_meta.trackingId = long_to_uint64(obj_meta.object_id)
-                    msg_meta.confidence = obj_meta.confidence
-                    msg_meta = generate_event_msg_meta(msg_meta, obj_meta.class_id)
-                    user_event_meta = pyds.nvds_acquire_user_meta_from_pool(
-                        batch_meta)
-                    if user_event_meta:
-                        user_event_meta.user_meta_data = msg_meta
-                        user_event_meta.base_meta.meta_type = pyds.NvDsMetaType.NVDS_EVENT_MSG_META
-                        # Setting callbacks in the event msg meta. The bindings
-                        # layer will wrap these callables in C functions.
-                        # Currently only one set of callbacks is supported.
-                        pyds.user_copyfunc(user_event_meta, meta_copy_func)
-                        pyds.user_releasefunc(user_event_meta, meta_free_func)
-                        pyds.nvds_add_user_meta_to_frame(frame_meta,
-                                                        user_event_meta)
-                    else:
-                        print("Error in attaching event meta to buffer\n")
-
-                    is_first_object = False
-                try:
-                    l_obj = l_obj.next
-                except StopIteration:
-                    break
-
-        try:
-            l_frame = l_frame.next
-        except StopIteration:
-            break
-
-    # print("Frame Number =", frame_number, "Vehicle Count =",
-    #       obj_counter[G.PGIE_CLASS_ID_VEHICLE], "Person Count =",
-    #       obj_counter[G.PGIE_CLASS_ID_PERSON])
-    return Gst.PadProbeReturn.OK

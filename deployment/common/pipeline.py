@@ -287,11 +287,14 @@ class Pipeline:
         # Load attributes from global config file
         config_file = self.config_global.get("nvmsgconv", "config_file")
         schema_type = self.config_global.getint("nvmsgconv", "schema_type")
+        msg2p_newapi = self.config_global.getint("nvmsgconv", "msg2p-newapi", fallback=None)
 
         # Create plugin and set properties
         msgconv = self._create_element("nvmsgconv", "nvmsg-converter")
         msgconv.set_property('config', config_file)
         msgconv.set_property('payload-type', schema_type)
+        if msg2p_newapi:
+            msgconv.set_property('msg2p-newapi', msg2p_newapi)
 
         return msgconv
 

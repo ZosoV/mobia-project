@@ -69,18 +69,31 @@ RUN cd /opt/nvidia/deepstream/deepstream/sources/ \
 #    && cmake .. 
 # without any flags
 
-# Installing additional python libraries
-RUN pip3 install coloredlogs
-
 # RTSP and Additional libraries
 RUN apt-get install -y libgstrtspserver-1.0-0 gstreamer1.0-rtsp \
     libgirepository1.0-dev gobject-introspection gir1.2-gst-rtsp-server-1.0
 RUN apt -y install python3-gi python-gst-1.0 gir1.2-gstreamer-1.0
 
+# Installing additional python libraries
+RUN pip3 install coloredlogs
+
 # Note: If your are not using Kafka locally avoid this step
 # Install Java libraries for runing kafka locally
+RUN apt-get update --fix-missing
 RUN apt -y install default-jre
 RUN apt -y install default-jdk
+
+# Downlod basic get started
+RUN mkdir /opt/kafka/
+RUN cd /opt/kafka/ \
+    && wget https://dlcdn.apache.org/kafka/3.1.0/kafka_2.13-3.1.0.tgz \
+    && tar -xzf kafka_2.13-3.1.0.tgz \
+    && rm kafka_2.13-3.1.0.tgz
+
+# Setting entry point to run zookeeper and kafka broker
+COPY deepstream-msg2kafka/run_kafka_server.sh /scripts/entrypoint.sh
+RUN chmod +x /scripts/entrypoint.sh
+ENTRYPOINT /scripts/entrypoint.sh
 
 # COPY . /workspace
 WORKDIR /workspace

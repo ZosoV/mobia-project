@@ -1,6 +1,7 @@
 
 .ipynb_checkpoints
 __pycache__
+.vscode/
 # training ignore files
 
 # detectnet_v2

@@ -248,7 +248,7 @@ def osd_sink_pad_buffer_probe(pad, info, u_data):
         # print("Num object meta ", frame_meta.num_obj_meta)
 
         frame_number = frame_meta.frame_num
-        print(frame_number, frame_meta.pad_index, frame_meta.source_id)
+        # print(frame_number, frame_meta.pad_index, frame_meta.source_id)
 
         l_obj = frame_meta.obj_meta_list
         while l_obj is not None:

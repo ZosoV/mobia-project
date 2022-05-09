@@ -9,4 +9,4 @@
 sudo docker run -it --rm --net=host --runtime nvidia  \
         -v /tmp/argus_socket:/tmp/argus_socket \
         -v ~/Documents/mobia-project/deployment:/workspace \
-        mobia-deployment:jetsonv2
+        mobia-deployment:devel

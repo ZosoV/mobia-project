@@ -27,10 +27,6 @@ from common.pipeline import Pipeline
 class Msg2KafkaDeepstreamPipeline(Pipeline):
     def __init__(self,  *args, **kw):
         super().__init__(*args, **kw)
-        
-        # Get the sink type
-        # Types-> RTSP: 0, MP4: 1, FakeSink: 2
-        self.sink_type = self.config_global.getint("sink", "type")
 
         # Get the sink type
         # Types-> RTSP: 0, MP4: 1, FakeSink: 2
@@ -45,9 +41,8 @@ class Msg2KafkaDeepstreamPipeline(Pipeline):
 
         # Init Global Variables per source
         # FPS_STREAMS: Keep track of the frames per second
-        # FRAME_COUNT: Keep count of frames per source
-        # for i in range(self.number_sources):
-            # G.FPS_STREAMS["stream{0}".format(i)] = GETFPS(i)
+        for i in range(self.number_sources):
+            G.FPS_STREAMS["stream{0}".format(i)] = GETFPS(i)
 
         # Standard GStreamer initialization
         GObject.threads_init()
@@ -210,10 +205,13 @@ class Msg2KafkaDeepstreamPipeline(Pipeline):
         #                plugin_name = "tiler")        
         
         # Probe to display FPS per frame
-        self.set_probe(plugin = tiler, 
-                       pad_type = "sink", 
-                       function = probes.osd_sink_pad_buffer_probe, 
-                       plugin_name = "tiler")
+        
+        # Loading specific attributes for this probe
+        # nvmsgconv_attribs = dict(self.config_global["nvmsgconv"])
+        # self.set_probe(plugin = tiler, 
+        #                pad_type = "sink", 
+        #                function = probes.osd_sink_pad_buffer_probe(nvmsgconv_attribs), 
+        #                plugin_name = "tiler")
 
     def run_main_loop(self):
 

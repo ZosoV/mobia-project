@@ -1,17 +1,21 @@
-# Main Deepstream Application
+# Main DeepStream Application
 
-## How to run?
+## Requirements
 
-If you follow the steps on [deployment](../README.md). You already have the adequate environment to run this application. You just need to follow the next steps:
+1. Complete the steps on [deployment](../README.md) to build the adequate environment for this application.
 
-1. Before running the deepstream app, we have to make sure that the library [./nvinfer_custom_lpr_parser/libnvdsinfer_custom_impl_lpr.so](./nvinfer_custom_lpr_parser/libnvdsinfer_custom_impl_lpr.so) is available. That library is useful for parsing the character recognition in a readable format. If that library is not available, please run the Makefile into the folder [./nvinfer_custom_lpr_parser/](./nvinfer_custom_lpr_parser/) for compiling the library.
+2. Make sure that the library [`../nvinfer_custom_lpr_parser/libnvdsinfer_custom_impl_lpr.so`](../nvinfer_custom_lpr_parser/libnvdsinfer_custom_impl_lpr.so) is available. That library is useful for parsing the character recognition in a readable format. If that library is not available, please run the Makefile into the folder [./nvinfer_custom_lpr_parser/](./nvinfer_custom_lpr_parser/) for compiling the library.
+
     ```console
     cd nvinfer_custom_lpr_parser
     make
     cd ..
     ```
 
+## Running steps
+
 2. Run the deepstream app into the docker container by running the scrip [run_deepstream.sh](./run_deepstream.sh). Check the bash script for more details.
+
     ```console
     bash run_deepstream.sh
     ```

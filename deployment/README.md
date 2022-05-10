@@ -122,10 +122,6 @@ deployment
 
 There are two DeepStream applications in this project.
 
-1. The first application [deepstream-main](./deepstream-main/) is the main deployment
+1. The first application [deepstream-main](./deepstream-main/) is the main deployment, **the base model**.
 2. The second application [deepstream-msg2kafka](./deepstream-msg2kafka/) is an application under development for analytica.
 3. The third application [deepstream-video2data](./deepstream-video2data/) is an util application to extract frames from videos, where there are correct detections.
-
-## Pipeline Architecture
-
-_Pass_

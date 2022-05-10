@@ -10,6 +10,10 @@
     cd nvinfer_custom_lpr_parser/ && make && cd ..
     ```
 
+## Structure
+
+
+
 ## Running steps
 
 1. Run the Docker container by running the scrip [`../run_deepstream.sh`](../run_deepstream.sh). Check the Bash script for more details.

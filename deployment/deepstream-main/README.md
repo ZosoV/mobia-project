@@ -55,7 +55,7 @@ Also, this app uses built-in packages:
 
 ### The configuration file
 
-The `configs/global_config.cfg` contains information about the sources, streammux, detection models, tiler and sink. This file communicates with `../configs/` directory, which contains the configuration for all detection models. It should be noted that the LPRNet Secondary GPU Inference Engine uses a compiled library from C++ called `libnvdsinfer_custom_impl_lpr.so`.
+The `configs/global_config.cfg` contains information about the sources, streammux, detection models, tiler and sink. This file communicates with `../configs/` directory, which contains the configuration for all detection models. It should be noted that the LPRNet Secondary GPU Inference Engine uses a compiled library from C++ called `../nvinfer_custom_lpr_parser/libnvdsinfer_custom_impl_lpr.so`.
 
 ### Initialization
 
@@ -71,7 +71,7 @@ Keep track of the frames per second of all configured streams using `FPS_STREAMS
 
 #### Pipeline
 
-The pipeline is built based on the `Pipeline` parent structure and also using `gi` package for bindings. The app refers to this class for the construction of each element. For a detailed view, please refer to [`../common/pipeline.py`](../common/pipeline.py) or [`../common/README.md`](../common/README.md).
+The pipeline is built based on the `Pipeline` parent structure and also using `gi` package for bindings. The app refers to this class for the construction of each element. Also, `pipeline` uses `multistream.py` package. For a detailed view, please refer to [`../common/pipeline.py`](../common/pipeline.py) or [`../common/README.md`](../common/README.md).
 
 ### Adding and linking elements
 

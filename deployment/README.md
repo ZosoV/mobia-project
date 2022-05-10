@@ -47,14 +47,29 @@ deployment
 |   ├── pipeline.py     -> Inheritance pipeline mold
 |   └── utils.py        -> Unsigned int codification
 ├── configs
-|   ├── dstest2_sgie1_config.txt    -> Testing secondary detector
-|   ├── dstest3_pgie_config.txt     -> Testing primary detector
 |   ├── general_tracker_config.txt  -> Tracker
 |   ├── lpdnet_sgie1_config.txt     -> LPDNet
 |   ├── lprnet_sgie2_config.txt     -> LPRNet
 |   ├── tcnet_pgie_config.txt       -> TrafficCamNet
 |   └── tracker_config.yml          -> Tracker complement
-├── data
+├── data    -> Model information
+|   ├── pgies/tcnet -> Primary detector
+|   |   ├── labels.txt
+|   |   ├── resnet18_trafficcamnet_pruned.etlt
+|   |   ├── resnet18_trafficcamnet_pruned.etlt_b1_gpu0_int8.engine
+|   |   ├── resnet18_trafficcamnet_pruned.etlt_b2_gpu0_int8.engine
+|   |   └── trafficcamnet_int8.txt
+|   ├── sgies -> Secondary detectors
+|   |   ├── lpdnet
+|   |   |   ├── usa_lpd_cal_dla.bin
+|   |   |   ├── usa_lpd_label.txt
+|   |   |   ├── usa_pruned.etlt
+|   |   |   └── usa_pruned.etlt_b16_gpu0_int8.engine
+|   |   ├── lprnet
+|   |   |   ├── us_lp_characters.txt
+|   |   |   ├── us_lprnet_baseline18_deployable.etlt
+|   |   |   └── us_lprnet_baseline18_deployable.etlt_b16_gpu0_fp16.engine
+|   ├── videos
 |   └── download_base_models.sh -> Bash script to download detection models
 ├── deepstream-main
 |   ├── configs

@@ -8,6 +8,8 @@ The main pipeline for the Mobia project is built in the following files. The mai
 
 Note: there are other components in the pipeline, but they will be explained later.
 
+The DeepStream version used in this repository is the 6.0.1.
+
 ## Build the environment
 
 We followed the steps below to build this project on Jetson Xavier NX with JetPack :tm: 4.6.1:

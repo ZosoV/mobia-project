@@ -77,7 +77,7 @@ The function consists in the following steps:
 1. Assign FPS per each configured camera using `FPS_STREAMS`, a global variable in the `globals.py` file.
 2. Initialize the GObject using `GObject.threads_init()`, `Gst.init(None)` and `Gst.Pipeline()`.
 3. As the class is based on `Pipeline`, the app uses their methods to create each element/plugin. In order to do that, we mostly used the following lines: `self._create_<plugin_name>(<parameters>)`. For a detailed view, please check the methods on [`../common/pipeline.py`](../common/pipeline.py) or [`../common/README.md`](../common/README.md).
-4. Adding elements to `self.pipeline`, and
+4. Adding elements to `self.pipeline`.
 5. Linking elements through list iterations using the `Pipeline` class too.
 6. If necessary, add probes using the function `self.set_probe(plugin, pad_type, function, plugin_name)`. Note that the function attributes must be defined in `probes.py`.
 

@@ -83,4 +83,4 @@ The function consists in the following steps:
 
 ### Probes
 
-`probes.py` to display FPS and get metadata information.
+`probes.py` to get metadata information.

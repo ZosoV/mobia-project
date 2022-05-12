@@ -6,7 +6,7 @@ The main pipeline for the Mobia project is built in the following files. The mai
 2. A secondary detector, known as **LPDNet**, which detects a **license plate** in the region of interest built on the previous detection.
 3. Another secondary detector, known as **LPRNet**, is applied on the previous license plate detection to recognize the **characters**.
 
-Note: there are other components in the pipeline, but they will be explained later.
+Note: there are other components in the pipeline, but they are explained on [common/README.md](common/README.md).
 
 The DeepStream version used in this repository is the 6.0.1.
 
@@ -122,8 +122,13 @@ deployment
 
 ## DeepStream Applications
 
-There are two DeepStream applications in this project.
+We create a class [`Pipeline`](common/pipeline.py) to facilitate the creation of a new DeepStream application easily. To create a new application we need:
+
+1. Instantiate a new class `NewPipeline` and inherit our class `Pipeline`.
+2. Update two methods: `create_pipeline` and `run_main_loop`, according to specifications.
+ 
+In the following, there are three DeepStream applications that we create on this project.
 
 1. The first application [deepstream-main](./deepstream-main/) is the main deployment, **the base model**.
-2. The second application [deepstream-msg2kafka](./deepstream-msg2kafka/) is an application under development for analytica.
+2. The second application [deepstream-msg2kafka](./deepstream-msg2kafka/) is an application to allow us to take the metadata, convert it into payload message and send to a Kafka broker.
 3. The third application [deepstream-video2data](./deepstream-video2data/) is an util application to extract frames from videos, where there are correct detections.

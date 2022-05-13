@@ -13,6 +13,7 @@ from gi.repository import Gst
 from common.utils import long_to_uint64
 
 import pyds
+import pyds_custom
 import logging
 
 # Callback function for deep-copying an NvDsEventMsgMeta struct
@@ -49,28 +50,30 @@ def meta_copy_func(data, user_data):
         dstmeta.objSignature.size = srcmeta.objSignature.size
 
     if srcmeta.extMsgSize > 0:
-        if srcmeta.objType == pyds.NvDsObjectType.NVDS_OBJECT_TYPE_VEHICLE:
-            srcobj = pyds.NvDsVehicleObject.cast(srcmeta.extMsg)
-            obj = pyds.alloc_nvds_vehicle_object()
-            obj.type = pyds.get_string(srcobj.type)
-            obj.make = pyds.get_string(srcobj.make)
-            obj.model = pyds.get_string(srcobj.model)
+        if srcmeta.objType == pyds.NvDsObjectType.NVDS_OBJECT_TYPE_CUSTOM:
+            srcobj = pyds_custom.NvDsCarObject.cast(srcmeta.extMsg)
+            
+            obj = pyds_custom.alloc_nvds_car_object()
             obj.color = pyds.get_string(srcobj.color)
             obj.license = pyds.get_string(srcobj.license)
             obj.region = pyds.get_string(srcobj.region)
-            dstmeta.extMsg = obj
-            dstmeta.extMsgSize = sys.getsizeof(pyds.NvDsVehicleObject)
-        if srcmeta.objType == pyds.NvDsObjectType.NVDS_OBJECT_TYPE_PERSON:
-            srcobj = pyds.NvDsPersonObject.cast(srcmeta.extMsg)
-            obj = pyds.alloc_nvds_person_object()
-            obj.age = srcobj.age
-            obj.gender = pyds.get_string(srcobj.gender)
-            obj.cap = pyds.get_string(srcobj.cap)
-            obj.hair = pyds.get_string(srcobj.hair)
-            obj.apparel = pyds.get_string(srcobj.apparel)
-            dstmeta.extMsg = obj
-            dstmeta.extMsgSize = sys.getsizeof(pyds.NvDsVehicleObject)
+            obj.lprnet_confidence = srcobj.lprnet_confidence
+            obj.lpdnet_confidence = srcobj.lpdnet_confidence
+            obj.tcnet_confidence = srcobj.tcnet_confidence
+            obj.colornet_confidence = srcobj.colornet_confidence
+            
+            obj.car_bbox.top = srcobj.car_bbox.top
+            obj.car_bbox.left = srcobj.car_bbox.left
+            obj.car_bbox.width = srcobj.car_bbox.width
+            obj.car_bbox.height = srcobj.car_bbox.height
 
+            obj.lpd_bbox.top = srcobj.lpd_bbox.top
+            obj.lpd_bbox.left = srcobj.lpd_bbox.left
+            obj.lpd_bbox.width = srcobj.lpd_bbox.width
+            obj.lpd_bbox.height = srcobj.lpd_bbox.height 
+
+            dstmeta.extMsg = obj
+            dstmeta.extMsgSize = sys.getsizeof(pyds_custom.NvDsCarObject)
     return dstmeta
 
 
@@ -89,83 +92,61 @@ def meta_free_func(data, user_data):
         srcmeta.objSignature.size = 0
 
     if srcmeta.extMsgSize > 0:
-        if srcmeta.objType == pyds.NvDsObjectType.NVDS_OBJECT_TYPE_VEHICLE:
-            obj = pyds.NvDsVehicleObject.cast(srcmeta.extMsg)
-            pyds.free_buffer(obj.type)
+        if srcmeta.objType == pyds.NvDsObjectType.NVDS_OBJECT_TYPE_CUSTOM:
+            obj = pyds_custom.NvDsCarObject.cast(srcmeta.extMsg)
+
+            # Note: You just need to free the string components
+            # The rest values are free with pyds.free_gbuffer(srcmeta.extMsg)
             pyds.free_buffer(obj.color)
-            pyds.free_buffer(obj.make)
-            pyds.free_buffer(obj.model)
             pyds.free_buffer(obj.license)
             pyds.free_buffer(obj.region)
-        if srcmeta.objType == pyds.NvDsObjectType.NVDS_OBJECT_TYPE_PERSON:
-            obj = pyds.NvDsPersonObject.cast(srcmeta.extMsg)
-            pyds.free_buffer(obj.gender)
-            pyds.free_buffer(obj.cap)
-            pyds.free_buffer(obj.hair)
-            pyds.free_buffer(obj.apparel)
         pyds.free_gbuffer(srcmeta.extMsg)
         srcmeta.extMsgSize = 0
 
 
-def generate_vehicle_meta(data):
-    obj = pyds.NvDsVehicleObject.cast(data)
-    obj.type = "sedan"
-    obj.color = "blue"
-    obj.make = "Bugatti"
-    obj.model = "M"
-    obj.license = "XX1234"
-    obj.region = "CA"
-    return obj
+def generate_custom_obj(data, lpd_obj_meta, car_obj_meta, lpr_label_meta):
+    obj = pyds_custom.NvDsCarObject.cast(data)
+    obj.color = "default blue"
+    obj.license = str(lpr_label_meta.result_label)
+    obj.region = "default CA"
+    obj.lprnet_confidence = round(lpr_label_meta.result_prob,2)
+    obj.lpdnet_confidence = round(lpd_obj_meta.confidence, 2)
+    obj.tcnet_confidence = round(car_obj_meta.confidence, 2)
+    obj.colornet_confidence = 0.6
+
+    obj.car_bbox.top = car_obj_meta.rect_params.top
+    obj.car_bbox.left = car_obj_meta.rect_params.left
+    obj.car_bbox.width = car_obj_meta.rect_params.width
+    obj.car_bbox.height = car_obj_meta.rect_params.height
+
+    obj.lpd_bbox.top = lpd_obj_meta.rect_params.top
+    obj.lpd_bbox.left = lpd_obj_meta.rect_params.left
+    obj.lpd_bbox.width = lpd_obj_meta.rect_params.width
+    obj.lpd_bbox.height = lpd_obj_meta.rect_params.height
+
+    return obj 
 
 
-def generate_person_meta(data):
-    obj = pyds.NvDsPersonObject.cast(data)
-    obj.age = 45
-    obj.cap = "none"
-    obj.hair = "black"
-    obj.gender = "male"
-    obj.apparel = "formal"
-    return obj
-
-
-def generate_event_msg_meta(data, obj_meta, frame_number):
+def generate_custom_msg_meta(data, lpd_obj_meta, car_obj_meta, lpr_label_meta):
+    # This function add a custom obj to the event message
     msg_meta = pyds.NvDsEventMsgMeta.cast(data)
-
-    msg_meta.bbox.top = obj_meta.rect_params.top
-    msg_meta.bbox.left = obj_meta.rect_params.left
-    msg_meta.bbox.width = obj_meta.rect_params.width
-    msg_meta.bbox.height = obj_meta.rect_params.height
-    msg_meta.frameId = frame_number
-    msg_meta.trackingId = long_to_uint64(obj_meta.object_id)
-    msg_meta.confidence = obj_meta.confidence
-
-    msg_meta.sensorId = 0
-    msg_meta.placeId = 0
-    msg_meta.moduleId = 0
-    msg_meta.sensorStr = "sensor-0"
-    msg_meta.ts = pyds.alloc_buffer(G.MAX_TIME_STAMP_LEN + 1)
-    pyds.generate_ts_rfc3339(msg_meta.ts, G.MAX_TIME_STAMP_LEN)
 
     # This demonstrates how to attach custom objects.
     # Any custom object as per requirement can be generated and attached
-    # like NvDsVehicleObject / NvDsPersonObject. Then that object should
+    # like NvDsVehicleObject/NvDsPersonObject. Then that object should
     # be handled in payload generator library (nvmsgconv.cpp) accordingly.
-    if obj_meta.class_id == G.PGIE_CLASS_ID_VEHICLE:
-        msg_meta.type = pyds.NvDsEventType.NVDS_EVENT_MOVING
-        msg_meta.objType = pyds.NvDsObjectType.NVDS_OBJECT_TYPE_VEHICLE
-        msg_meta.objClassId = G.PGIE_CLASS_ID_VEHICLE
-        obj = pyds.alloc_nvds_vehicle_object()
-        obj = generate_vehicle_meta(obj)
-        msg_meta.extMsg = obj
-        msg_meta.extMsgSize = sys.getsizeof(pyds.NvDsVehicleObject)
-    if obj_meta.class_id == G.PGIE_CLASS_ID_PERSON:
-        msg_meta.type = pyds.NvDsEventType.NVDS_EVENT_ENTRY
-        msg_meta.objType = pyds.NvDsObjectType.NVDS_OBJECT_TYPE_PERSON
-        msg_meta.objClassId = G.PGIE_CLASS_ID_PERSON
-        obj = pyds.alloc_nvds_person_object()
-        obj = generate_person_meta(obj)
-        msg_meta.extMsg = obj
-        msg_meta.extMsgSize = sys.getsizeof(pyds.NvDsPersonObject)
+
+    # Adding object information to the event msg
+    msg_meta.type = pyds.NvDsEventType.NVDS_EVENT_MOVING
+    msg_meta.objType = pyds.NvDsObjectType.NVDS_OBJECT_TYPE_CUSTOM
+    msg_meta.objClassId = G.CLASS_MAPPING[G.PGIE_CLASS_NAME_CAR]
+
+    # Creating and adding obj to the event msg
+    obj = pyds_custom.alloc_nvds_car_object()
+    obj = generate_custom_obj(obj, lpd_obj_meta, car_obj_meta, lpr_label_meta) 
+    msg_meta.extMsg = obj
+    msg_meta.extMsgSize = sys.getsizeof(pyds_custom.NvDsCarObject)
+
     return msg_meta
 
 def send_msg_to_frame(msg_meta, batch_meta, frame_meta):
@@ -183,6 +164,35 @@ def send_msg_to_frame(msg_meta, batch_meta, frame_meta):
     else:
         logging.error("Error in attaching event meta to buffer\n")
 
+def get_needed_metadata(lpd_obj_meta):
+    
+    # Getting car_obj_meta from lpd_obj_meta
+    # Check if the parent exist, which must be a car
+    try:
+        car_obj_meta = pyds.NvDsObjectMeta.cast(lpd_obj_meta.parent)
+    except StopIteration:
+        logging.warning("There is not (parent) car_obj_meta")
+        car_obj_meta = None
+
+    # Getting lpr_label_meta from lpd_obj_meta
+    # Here I access the label information whitout while loops
+    # because I'm sure that there is just one classifier and label
+    class_obj=lpd_obj_meta.classifier_meta_list
+    if class_obj:
+        try:
+            lpd_class_meta=pyds.NvDsClassifierMeta.cast(class_obj.data)
+        except StopIteration:
+            logging.warning("There is not lpd_class_meta")
+        c_obj=lpd_class_meta.label_info_list
+        try:
+            lpr_label_meta=pyds.NvDsLabelInfo.cast(c_obj.data)
+        except StopIteration:
+            logging.warning("There is not lpr_label_meta")
+            lpr_label_meta = None
+
+    return car_obj_meta, lpr_label_meta
+
+
 # osd_sink_pad_buffer_probe  will extract metadata received on OSD sink pad
 # and update params for drawing rectangle, object information etc.
 # IMPORTANT NOTE:
@@ -194,7 +204,7 @@ def send_msg_to_frame(msg_meta, batch_meta, frame_meta):
 def osd_sink_pad_buffer_probe(nvmsgconv_attribs):
 
     # Loading specific attributes for this probe
-    period_per_msg = int(nvmsgconv_attribs['period_per_msg'])
+    frame_interval = int(nvmsgconv_attribs['frame-interval'])
 
     def aux_function(pad, info, u_data):
         gst_buffer = info.get_buffer()
@@ -223,35 +233,63 @@ def osd_sink_pad_buffer_probe(nvmsgconv_attribs):
             # Frequency of messages to be send will be based on use case.
             # Sending messages per period
             # One message per object if there is detection
-            if (frame_meta.frame_num % period_per_msg) == 0:
+            if (frame_meta.frame_num % frame_interval) == 0:
 
                 is_first_object = True
                 l_obj = frame_meta.obj_meta_list
                 while l_obj is not None:
                     try:
-                        obj_meta = pyds.NvDsObjectMeta.cast(l_obj.data)
+                        lpd_obj_meta = pyds.NvDsObjectMeta.cast(l_obj.data)
                     except StopIteration:
                         continue
+                    
+                    # Check if the detection is a plate
+                    if lpd_obj_meta.obj_label == G.SGIE_CLASS_NAME_LPD:
+                        
+                        # To generate the event message, we need three metadata
+                        # 1. lpd_obj_meta (we already have it)
+                        # 2. car_obj_meta
+                        # 3. lpr_label_meta
 
-                    # Ideally NVDS_EVENT_MSG_META should be attached to buffer by the
-                    # component implementing detection / recognition logic.
-                    # Here it demonstrates how to use / attach that meta data.
-                    if is_first_object:
-                        # Here message is being sent for first object every x frames.
+                        car_obj_meta,  lpr_label_meta = get_needed_metadata(lpd_obj_meta)
 
-                        # Allocating an NvDsEventMsgMeta instance and getting
-                        # reference to it. The underlying memory is not managed by
-                        # Python so that downstream plugins can access it. Otherwise
-                        # the garbage collector will free it when this probe exits.
-                        msg_meta = pyds.alloc_nvds_event_msg_meta()
+                        # Ideally NVDS_EVENT_MSG_META should be attached to buffer by the
+                        # component implementing detection / recognition logic.
+                        # Here it demonstrates how to use / attach that meta data.
+                        if is_first_object:
 
-                        # This step fills the required information into the msg_meta
-                        msg_meta = generate_event_msg_meta(msg_meta, obj_meta, frame_meta.frame_num)
+                            # Allocating an NvDsEventMsgMeta instance and getting
+                            # reference to it. The underlying memory is not managed by
+                            # Python so that downstream plugins can access it. Otherwise
+                            # the garbage collector will free it when this probe exits.
+                            msg_meta = pyds.alloc_nvds_event_msg_meta()
 
-                        # This step send the msg at a frame level
-                        send_msg_to_frame(msg_meta, batch_meta, frame_meta)
+                            # This step fills the general attributes of the msg_meta
+                            # msg_meta.bbox.top = car_obj_meta.rect_params.top
+                            # msg_meta.bbox.left = car_obj_meta.rect_params.left
+                            # msg_meta.bbox.width = car_obj_meta.rect_params.width
+                            # msg_meta.bbox.height = car_obj_meta.rect_params.height
+                            msg_meta.frameId = frame_meta.frame_num
+                            msg_meta.trackingId = long_to_uint64(car_obj_meta.object_id)
 
-                        is_first_object = False
+                            msg_meta.sensorId = frame_meta.source_id
+                            # msg_meta.placeId = 0 # default
+                            # msg_meta.moduleId = 0 # default
+                            msg_meta.sensorStr = f"sensor-{frame_meta.source_id}"
+                            msg_meta.ts = pyds.alloc_buffer(G.MAX_TIME_STAMP_LEN + 1)
+                            pyds.generate_ts_rfc3339(msg_meta.ts, G.MAX_TIME_STAMP_LEN)
+
+
+                            # This step fills the required information into the msg_meta
+                            msg_meta = generate_custom_msg_meta(msg_meta, 
+                                                    lpd_obj_meta,     
+                                                    car_obj_meta,       
+                                                    lpr_label_meta)
+
+                            # This step send the msg at a frame level
+                            send_msg_to_frame(msg_meta, batch_meta, frame_meta)
+
+                            is_first_object = False
                     try:
                         l_obj = l_obj.next
                     except StopIteration:

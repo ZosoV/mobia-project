@@ -1,0 +1,44 @@
+{
+    "messageid" : "388128b4-17c6-4439-a3f1-ff7c0a654058",
+    "mdsversion" : "1.0",
+    "@timestamp" : "2022-05-11T22:02:28.934Z",
+    "sensor" : {
+      "id" : "0",
+      "type" : "Camera",
+      "description" : "\"Camera Test\"",
+      "location" : {
+        "lat" : 45.293701446999997,
+        "lon" : -75.830391449900006,
+        "alt" : 48.155747933800001
+      }
+    },
+    "object" : {
+      "car_id" : "1",
+      "vehicle" : {
+        "color" : "default blue",
+        "region" : "default CA",
+        "license" : "3047002",
+        "lprnet_confidence" : 0.96788686513900757,
+        "lpdnet_confidence" : 0.85,
+        "tcnet_confidence" : 0.75,
+        "colornet_confidence" : 0.6
+      },
+      "car_bbox" : {
+        "topleftx" : 360,
+        "toplefty" : 572,
+        "bottomrightx" : 636,
+        "bottomrighty" : 842
+      },
+      "lpd_bbox" : {
+        "topleftx" : 360,
+        "toplefty" : 572,
+        "bottomrightx" : 636,
+        "bottomrighty" : 842
+      }      
+    },
+    "event" : {
+      "id" : "a4ea1ebc-494b-4c4c-8dda-f710c2d01b1a",
+      "type" : "moving"
+    },
+    "videoPath" : ""
+  }

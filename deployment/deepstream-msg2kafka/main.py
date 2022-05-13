@@ -81,20 +81,20 @@ class Msg2KafkaDeepstreamPipeline(Pipeline):
 
         # Getting configs paths of the models
         pgie_cfg_path = self.config_global.get("models", "pgie_config")
-        # sgie1_cfg_path = self.config_global.get("models", "sgie1_config")
-        # sgie2_cfg_path = self.config_global.get("models", "sgie2_config")
-        # tracker_cfg_path = self.config_global.get("models", "tracker_config")
+        sgie1_cfg_path = self.config_global.get("models", "sgie1_config")
+        sgie2_cfg_path = self.config_global.get("models", "sgie2_config")
+        tracker_cfg_path = self.config_global.get("models", "tracker_config")
 
         # Create main plugins
         logging.info("Creating main plugins")
         pgie = self._create_pgie(config_path=pgie_cfg_path)
 
         tiler = self._create_tiler()
-        # tracker = self._create_tracker(config_path=tracker_cfg_path)
-        # sgie1 = self._create_sgie(name="secondary1-nvinference-engine", 
-        #                         config_path=sgie1_cfg_path)
-        # sgie2 = self._create_sgie(name="secondary2-nvinference-engine",
-        #                         config_path=sgie2_cfg_path)
+        tracker = self._create_tracker(config_path=tracker_cfg_path)
+        sgie1 = self._create_sgie(name="secondary1-nvinference-engine", 
+                                config_path=sgie1_cfg_path)
+        sgie2 = self._create_sgie(name="secondary2-nvinference-engine",
+                                config_path=sgie2_cfg_path)
         nvvidconv = self._create_nvvidconv(name="convertor")
         nvosd = self._create_nvosd()
         tee = self._create_tee()
@@ -135,12 +135,12 @@ class Msg2KafkaDeepstreamPipeline(Pipeline):
             queue1,
             pgie,
             queue2,
-            # tracker,
-            # queue3,
-            # sgie1,
-            # queue4,
-            # sgie2,
-            # queue5,
+            tracker,
+            queue3,
+            sgie1,
+            queue4,
+            sgie2,
+            queue5,
             tiler,
             queue6,
             nvvidconv,
@@ -207,11 +207,11 @@ class Msg2KafkaDeepstreamPipeline(Pipeline):
         # Probe to display FPS per frame
         
         # Loading specific attributes for this probe
-        # nvmsgconv_attribs = dict(self.config_global["nvmsgconv"])
-        # self.set_probe(plugin = tiler, 
-        #                pad_type = "sink", 
-        #                function = probes.osd_sink_pad_buffer_probe(nvmsgconv_attribs), 
-        #                plugin_name = "tiler")
+        nvmsgconv_attribs = dict(self.config_global["nvmsgconv"])
+        self.set_probe(plugin = tiler, 
+                       pad_type = "sink", 
+                       function = probes.osd_sink_pad_buffer_probe(nvmsgconv_attribs), 
+                       plugin_name = "tiler")
 
     def run_main_loop(self):
 

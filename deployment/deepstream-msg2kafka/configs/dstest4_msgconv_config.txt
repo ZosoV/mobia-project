@@ -18,9 +18,9 @@
 [sensor0]
 enable=1
 type=Camera
-id=CAMERA_ID_0
+id=0
 location=45.293701447;-75.8303914499;48.1557479338
-description="Entrance of Garage Right Lane"
+description="Camera Test"
 coordinate=5.2;10.1;11.2
 
 [place0]
@@ -35,7 +35,7 @@ place-sub-field2=lane1
 place-sub-field3=P2
 
 [place1]
-enable=1
+enable=0
 id=1
 type=garage
 name=XYZ_1
@@ -49,5 +49,5 @@ place-sub-field3=P2
 enable=1
 id=XYZ
 description="Vehicle Detection and License Plate Recognition"
-source=OpenALR
+source=Mobia
 version=1.0

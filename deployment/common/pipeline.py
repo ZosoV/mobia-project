@@ -58,12 +58,6 @@ class Pipeline:
 
         return elm
 
-    def _create_h264parser(self):
-        return self._create_element("h264parse", "h264-parser")
-
-    def _decoder(self):
-        return self._create_element("nvv4l2decoder", "nvv4l2-decoder")
-
     def _create_streammux(self):
         # Load attributes from global config file
         width = self.config_global.getint("streammux", "width")
@@ -288,13 +282,20 @@ class Pipeline:
         config_file = self.config_global.get("nvmsgconv", "config_file")
         schema_type = self.config_global.getint("nvmsgconv", "schema_type")
         msg2p_newapi = self.config_global.getint("nvmsgconv", "msg2p-newapi", fallback=None)
+        frame_interval = self.config_global.getint("nvmsgconv", "frame-interval", fallback=None)
+        msg2p_lib = self.config_global.get("nvmsgconv","msg2p-lib",  fallback=None)
 
         # Create plugin and set properties
         msgconv = self._create_element("nvmsgconv", "nvmsg-converter")
         msgconv.set_property('config', config_file)
+        if schema_type == 2: schema_type = 257
         msgconv.set_property('payload-type', schema_type)
         if msg2p_newapi:
             msgconv.set_property('msg2p-newapi', msg2p_newapi)
+        if frame_interval:
+            msgconv.set_property("frame-interval", frame_interval)
+        if msg2p_lib:
+            msgconv.set_property('msg2p-lib', msg2p_lib)
 
         return msgconv
 

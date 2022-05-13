@@ -24,3 +24,5 @@ wget https://api.ngc.nvidia.com/v2/models/nvidia/tao/lprnet/versions/deployable_
 wget https://api.ngc.nvidia.com/v2/models/nvidia/tao/lprnet/versions/deployable_v1.0/files/us_lprnet_baseline18_deployable.etlt
 # touch labels_us.txt
 cd -
+
+# TODO: Download Sample Videos

@@ -117,7 +117,7 @@ nvds_msg2p_generate_multiple (NvDsMsg2pCtx *ctx, NvDsEvent *events, guint eventS
     }
   } else if (ctx->payloadType == NVDS_PAYLOAD_CUSTOM) {
     payloads[*payloadCount] = (NvDsPayload *) g_malloc0 (sizeof (NvDsPayload));
-    payloads[*payloadCount]->payload = (gpointer) g_strdup ("CUSTOM Schema");
+    payloads[*payloadCount]->payload = (gpointer) g_strdup ("CUSTOM Schema Mutiple standard");
     payloads[*payloadCount]->payloadSize = strlen ((char *)payloads[*payloadCount]->payload) + 1;
     ++(*payloadCount);
   } else
@@ -152,8 +152,14 @@ nvds_msg2p_generate (NvDsMsg2pCtx *ctx, NvDsEvent *events, guint size)
       g_free (message);
     }
   } else if (ctx->payloadType == NVDS_PAYLOAD_CUSTOM) {
-    payload->payload = (gpointer) g_strdup ("CUSTOM Schema");
-    payload->payloadSize = strlen ((char *)payload->payload) + 1;
+    message = generate_custom_event_message (ctx->privData, events->metadata);
+    if (message) {
+      len = strlen (message);
+      // Remove '\0' character at the end of string and just copy the content.
+      payload->payload = g_memdup (message, len);
+      payload->payloadSize = len;
+      g_free (message);
+    }
   } else
     payload->payload = NULL;
 
@@ -191,7 +197,9 @@ nvds_msg2p_generate_new (NvDsMsg2pCtx *ctx, void *metadataInfo)
       g_free (message);
     }
   } else if (ctx->payloadType == NVDS_PAYLOAD_CUSTOM) {
-    payload->payload = (gpointer) g_strdup ("CUSTOM Schema");
+    //TODO: Note here you can also add a custom schema to create messages
+    //directly from frame_meta and obj_meta
+    payload->payload = (gpointer) g_strdup ("CUSTOM Schema new");
     payload->payloadSize = strlen ((char *)payload->payload) + 1;
   } else
     payload->payload = NULL;
@@ -237,7 +245,7 @@ nvds_msg2p_generate_multiple_new (NvDsMsg2pCtx *ctx, void *metadataInfo, guint *
     }
   } else if (ctx->payloadType == NVDS_PAYLOAD_CUSTOM) {
     payloads[*payloadCount] = (NvDsPayload *) g_malloc0 (sizeof (NvDsPayload));
-    payloads[*payloadCount]->payload = (gpointer) g_strdup ("CUSTOM Schema");
+    payloads[*payloadCount]->payload = (gpointer) g_strdup ("CUSTOM Schema Mutiple new");
     payloads[*payloadCount]->payloadSize = strlen ((char *)payloads[*payloadCount]->payload) + 1;
     ++(*payloadCount);
   } else

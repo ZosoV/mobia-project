@@ -69,6 +69,9 @@ RUN cd /opt/nvidia/deepstream/deepstream/sources/ \
 #    && cmake .. 
 # without any flags
 
+# Custom Bindings creation
+RUN pip3 install pybind11
+
 # RTSP and Additional libraries
 RUN apt-get install -y libgstrtspserver-1.0-0 gstreamer1.0-rtsp \
     libgirepository1.0-dev gobject-introspection gir1.2-gst-rtsp-server-1.0
@@ -82,6 +85,7 @@ RUN pip3 install coloredlogs
 RUN apt-get update --fix-missing
 RUN apt -y install default-jre
 RUN apt -y install default-jdk
+RUN apt -y install libglib2.0-dev libjson-glib-dev uuid-dev
 
 # Downlod basic get started
 RUN mkdir /opt/kafka/

@@ -4,67 +4,83 @@
 
 1. Complete the steps on [deployment](../README.md) to build the adequate environment for this application.
 
-2. Make sure that the library [`../nvinfer_custom_lpr_parser/libnvdsinfer_custom_impl_lpr.so`](../nvinfer_custom_lpr_parser/libnvdsinfer_custom_impl_lpr.so) is available. That library is useful for parsing the character recognition in a readable format. If that library is not available, please run the Makefile into the folder [./nvinfer_custom_lpr_parser/](./nvinfer_custom_lpr_parser/) for compiling the library.
+2. Make sure that the library [`../nvinfer_custom_lpr_parser/libnvdsinfer_custom_impl_lpr.so`](../nvinfer_custom_lpr_parser/libnvdsinfer_custom_impl_lpr.so) is available. That library is useful for parsing the character recognition in a readable format. If that library is not available, please run the Makefile into the folder [`../nvinfer_custom_lpr_parser/`](../nvinfer_custom_lpr_parser/) for compiling the library.
 
     ```console
-    cd nvinfer_custom_lpr_parser
-    make
-    cd ..
+    cd ../nvinfer_custom_lpr_parser/ && make && cd ../deepstream-main/
     ```
 
 ## Running steps
 
-2. Run the deepstream app into the docker container by running the scrip [run_deepstream.sh](./run_deepstream.sh). Check the bash script for more details.
+1. Run the Docker container by running the scrip [`../run_docker_ds.sh`](../run_docker_ds.sh). Check the Bash script for more details.
 
     ```console
-    bash run_deepstream.sh
+    bash run_docker_ds.sh
     ```
 
-### Docker Build
+2. Navigate into the workspace to `deepstream-main` directory and run the script [`run_deepstream.sh`](run_deepstream.sh). Also, you can check the Bash script for more details, where the `main.py` script is called adding the `configs/global_config.cfg` as the default configuration file. 
 
-### Running App
+    ```console
+    cd deepstream-main/ && bash run_deepstream.sh
+    ```
 
-  $ python3 deepstream_test_3.py <uri1> [uri2] ... [uriN]
-e.g.
-  $ python3 deepstream_test_3.py file:///home/ubuntu/video1.mp4 file:///home/ubuntu/video2.mp4
-  $ python3 deepstream_test_3.py rtsp://127.0.0.1/video1 rtsp://127.0.0.1/video2
+## Structure
+![DeepStream Main diagram](img/diagram.png "DeepStream Main app comunication")
 
-This document describes the sample deepstream-test3 application.
+## Explanation
 
-This sample builds on top of the deepstream-test1 sample to demonstrate how to:
+The application is formed by three scripts and a configuration file: 
+- `main.py` inherits the `Pipeline` class from `common/pipeline.py`, modifies the functions `__init__`, `create_pipeline()` and `run_main_loop()`.
+- `globals.py` contains the global variables for the app.
+- `probes.py` contains specific functions to handle metadata.
+- `configs/global_config.cfg` contains information about the sources, streammux, detection models, tiler and sink. This file communicates with `../configs/` directory, which contains the configuration for all detection models. It should be noted that the config file `lprnet_sgie2_config.txt` set the usage of a compiled library from C++ called `../nvinfer_custom_lpr_parser/libnvdsinfer_custom_impl_lpr.so` and the function `NvDsInferParseCustomNVPlate`.
 
-* Use multiple sources in the pipeline.
-* Use a uridecodebin so that any type of input (e.g. RTSP/File), any GStreamer
-  supported container format, and any codec can be used as input.
-* Configure the stream-muxer to generate a batch of frames and infer on the
-  batch for better resource utilization.
-* Extract the stream metadata, which contains useful information about the
-  frames in the batched buffer.
+### main.py
 
-Refer to the deepstream-test1 sample documentation for an example of simple
-single-stream inference, bounding-box overlay, and rendering.
+In order to create a new application based on `Pipeline` class we have to modify three methods on `MainDeepStreamPipeline`: `__init__`, `create_pipeline()` and `run_main_loop()`.
 
-This sample accepts one or more H.264/H.265 video streams as input. It creates
-a source bin for each input and connects the bins to an instance of the
-"nvstreammux" element, which forms the batch of frames. The batch of
-frames is fed to "nvinfer" for batched inferencing. The batched buffer is
-composited into a 2D tile array using "nvmultistreamtiler." The rest of the
-pipeline is similar to the deepstream-test1 sample.
+#### Imports
 
-The "width" and "height" properties must be set on the stream-muxer to set the
-output resolution. If the input frame resolution is different from
-stream-muxer's "width" and "height", the input frame will be scaled to muxer's
-output resolution.
+The following packages are imported in the `main.py`.
 
-The stream-muxer waits for a user-defined timeout before forming the batch. The
-timeout is set using the "batched-push-timeout" property. If the complete batch
-is formed before the timeout is reached, the batch is pushed to the downstream
-element. If the timeout is reached before the complete batch can be formed
-(which can happen in case of rtsp sources), the batch is formed from the
-available input buffers and pushed. Ideally, the timeout of the stream-muxer
-should be set based on the framerate of the fastest source. It can also be set
-to -1 to make the stream-muxer wait infinitely.
+There are four packages from `common` directory:
 
-The "nvmultistreamtiler" composite streams based on their stream-ids in
-row-major order (starting from stream 0, left to right across the top row, then
-across the next row, etc.).
+- `bus_call` streams message.
+- `FPS` handles the frame streamming.
+- `is_aarch_64` detects the ARM 64-bits architecture.
+- `pipeline` inherits as parent to app pipelines.
+
+There is a installed package from repositories:
+
+- `coloredlogs` — Colored terminal output for Python's logging module.
+
+Also, this app uses built-in packages:
+
+- `argparse` — Parser for command-line options, arguments and sub-commands.
+- `ctypes` — A foreign function library for Python.
+- `gi` — Pure Python GObject Introspection Bindings.
+- `logging` — Logging facility for Python.
+- `sys` — System-specific parameters and functions.
+
+#### Initialization (__init__)
+
+`main.py` contains the class `MainDeepStreamPipeline`, which inherits the `Pipeline` class from `pipeline` package in order to use their methods to create pluggins and other util functions.
+
+1. Use `super().__init__(*args, **kw)` to read the config file `configs/global_config.cfg`.
+2. Check the configured output type: only RTSP protocol or MP4 format. Note that the reading of the configuration file is done from the parent class.
+3. Execute `create_pipeline()`.
+
+#### create_pipeline(self)
+
+The function consists in the following steps:
+
+1. Assign FPS per each configured camera using `FPS_STREAMS`, a global variable in the `globals.py` file.
+2. Initialize the GObject using `GObject.threads_init()`, `Gst.init(None)` and `Gst.Pipeline()`.
+3. As the class is based on `Pipeline`, the app uses their methods to create each element/plugin. In order to do that, we mostly used the following lines: `self._create_<plugin_name>(<parameters>)`. For a detailed view, please check the methods on [`../common/pipeline.py`](../common/pipeline.py) or [`../common/README.md`](../common/README.md).
+4. Adding elements to `self.pipeline`.
+5. Linking elements through list iterations using the `Pipeline` class too.
+6. If necessary, add probes using the function `self.set_probe(plugin, pad_type, function, plugin_name)`. Note that the function attributes must be defined in `probes.py`.
+
+### Probes
+
+`probes.py` to get metadata information.

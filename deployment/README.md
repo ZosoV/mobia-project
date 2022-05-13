@@ -6,7 +6,9 @@ The main pipeline for the Mobia project is built in the following files. The mai
 2. A secondary detector, known as **LPDNet**, which detects a **license plate** in the region of interest built on the previous detection.
 3. Another secondary detector, known as **LPRNet**, is applied on the previous license plate detection to recognize the **characters**.
 
-Note: there are other components in the pipeline, but they will be explained later.
+Note: there are other components in the pipeline, but they are explained on [common/README.md](common/README.md).
+
+The DeepStream version used in this repository is the 6.0.1.
 
 ## Build the environment
 
@@ -47,14 +49,29 @@ deployment
 |   ├── pipeline.py     -> Inheritance pipeline mold
 |   └── utils.py        -> Unsigned int codification
 ├── configs
-|   ├── dstest2_sgie1_config.txt    -> Testing secondary detector
-|   ├── dstest3_pgie_config.txt     -> Testing primary detector
 |   ├── general_tracker_config.txt  -> Tracker
 |   ├── lpdnet_sgie1_config.txt     -> LPDNet
 |   ├── lprnet_sgie2_config.txt     -> LPRNet
 |   ├── tcnet_pgie_config.txt       -> TrafficCamNet
 |   └── tracker_config.yml          -> Tracker complement
-├── data
+├── data    -> Model information
+|   ├── pgies/tcnet -> Primary detector
+|   |   ├── labels.txt
+|   |   ├── resnet18_trafficcamnet_pruned.etlt
+|   |   ├── resnet18_trafficcamnet_pruned.etlt_b1_gpu0_int8.engine
+|   |   ├── resnet18_trafficcamnet_pruned.etlt_b2_gpu0_int8.engine
+|   |   └── trafficcamnet_int8.txt
+|   ├── sgies -> Secondary detectors
+|   |   ├── lpdnet
+|   |   |   ├── usa_lpd_cal_dla.bin
+|   |   |   ├── usa_lpd_label.txt
+|   |   |   ├── usa_pruned.etlt
+|   |   |   └── usa_pruned.etlt_b16_gpu0_int8.engine
+|   |   ├── lprnet
+|   |   |   ├── us_lp_characters.txt
+|   |   |   ├── us_lprnet_baseline18_deployable.etlt
+|   |   |   └── us_lprnet_baseline18_deployable.etlt_b16_gpu0_fp16.engine
+|   ├── videos
 |   └── download_base_models.sh -> Bash script to download detection models
 ├── deepstream-main
 |   ├── configs
@@ -105,12 +122,13 @@ deployment
 
 ## DeepStream Applications
 
-There are two DeepStream applications in this project.
+We create a class [`Pipeline`](common/pipeline.py) to facilitate the creation of a new DeepStream application easily. To create a new application we need:
 
-1. The first application [deepstream-main](./deepstream-main/) is the main deployment
-2. The second application [deepstream-msg2kafka](./deepstream-msg2kafka/) is an application under development for analytica.
+1. Instantiate a new class `NewPipeline` and inherit our class `Pipeline`.
+2. Update two methods: `create_pipeline` and `run_main_loop`, according to specifications.
+ 
+In the following, there are three DeepStream applications that we create on this project.
+
+1. The first application [deepstream-main](./deepstream-main/) is the main deployment, **the base model**.
+2. The second application [deepstream-msg2kafka](./deepstream-msg2kafka/) is an application to allow us to take the metadata, convert it into payload message and send to a Kafka broker.
 3. The third application [deepstream-video2data](./deepstream-video2data/) is an util application to extract frames from videos, where there are correct detections.
-
-## Pipeline Architecture
-
-_Pass_

@@ -107,6 +107,11 @@ gchar* generate_event_message (void *privData, NvDsEventMsgMeta *meta);
 gchar* generate_event_message_minimal (void *privData, NvDsEvent *events, guint size);
 gchar* generate_dsmeta_message (void *privData, void *frameMeta, void *objMeta);
 gchar* generate_dsmeta_message_minimal (void *privData, void *frameMeta);
+
+// Adding Custom function to create Json messages
+gchar* generate_custom_event_message (void *privData, NvDsEventMsgMeta *meta);
+// gchar* generate_custom_event_message_minimal (void *privData, NvDsEvent *events, guint size);
+
 void *create_deepstream_schema_ctx();
 void destroy_deepstream_schema_ctx(void *privData);
 bool nvds_msg2p_parse_key_value (void *privData, const gchar *file);

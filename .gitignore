@@ -1,6 +1,7 @@
 
 .ipynb_checkpoints
 __pycache__
+.vscode/
 # training ignore files
 
 # detectnet_v2
@@ -37,6 +38,11 @@ training/base_models.zip
 
 
 # deployment
+
+# ignoring custom bindings
+deployment/pyds_custom/pyds_custom.so
+deployment/pyds_custom/build/
+
 # ignoring configs, data and custom parser
 deployment/data/pgies/
 deployment/data/sgies/
@@ -52,3 +58,4 @@ deployment/deepstream-video2data/output/
 
 # ignoring folder/files from deepstream-msg2kafka
 deployment/deepstream-msg2kafka/kafka_*
+deployment/deepstream-msg2kafka/nvmsgconv/libnvds_msgconv_custom.so

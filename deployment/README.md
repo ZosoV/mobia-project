@@ -31,6 +31,14 @@ We followed the steps below to build this project on Jetson Xavier NX with JetPa
 
     *Note*: There are some volumes that must be added if you want to connect your display to see the video frames on the same computer.
 
+## Explanation
+
+¿Qué es todo esto?
+
+### Pipeline Architecture
+
+Inside [`common`](common) directory we can find the [`pipeline.py`](common/pipeline.py) package, which contains at once the `Pipeline` class. 
+
 ## Directory Structure
 
 ```
@@ -56,6 +64,10 @@ deployment
 |   └── tracker_config.yml          -> Tracker complement
 ├── data
 |   └── download_base_models.sh -> Bash script to download detection models
+tcnet
+lpd
+lpr
+videos
 ├── deepstream-main
 |   ├── configs
 |   |   └── global_config.cfg   -> App configuration
@@ -110,7 +122,3 @@ There are two DeepStream applications in this project.
 1. The first application [deepstream-main](./deepstream-main/) is the main deployment
 2. The second application [deepstream-msg2kafka](./deepstream-msg2kafka/) is an application under development for analytica.
 3. The third application [deepstream-video2data](./deepstream-video2data/) is an util application to extract frames from videos, where there are correct detections.
-
-## Pipeline Architecture
-
-_Pass_

@@ -60,6 +60,8 @@ deployment/deepstream-video2data/output/
 deployment/deepstream-msg2kafka/kafka_*
 deployment/deepstream-msg2kafka/nvmsgconv/libnvds_msgconv_custom.so
 
+# SVG diagrams
+deployment/img/
 
 # preparation
 

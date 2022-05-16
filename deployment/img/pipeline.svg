@@ -1014,9 +1014,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="-99.01495"
-     inkscape:cy="577.68046"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="-402.43549"
+     inkscape:cy="923.76731"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -1043,6 +1043,16 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.42402369;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect6932"
+       width="375.2464"
+       height="222.36823"
+       x="-243.21527"
+       y="-8.7563353"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-343.70294"
        x="-9.559104"

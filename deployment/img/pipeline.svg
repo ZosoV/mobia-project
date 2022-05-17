@@ -1015,8 +1015,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.49497475"
-     inkscape:cx="-402.43549"
-     inkscape:cy="923.76731"
+     inkscape:cx="-9.5122983"
+     inkscape:cy="2082.9478"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -1044,11 +1044,21 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.42402369;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-ydpi="104.64697"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-msg2kafka/img/pipeline.png"
+       y="-394.10306"
+       x="-209.9147"
+       height="297.6369"
+       width="368.14084"
+       id="rect2334"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.48589882;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.41951507;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect6932"
-       width="375.2464"
+       width="367.3089"
        height="222.36823"
-       x="-243.21527"
+       x="-235.27777"
        y="-8.7563353"
        inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
        inkscape:export-xdpi="104.64697"
@@ -1498,7 +1508,7 @@
          y="56.313927"
          x="-13.792719"
          sodipodi:role="line"
-         id="tspan32171">(lpr)</tspan></text>
+         id="tspan32171">(color)</tspan></text>
     <rect
        style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect11275"
@@ -1624,9 +1634,9 @@
          style="font-size:4.23333311px;line-height:1;text-align:center;text-anchor:middle;stroke-width:0.12532605">sgie2</tspan><tspan
          sodipodi:role="line"
          x="-18.854338"
-         y="69.208961"
+         y="69.208954"
          style="font-size:4.23333311px;line-height:1;text-align:center;text-anchor:middle;stroke-width:0.12532605"
-         id="tspan32169">(color)</tspan></text>
+         id="tspan32169">(lpr)</tspan></text>
     <text
        id="text139190"
        y="18.476978"

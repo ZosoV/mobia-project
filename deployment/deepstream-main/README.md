@@ -81,6 +81,9 @@ The function consists in the following steps:
 5. Linking elements through list iterations using the `Pipeline` class too.
 6. If necessary, add probes using the function `self.set_probe(plugin, pad_type, function, plugin_name)`. Note that the function attributes must be defined in `probes.py`.
 
+##### Structure
+![Main pipeline diagram](img/pipeline.png "DeepStream Main pipeline diagram")
+
 ### Probes
 
 `probes.py` to get metadata information.

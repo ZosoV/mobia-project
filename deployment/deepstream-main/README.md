@@ -86,4 +86,25 @@ The function consists in the following steps:
 
 ### Probes
 
-`probes.py` to get metadata information.
+`probes.py` gets metadata information from inference: pgie and sgie. The probe must be attached to a pad on a plugin. In this application, the probe is attached to the sink pad (the input) of the tiler plugin.
+
+#### Extract Metadata with a GStreamer Probe
+
+The `tiler_sink_pad_buffer_probe(pad, info, u_data)` is a callback that executes each time there is new frame data on the sink pad. With this probe, we can extract a snapshot of the metadata coming into the tiler plugin. The metadata structure is shown in the following diagram:
+
+![Metadata Structure Diagram](img/DS_plugin_metadata_720.png "Metadata Structure Diagram")
+
+The `NvDsBatchMeta` is a DeepStream structure with the metadata from the GStreamer buffer and further identifies the `frame_meta_list` to iterate through frames. Each frame is casted to `NvDsFrameMeta` and include object metadata list. In the same way, objects are casted to `NvDsObjectMeta` to access information about classification. 
+
+#### Display Frame Information through MetaData
+
+A `display_meta` object of type `NvDsDisplayMeta` is allocated to be copied later into `frame_meta`.  The text element of `display_meta` is set as the `py_nvosd_text_params` variable, of structure `NvOSD_TextParams`, with the following elements:
+
+- **display_text** – *str*, Holds the text to be overlaid.
+- **x_offset** – *int*, Holds horizontal offset w.r.t top left pixel of the frame.
+- **y_offset** – *int*, Holds vertical offset w.r.t top left pixel of the frame.
+- **font_params** – `NvOSD_FontParams`, Holds the font parameters of the text to be overlaid.
+- **set_bg_clr** – *int*, Boolean to indicate text has background color.
+- **text_bg_clr** – `NvOSD_ColorParams`, Holds the text’s background color, if specified.
+
+The [DeepStream Python API Reference](https://docs.nvidia.com/metropolis/deepstream/python-api/index.html) provides details for all of the metadata structure properties and methods.

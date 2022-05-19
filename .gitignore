@@ -59,4 +59,13 @@ deployment/deepstream-main/output/
 deployment/deepstream-video2data/output/
 
 # ignoring folder/files from deepstream-msg2kafka
-deployment/custom_libraries/nvmsgconv/libnvds_msgconv_custom.so
+deployment/deepstream-msg2kafka/nvmsgconv/libnvds_msgconv_custom.so
+
+# SVG diagrams
+deployment/img/
+
+# preparation
+
+preparation/plates/img/
+preparation/plates/output/
+models

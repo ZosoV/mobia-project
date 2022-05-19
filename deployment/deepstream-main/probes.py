@@ -165,8 +165,12 @@ def tiler_sink_pad_buffer_probe(pad, info, u_data):
         return Gst.PadProbeReturn.OK
     l_frame = batch_meta.frame_meta_list
 
-    obj_counter = 0
-
+    # obj_counter = {
+    #     G.PGIE_CLASS_ID_VEHICLE: 0,
+    #     G.PGIE_CLASS_ID_PERSON: 0,
+    #     G.PGIE_CLASS_ID_BICYCLE: 0,
+    #     G.PGIE_CLASS_ID_ROADSIGN: 0,
+    # }
     while l_frame is not None:
         try:
             # Note that l_frame.data needs a cast to pyds.NvDsFrameMeta
@@ -178,20 +182,23 @@ def tiler_sink_pad_buffer_probe(pad, info, u_data):
         except StopIteration:
             break
 
-        l_obj=frame_meta.obj_meta_list
+        l_obj = frame_meta.obj_meta_list
+        
         while l_obj is not None:
             try:
                 # Casting l_obj.data to pyds.NvDsObjectMeta
                 obj_meta=pyds.NvDsObjectMeta.cast(l_obj.data)
             except StopIteration:
                 break
-            obj_counter = obj_meta.class_id
+            if (obj_meta.obj_label == G.PGIE_CLASS_NAME_VEHICLE and 
+                obj_meta.object_id > G.LAST_ID_CAR):
+                G.COUNTER_CARS["stream{0}".format(frame_meta.pad_index)] += 1
+                G.LAST_ID_CAR = obj_meta.object_id
+                logging.warning(obj_meta.object_id)
             try: 
-                l_obj=l_obj.next
+                l_obj = l_obj.next
             except StopIteration:
                 break
-
-        frame_number = frame_meta.frame_num
 
         # Get frame rate through this probe
         current_fps = G.FPS_STREAMS["stream{0}".format(frame_meta.pad_index)].get_fps()
@@ -199,26 +206,12 @@ def tiler_sink_pad_buffer_probe(pad, info, u_data):
         display_meta = pyds.nvds_acquire_display_meta_from_pool(batch_meta)
         display_meta.num_labels = 1
         py_nvosd_text_params = display_meta.text_params[0]
-        
-        py_nvosd_text_params.display_text = "FPS {:.2f}".format(current_fps)
 
-        py_nvosd_text_params.x_offset = 10
-        py_nvosd_text_params.y_offset = 12
-
-        # Font , font-color and font-size
-        py_nvosd_text_params.font_params.font_name = "Serif"
-        py_nvosd_text_params.font_params.font_size = 10
-        # set(red, green, blue, alpha); set to White
-        py_nvosd_text_params.font_params.font_color.set(1.0, 1.0, 1.0, 1.0)
-
-        # Text background color
-        py_nvosd_text_params.set_bg_clr = 1
-        # set(red, green, blue, alpha); set to Black
-        py_nvosd_text_params.text_bg_clr.set(0.0, 0.0, 0.0, 1.0)
-
-        #----------
-
-        py_nvosd_text_params.display_text = "Total cars {:.2f}".format(obj_counter)
+        # py_nvosd_text_params.display_text = """FPS {:.2f} 
+#Vehicle count={}""".format(current_fps,obj_counter[G.PGIE_CLASS_ID_VEHICLE])
+        py_nvosd_text_params.display_text = """FPS {:.2f} 
+Vehicle count={}""".format(current_fps,
+                           G.COUNTER_CARS["stream{0}".format(frame_meta.pad_index)])
 
         py_nvosd_text_params.x_offset = 100
         py_nvosd_text_params.y_offset = 12

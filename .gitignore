@@ -40,8 +40,8 @@ training/base_models.zip
 # deployment
 
 # ignoring custom bindings
-deployment/pyds_custom/pyds_custom.so
-deployment/pyds_custom/build/
+deployment/custom_libraries/pyds_custom/pyds_custom.so
+deployment/custom_libraries/pyds_custom/build/
 
 # ignoring configs, data and custom parser
 deployment/data/pgies/
@@ -49,6 +49,8 @@ deployment/data/sgies/
 deployment/data/videos/
 deployment/nvinfer_custom_lpr_parser/libnvdsinfer_custom_impl_lpr.so
 
+# Colornet
+models/
 
 # ignoring sample apps
 deployment/deepstream-main/output/
@@ -57,5 +59,4 @@ deployment/deepstream-main/output/
 deployment/deepstream-video2data/output/
 
 # ignoring folder/files from deepstream-msg2kafka
-deployment/deepstream-msg2kafka/kafka_*
-deployment/deepstream-msg2kafka/nvmsgconv/libnvds_msgconv_custom.so
+deployment/custom_libraries/nvmsgconv/libnvds_msgconv_custom.so

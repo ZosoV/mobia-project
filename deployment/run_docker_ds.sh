@@ -9,5 +9,5 @@
 sudo docker run -it --rm --net=host --runtime nvidia  \
         -v /tmp/argus_socket:/tmp/argus_socket \
         -v ~/Documents/mobia-project/deployment:/workspace \
-        --name mobia-dev \
+        --name ${1:-mobia-dev} \
         mobia-deployment:devel

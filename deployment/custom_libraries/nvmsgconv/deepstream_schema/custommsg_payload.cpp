@@ -264,6 +264,7 @@ gchar* generate_custom_event_message (void *privData, NvDsEventMsgMeta *meta)
   json_object_set_string_member (rootObj, "messageid", msgIdStr);
   json_object_set_string_member (rootObj, "mdsversion", "1.0");
   json_object_set_string_member (rootObj, "@timestamp", meta->ts);
+  json_object_set_int_member (rootObj, "frame_id", meta->frameId);
   json_object_set_object_member (rootObj, "sensor", sensorObj);
   json_object_set_object_member (rootObj, "object", objectObj);
   json_object_set_object_member (rootObj, "event", eventObj);

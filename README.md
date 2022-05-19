@@ -1,4 +1,4 @@
-# Automatic License Plate Recognition (Nvidia TAO + Deepstream  Application)
+# Automatic License Plate Recognition (Nvidia TAO + Deepstream  Application + Python Bindings)
 
 **Work In Progress**
 

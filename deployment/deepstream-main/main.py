@@ -51,6 +51,7 @@ class MainDeepstreamPipeline(Pipeline):
         # in the globals.py file
         for i in range(self.number_sources):
             G.FPS_STREAMS["stream{0}".format(i)] = GETFPS(i)
+            G.COUNTER_CARS["stream{0}".format(i)] = 0
 
         # Standard GStreamer initialization
         GObject.threads_init()
@@ -81,11 +82,13 @@ class MainDeepstreamPipeline(Pipeline):
         queue6 = self._create_element("queue", "queue6")
         queue7 = self._create_element("queue", "queue7")
         queue8 = self._create_element("queue", "queue8")
+        queue9 = self._create_element("queue", "queue9")
 
         # Getting configs paths of the models
         pgie_cfg_path = self.config_global.get("models", "pgie_config")
         sgie1_cfg_path = self.config_global.get("models", "sgie1_config")
         sgie2_cfg_path = self.config_global.get("models", "sgie2_config")
+        sgie3_cfg_path = self.config_global.get("models", "sgie3_config")
         tracker_cfg_path = self.config_global.get("models", "tracker_config")
 
         # Create main plugins
@@ -98,6 +101,9 @@ class MainDeepstreamPipeline(Pipeline):
         )
         sgie2 = self._create_sgie(
             name="secondary2-nvinference-engine", config_path=sgie2_cfg_path
+        )
+        sgie3 = self._create_sgie(
+            name="secondary3-nvinference-engine", config_path=sgie3_cfg_path
         )
         nvvidconv = self._create_nvvidconv(name="convertor")
         nvosd = self._create_nvosd()
@@ -134,12 +140,14 @@ class MainDeepstreamPipeline(Pipeline):
             queue4,
             sgie2,
             queue5,
-            tiler,
+            sgie3,
             queue6,
-            nvvidconv,
+            tiler,
             queue7,
-            nvosd,
+            nvvidconv,
             queue8,
+            nvosd,
+            queue9,
             nvvidconv_postosd,
             caps,
             encoder,

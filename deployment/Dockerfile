@@ -69,9 +69,6 @@ RUN cd /opt/nvidia/deepstream/deepstream/sources/ \
 #    && cmake .. 
 # without any flags
 
-# Custom Bindings creation
-RUN pip3 install pybind11
-
 # RTSP and Additional libraries
 RUN apt-get install -y libgstrtspserver-1.0-0 gstreamer1.0-rtsp \
     libgirepository1.0-dev gobject-introspection gir1.2-gst-rtsp-server-1.0
@@ -93,6 +90,13 @@ RUN cd /opt/kafka/ \
     && wget https://dlcdn.apache.org/kafka/3.1.0/kafka_2.13-3.1.0.tgz \
     && tar -xzf kafka_2.13-3.1.0.tgz \
     && rm kafka_2.13-3.1.0.tgz
+
+# Custom Bindings compilation
+RUN pip3 install pybind11
+COPY custom_libraries/ /opt/custom_libraries/
+RUN cd /opt/custom_libraries/pyds_custom/ \
+    && ./build.sh \
+    && python setup.py install
 
 # Setting entry point to run zookeeper and kafka broker
 COPY deepstream-msg2kafka/run_kafka_server.sh /scripts/entrypoint.sh

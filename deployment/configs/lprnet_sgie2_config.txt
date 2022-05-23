@@ -13,7 +13,7 @@ gie-unique-id=3
 #0=Detection 1=Classifier 2=Segmentation
 network-type=1
 parse-classifier-func-name=NvDsInferParseCustomNVPlate
-custom-lib-path=../nvinfer_custom_lpr_parser/libnvdsinfer_custom_impl_lpr.so
+custom-lib-path=../custom_libraries/nvinfer_custom_lpr_parser/libnvdsinfer_custom_impl_lpr.so
 process-mode=2
 operate-on-gie-id=2
 net-scale-factor=0.00392156862745098

@@ -94,7 +94,7 @@ def extract_save_data(frame_meta, gst_buffer, save_labeled_copy, output_folder,
     crops_plates_per_frame = {}
 
     # Each frame_meta is composed of a list of obj_meta
-    # We iterate thourgh this list
+    # We iterate through this list
     l_obj = frame_meta.obj_meta_list
     while l_obj is not None:
         try:

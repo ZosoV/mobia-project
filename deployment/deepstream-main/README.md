@@ -35,7 +35,7 @@ The application is formed by three scripts and a configuration file:
 - `probes.py` contains specific functions to handle metadata.
 - `configs/global_config.cfg` contains information about the sources, streammux, detection models, tiler and sink. This file communicates with `../configs/` directory, which contains the configuration for all detection models. It should be noted that the config file `lprnet_sgie2_config.txt` set the usage of a compiled library from C++ called `../nvinfer_custom_lpr_parser/libnvdsinfer_custom_impl_lpr.so` and the function `NvDsInferParseCustomNVPlate`.
 
-### main.py
+### `main.py`
 
 In order to create a new application based on `Pipeline` class we have to modify three methods on `MainDeepStreamPipeline`: `__init__`, `create_pipeline()` and `run_main_loop()`.
 
@@ -62,7 +62,7 @@ Also, this app uses built-in packages:
 - `logging` — Logging facility for Python.
 - `sys` — System-specific parameters and functions.
 
-#### Initialization (__init__)
+#### Initialization (`__init__`)
 
 `main.py` contains the class `MainDeepStreamPipeline`, which inherits the `Pipeline` class from `pipeline` package in order to use their methods to create pluggins and other util functions.
 
@@ -70,7 +70,7 @@ Also, this app uses built-in packages:
 2. Check the configured output type: only RTSP protocol or MP4 format. Note that the reading of the configuration file is done from the parent class.
 3. Execute `create_pipeline()`.
 
-#### create_pipeline(self)
+#### `create_pipeline(self)`
 
 The function consists in the following steps:
 
@@ -79,12 +79,12 @@ The function consists in the following steps:
 3. As the class is based on `Pipeline`, the app uses their methods to create each element/plugin. In order to do that, we mostly used the following lines: `self._create_<plugin_name>(<parameters>)`. For a detailed view, please check the methods on [`../common/pipeline.py`](../common/pipeline.py) or [`../common/README.md`](../common/README.md).
 4. Adding elements to `self.pipeline`.
 5. Linking elements through list iterations using the `Pipeline` class too.
-6. If necessary, add probes using the function `self.set_probe(plugin, pad_type, function, plugin_name)`. Note that the function attributes must be defined in `probes.py`.
+6. If necessary, add probes using the function `self.set_probe(plugin, pad_type, function, plugin_name)`. Note that the `function` attribute must be defined in `probes.py`.
 
 ##### Structure
 ![Main pipeline diagram](img/pipeline.png "DeepStream Main pipeline diagram")
 
-### Probes
+### `probes.py`
 
 `probes.py` gets metadata information from inference: pgie and sgie. The probe must be attached to a pad on a plugin. In this application, the probe is attached to the sink pad (the input) of the tiler plugin.
 

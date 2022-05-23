@@ -180,19 +180,8 @@ class Video2DataPipeline(Pipeline):
             queue9,
             nvosd,
             queue10,
+            sink
             ]
-
-        # RTSP sink
-        if self.sink_type == 0:
-            plugins += [nvvidconv_postosd,
-                                caps,
-                                encoder,
-                                rtppay, 
-                                sink]
-
-        # Fake sink
-        if self.sink_type == 2:
-            plugins += [sink]
 
         print("Adding elements to Pipeline \n")
         for plugin in plugins[1:]:

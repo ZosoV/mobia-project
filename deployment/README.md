@@ -33,6 +33,19 @@ We followed the steps below to build this project on Jetson Xavier NX with JetPa
 
     *Note*: There are some volumes that must be added if you want to connect your display to see the video frames on the same computer.
 
+## DeepStream Applications
+
+We create a class [`Pipeline`](common/pipeline.py) to facilitate the creation of a new DeepStream application easily. To create a new application we need:
+
+1. Instantiate a new class `NewPipeline` and inherit our class `Pipeline`.
+2. Update two methods: `create_pipeline` and `run_main_loop`, according to specifications.
+ 
+In the following, there are three DeepStream applications that we create on this project.
+
+1. The first application [deepstream-main](./deepstream-main/) is the main deployment, **the base model**.
+2. The second application [deepstream-msg2kafka](./deepstream-msg2kafka/) is an application to allow us to take the metadata, convert it into payload message and send to a Kafka broker.
+3. The third application [deepstream-video2data](./deepstream-video2data/) is an util application to extract frames from videos, where there are correct detections.
+
 ## Directory Structure
 
 ```
@@ -120,15 +133,4 @@ deployment
     └── nvinfer_custom_lpr_parser.cpp   -> Character processing
 ```
 
-## DeepStream Applications
 
-We create a class [`Pipeline`](common/pipeline.py) to facilitate the creation of a new DeepStream application easily. To create a new application we need:
-
-1. Instantiate a new class `NewPipeline` and inherit our class `Pipeline`.
-2. Update two methods: `create_pipeline` and `run_main_loop`, according to specifications.
- 
-In the following, there are three DeepStream applications that we create on this project.
-
-1. The first application [deepstream-main](./deepstream-main/) is the main deployment, **the base model**.
-2. The second application [deepstream-msg2kafka](./deepstream-msg2kafka/) is an application to allow us to take the metadata, convert it into payload message and send to a Kafka broker.
-3. The third application [deepstream-video2data](./deepstream-video2data/) is an util application to extract frames from videos, where there are correct detections.

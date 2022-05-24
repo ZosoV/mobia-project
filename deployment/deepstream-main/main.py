@@ -35,13 +35,8 @@ from common.pipeline import Pipeline
 class MainDeepstreamPipeline(Pipeline):
     def __init__(self,  *args, **kw):
         super().__init__(*args, **kw)
-
-        # Get the sink type
-        # Types-> RTSP: 0, MP4: 1, FakeSink: 2
-        self.sink_type = self.config_global.getint("sink", "type")
-        if self.sink_type != 0 and self.sink_type != 1:
-            sys.stderr.write(f"This app only accepts rtsp or mp4 sinks. Check {kw['path_config_global']} \n" )
-            sys.exit(1)
+        # TODO: Check for all the sections in the config file about sink types
+        # accepted values using for loop
 
         self.create_pipeline()
 
@@ -107,21 +102,41 @@ class MainDeepstreamPipeline(Pipeline):
         )
         nvvidconv = self._create_nvvidconv(name="convertor")
         nvosd = self._create_nvosd()
-        nvvidconv_postosd = self._create_nvvidconv(name="convertor_postosd")
-        caps = self._create_capsfilter(filter_type="I420")
-        encoder = self._create_nvv4l2h264enc()
         
-        # For RTSP Sink
-        if self.sink_type == 0:
-            rtppay = self._create_rtppay()
-        
-        # For MP4 Sink
-        if self.sink_type == 1:
+        # Tee
+        tee = self._create_tee()
+
+        # Plugins to send msg to Kafka (branch 1)
+        if self.config_global.getint("nvmsgconv", "enable"):
+            # Plugins
+            queue_tee_kafka = self._create_element("queue", "nvtee-que_kafka")
+            msgconv = self._create_msgconv()
+            msgbroker = self._create_msgbroker()
+
+        # For RTSP Sink (branch 2)
+        if self.config_global.getint("sink_rtsp", "enable"):
+            config_section = "sink_rtsp"
+            # Plugins
+            queue_tee_rtsp = self._create_element("queue", "nvtee-que_rtsp")
+            nvvidconv_postosd_rtsp = self._create_nvvidconv(name="convertor_postosd_rtsp")
+            caps_rtsp = self._create_capsfilter(filter_type="I420",name="filter_rtsp")
+            encoder_rtsp = self._create_nvv4l2h264enc(config_section,name="rtsp")
+            rtppay = self._create_rtppay(config_section)
+            sink_rtsp = self._create_sink(G.SINK_TYPES["rtsp"], config_section)
+
+        # For MP4 Sink (branch 3)
+        if self.config_global.getint("sink_mp4", "enable"):
+            config_section = "sink_mp4"
+            # Plugins
+            queue_tee_mp4 = self._create_element("queue", "nvtee-que_mp4")
+            nvvidconv_postosd_mp4 = self._create_nvvidconv(name="convertor_postosd_mp4")
+            caps_mp4 = self._create_capsfilter(filter_type="I420",name="filter_mp4")
+            encoder_mp4 = self._create_nvv4l2h264enc(config_section,name="mp4")
             codecparse = self._create_h264parse()
             mux = self._create_mux()
-        
-        # Output
-        sink = self._create_sink(sink_type = self.sink_type)
+            sink_mp4 = self._create_sink(G.SINK_TYPES["mp4"], config_section)
+
+        # TODO: Fake sink
 
         # TODO: Revisar si se puede incluir en la funcion de configuracion
         if self.is_live:
@@ -148,20 +163,8 @@ class MainDeepstreamPipeline(Pipeline):
             queue8,
             nvosd,
             queue9,
-            nvvidconv_postosd,
-            caps,
-            encoder,
+            tee
         ]
-
-        # RTSP sink
-        if self.sink_type == 0:
-            temp_list = [rtppay, sink]
-        
-        # MP4 sink
-        elif self.sink_type == 1:
-            temp_list = [codecparse, mux, sink]
-
-        plugins = plugins + temp_list
 
         logging.info("Adding elements to Pipeline \n")
         for plugin in plugins[1:]:
@@ -173,6 +176,56 @@ class MainDeepstreamPipeline(Pipeline):
             logging.info(f"Linking {plugins[i].name} --> {plugins[i+1].name}")
             plugins[i].link(plugins[i + 1])
 
+        def connect_branch(branch):
+            
+            # Adding the plugins in the branch
+            for plugin in branch:
+                logging.info(f"Adding plugin: {plugin.name}")
+                self.pipeline.add(plugin)        
+            
+            # Linking the plugins in the branch
+            for i in range(len(branch) - 1):
+                logging.info(f"Linking {branch[i].name} --> {branch[i+1].name}")
+                branch[i].link(branch[i + 1])
+
+            # Connect tee to the branch
+            tee_pad = tee.get_request_pad("src_%u")
+            if not tee_pad:
+                logging.error("Unable to get request pad")
+            sink_pad = branch[0].get_static_pad("sink")
+            tee_pad.link(sink_pad)
+
+        # Kafka
+        if self.config_global.getint("nvmsgconv", "enable"):
+            kafka_branch = [queue_tee_kafka,
+                            msgconv,
+                            msgbroker]
+            
+            connect_branch(kafka_branch)
+
+        # RTSP sink
+        if self.config_global.getint("sink_rtsp", "enable"):
+            rtsp_branch = [queue_tee_rtsp,
+                           nvvidconv_postosd_rtsp,
+                           caps_rtsp,
+                           encoder_rtsp,
+                           rtppay,
+                           sink_rtsp]
+
+            connect_branch(rtsp_branch)
+            
+        # MP4 sink
+        if self.config_global.getint("sink_mp4", "enable"):
+            mp4_branch = [queue_tee_mp4,
+                          nvvidconv_postosd_mp4,
+                          caps_mp4,
+                          encoder_mp4,
+                          codecparse,
+                          mux,
+                          sink_mp4]
+
+            connect_branch(mp4_branch)
+
         # TODO: You can add probe callbacks here
 
         # Example to display classes counter per frame
@@ -181,10 +234,17 @@ class MainDeepstreamPipeline(Pipeline):
         #                function = probes.tiler_src_pad_buffer_probe, 
         #                plugin_name = "tiler")        
         
-        # Probe to display FPS per frame
+        # # Probe to display FPS per frame
+        # self.set_probe(plugin = tiler, 
+        #                pad_type = "sink", 
+        #                function = probes.tiler_sink_pad_buffer_probe, 
+        #                plugin_name = "tiler")
+
+        # Loading specific attributes for this probe
+        nvmsgconv_attribs = dict(self.config_global["nvmsgconv"])
         self.set_probe(plugin = tiler, 
                        pad_type = "sink", 
-                       function = probes.tiler_sink_pad_buffer_probe, 
+                       function = probes.send_kafka_msg_probe(nvmsgconv_attribs), 
                        plugin_name = "tiler")
 
 
@@ -198,11 +258,11 @@ class MainDeepstreamPipeline(Pipeline):
 
         # -----------------RTSP-----------------
         # Start streaming
-        if self.sink_type == 0:
-            codec = self.config_global.get("sink", "codec")
-            rtsp_port_num = self.config_global.getint("sink", "rtsp_port_num")
+        if self.config_global.getint("sink_rtsp", "enable"):
+            codec = self.config_global.get("sink_rtsp", "codec")
+            rtsp_port_num = self.config_global.getint("sink_rtsp", "rtsp_port_num")
             updsink_port_num = self.config_global.getint(
-                "sink", "updsink_port_num"
+                "sink_rtsp", "updsink_port_num"
             )
 
             server = GstRtspServer.RTSPServer.new()

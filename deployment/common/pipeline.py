@@ -195,26 +195,26 @@ class Pipeline:
     def _create_nvosd(self):
         return self._create_element("nvdsosd", "onscreendisplay")
 
-    def _create_capsfilter(self, filter_type):
+    def _create_capsfilter(self, filter_type, name="filter"):
         # filter_type: I420 or RGBA
         str_line = f"video/x-raw(memory:NVMM), format={filter_type}"
         filter_type = Gst.Caps.from_string(str_line)
 
         # Create plugin and set properties
-        caps = self._create_element("capsfilter", "filter")
+        caps = self._create_element("capsfilter", name)
         caps.set_property("caps", filter_type)
         return caps
 
-    def _create_nvv4l2h264enc(self):
+    def _create_nvv4l2h264enc(self, config_section="sink", name=""):
         # Load attributes from global config file
-        codec = self.config_global.get("sink", "codec")
-        bitrate = self.config_global.getint("sink", "bitrate")
+        codec = self.config_global.get(config_section, "codec")
+        bitrate = self.config_global.getint(config_section, "bitrate")
 
         # Create plugin and set properties
         if codec == "H264":
-            encoder = self._create_element("nvv4l2h264enc", "encoder H264")
+            encoder = self._create_element("nvv4l2h264enc", f"encoder H264_{name}")
         elif codec == "H265":
-            encoder = self._create_element("nvv4l2h265enc", "encoder H265")
+            encoder = self._create_element("nvv4l2h265enc", f"encoder H265_{name}")
 
         encoder.set_property("bitrate", bitrate)
         if is_aarch64():
@@ -224,9 +224,9 @@ class Pipeline:
 
         return encoder
 
-    def _create_rtppay(self):
+    def _create_rtppay(self, config_section="sink"):
         # Load attributes from global config file
-        codec = self.config_global.get("sink", "codec")
+        codec = self.config_global.get(config_section, "codec")
 
         # Make the payload-encode video into RTP packets
         if codec == "H264":
@@ -242,14 +242,14 @@ class Pipeline:
     def _create_mux(self):
         return self._create_element("mp4mux", "mux")
 
-    def _create_sink(self, sink_type=0):
+    def _create_sink(self, sink_type=0, config_section="sink"):
 
         # Check type of sink
         # Types-> RTSP: 0, MP4: 1, FakeSink: 2
         if sink_type == 0:
             # Load attributes from global config file
             updsink_port_num = self.config_global.getint(
-                "sink", "updsink_port_num"
+                config_section, "updsink_port_num"
             )
 
             # Create plugin and set properties
@@ -263,7 +263,7 @@ class Pipeline:
         
         # MP4 Sink
         elif sink_type == 1:
-            output_file = self.config_global.get("sink", "output_file")
+            output_file = self.config_global.get(config_section, "output_file")
             sink = self._create_element("filesink", "filesink")
             sink.set_property('location', output_file)
 

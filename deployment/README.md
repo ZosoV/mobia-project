@@ -1,6 +1,6 @@
 # Deployment
 
-The main pipeline for the Mobia project is built in the following files. The main components are three Artificial Intelligence models, which are cascaded as follows:
+The main pipeline for the Mobia project is built in the following files. The main components are three Deep Learning models, which are introduced in a pipeline in a cascade style:
 
 1. A primary detector, known as **TrafficCamNet**, which detects **cars** in a video (streaming or stored).
 2. A secondary detector, known as **LPDNet**, which detects a **license plate** in the region of interest built on the previous detection.

@@ -23,3 +23,13 @@ REVERSE_CLASS_MAPPING = {
     0 : PGIE_CLASS_NAME_CAR,
     1 : SGIE_CLASS_NAME_LPD
 }
+
+DEFAULT_ATTRIBUTES = {
+    "color" : "None",
+    "license" : "None",
+    "region" : "None",
+    "lprnet_confidence" : 0.0,
+    "lpdnet_confidence" : 0.0,
+    "colornet_confidence" : 0.0,
+    "lpd_bbox" : [0, 0, 0, 0]
+}

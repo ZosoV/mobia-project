@@ -20,7 +20,15 @@ enable=1
 type=Camera
 id=0
 location=45.293701447;-75.8303914499;48.1557479338
-description="Camera Test"
+description="Camera Test 0"
+coordinate=5.2;10.1;11.2
+
+[sensor1]
+enable=1
+type=Camera
+id=1
+location=45.293701447;-75.8303914499;48.1557479338
+description="Camera Test 1"
 coordinate=5.2;10.1;11.2
 
 [place0]

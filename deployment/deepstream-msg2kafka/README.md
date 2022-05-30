@@ -39,7 +39,7 @@ object to buffer as metadata.
 2. Make sure that the library [`../custom_libraries/nvinfer_custom_lpr_parser/libnvdsinfer_custom_impl_lpr.so`](../custom_libraries/nvinfer_custom_lpr_parser/libnvdsinfer_custom_impl_lpr.so) is available. That library is useful for parsing the character recognition in a readable format. If that library is not available, please run the Makefile into the folder [`../custom_libraries/nvinfer_custom_lpr_parser/`](../custom_libraries/nvinfer_custom_lpr_parser/) for compiling the library.
 
     ```console
-    cd ../nvinfer_custom_lpr_parser/ && make && cd ../deepstream-main/
+    cd ../custom_libraries/nvinfer_custom_lpr_parser/ && make && cd ../deepstream-msg2kafka/
     ```
 ## Dependencies
 
@@ -61,13 +61,13 @@ object to buffer as metadata.
     bash run_docker_ds.sh
     ```
 
-2. For this application, we need a way to see if the application is sending messages to Kafka. In this way, we will use a custom consumer that reads messages from the topic `deepstream-msg2kafka`. To execute the consumer locally, we need to open the current container in other terminal and run the script `run_consumer.sh`.
+2. For this application, we need a way to see if the application is sending messages to Kafka. In this way, we will use a custom consumer that reads messages from the topic `quickstart-events`. To execute the consumer locally, we need to open the current container in other terminal and run the script `run_consumer.sh`.
 
     ```console
     docker exec -it mobia-dev /bin/bash
     bash deepstream-msg2kafka/run_consumer.sh
     ```
-    Note that here, we need to point the consumer into a Kafka broker that is already running. We don't need to run the broker here because these steps are already set into the [Dockerfile](../Dockerfile) in the section ENTRYPOINT.
+    Note that here, we need to point the consumer into a Kafka broker that is already running. However, in this example, we don't need to run the broker locally again because these steps are already set into the [Dockerfile](../Dockerfile) in the section ENTRYPOINT.
 
 3. Navigate into the workspace to `deepstream-msg2kafka` directory and run the script [`run_deepstream.sh`](run_deepstream.sh). Also, you can check the Bash script for more details, where the `main.py` script is called adding the `configs/global_config.cfg` as the default configuration file. 
 
@@ -81,7 +81,7 @@ object to buffer as metadata.
     $ cat /opt/nvidia/deepstream/deepstream/sources/tools/nvds_logger/README
     ```
 
-## Configuration file
+## Configuration File
 
 This application contains some additional configuration for sending message to a Kafka broker. Specifically, we add two sections on [./configs/global_config.cfg](./configs/global_config.cfg). These section controls the configuration properties for two additional plugins  `nvmsgconv` and `nvmsgbroker`.
 

@@ -24,6 +24,306 @@
        orient="auto"
        refY="0"
        refX="0"
+       id="marker12013"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path12011"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker11463"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lend">
+      <path
+         inkscape:connector-curvature="0"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path11461" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker10919"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path10917"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker10381"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path10379"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker9843"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path9841"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker9317"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path9315"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker8797"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path8795"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker8283"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path8281"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker7763"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lend">
+      <path
+         inkscape:connector-curvature="0"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path7761" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker7249"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lend">
+      <path
+         inkscape:connector-curvature="0"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path7247" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker6753"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lend">
+      <path
+         inkscape:connector-curvature="0"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path6751" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker6263"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lend">
+      <path
+         inkscape:connector-curvature="0"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path6261" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker5779"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lend">
+      <path
+         inkscape:connector-curvature="0"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path5777" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker5301"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path5299"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker4829"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4827"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker4363"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lend">
+      <path
+         inkscape:connector-curvature="0"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path4361" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker3903"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lend">
+      <path
+         inkscape:connector-curvature="0"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path3901" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker3449"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3447"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker3001"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lend">
+      <path
+         inkscape:connector-curvature="0"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path2999" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker2559"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path2557"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
        id="marker9230"
        style="overflow:visible"
        inkscape:isstock="true">
@@ -136,7 +436,7 @@
       <path
          id="path2456"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:1.00000003pt;stroke-opacity:1"
          transform="matrix(-0.8,0,0,-0.8,-10,0)"
          inkscape:connector-curvature="0" />
     </marker>
@@ -151,7 +451,7 @@
       <path
          id="path2452"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:1.00000003pt;stroke-opacity:1"
          transform="matrix(-0.8,0,0,-0.8,-10,0)"
          inkscape:connector-curvature="0" />
     </marker>
@@ -166,7 +466,7 @@
       <path
          inkscape:connector-curvature="0"
          transform="matrix(-0.8,0,0,-0.8,-10,0)"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:1.00000003pt;stroke-opacity:1"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
          id="path2448" />
     </marker>
@@ -196,7 +496,7 @@
       <path
          id="path2436"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:1.00000003pt;stroke-opacity:1"
          transform="matrix(-0.8,0,0,-0.8,-10,0)"
          inkscape:connector-curvature="0" />
     </marker>
@@ -211,7 +511,7 @@
       <path
          id="path2417"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:1.00000003pt;stroke-opacity:1"
          transform="matrix(-0.8,0,0,-0.8,-10,0)"
          inkscape:connector-curvature="0" />
     </marker>
@@ -226,7 +526,7 @@
       <path
          inkscape:connector-curvature="0"
          transform="matrix(-0.8,0,0,-0.8,-10,0)"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:1.00000003pt;stroke-opacity:1"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
          id="path2411" />
     </marker>
@@ -315,7 +615,8 @@
        refX="0"
        id="marker30951"
        style="overflow:visible"
-       inkscape:isstock="true">
+       inkscape:isstock="true"
+       inkscape:collect="always">
       <path
          id="path30949"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
@@ -330,7 +631,8 @@
        refX="0"
        id="marker30455"
        style="overflow:visible"
-       inkscape:isstock="true">
+       inkscape:isstock="true"
+       inkscape:collect="always">
       <path
          id="path30453"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
@@ -1122,11 +1424,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="2192.9508"
-     inkscape:cy="948.51394"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="-200.00491"
+     inkscape:cy="2101.8788"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer2"
+     inkscape:current-layer="layer4"
      showgrid="false"
      inkscape:window-width="1920"
      inkscape:window-height="1023"
@@ -1134,7 +1436,8 @@
      inkscape:window-y="27"
      inkscape:window-maximized="1"
      showborder="false"
-     showguides="false" />
+     showguides="false"
+     inkscape:pagecheckerboard="true" />
   <metadata
      id="metadata4689">
     <rdf:RDF>
@@ -1143,7 +1446,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -3224,49 +3527,54 @@
      inkscape:label="msg2kafka"
      style="display:inline">
     <rect
-       inkscape:export-ydpi="104.64697"
-       inkscape:export-xdpi="104.64697"
-       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-msg2kafka/img/pipeline.png"
-       y="-394.10306"
-       x="-209.9147"
-       height="297.6369"
-       width="368.14084"
-       id="rect2334"
-       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.48589882;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    <rect
        y="-343.70294"
        x="-9.559104"
        height="48.813591"
        width="37.232479"
        id="rect1925"
-       style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-362.29196"
        x="-9.809104"
        height="15.320202"
        width="37.223782"
        id="rect1927"
-       style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-339.54932"
        x="1.7588893"
        height="15.521203"
        width="23.759256"
        id="rect1929"
-       style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect1931"
        width="23.759256"
        height="15.521203"
        x="-2.9776218"
-       y="-326.84402" />
+       y="-326.84402"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
        x="13.693307"
        y="-334.54001"
-       id="text1937"><tspan
+       id="text1937"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          id="tspan1933"
          sodipodi:role="line"
          x="13.693307"
@@ -3283,13 +3591,19 @@
        height="15.450311"
        width="23.860006"
        id="rect1939"
-       style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <text
        id="text1945"
        y="-321.64499"
        x="8.6316614"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          style="font-size:4.23333311px;line-height:1;text-align:center;text-anchor:middle;stroke-width:0.12532605"
          y="-321.64499"
          x="8.6316614"
@@ -3305,7 +3619,10 @@
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
        x="8.6860132"
        y="-356.18683"
-       id="text1951"><tspan
+       id="text1951"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          sodipodi:role="line"
          x="8.6860132"
          y="-356.18683"
@@ -3321,7 +3638,10 @@
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
        x="4.1957483"
        y="-307.75217"
-       id="text1957"><tspan
+       id="text1957"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          id="tspan1953"
          sodipodi:role="line"
          x="4.1957479"
@@ -3338,48 +3658,69 @@
        height="15.320202"
        width="37.223782"
        id="rect28107"
-       style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-287.18137"
        x="-93.071014"
        height="15.320202"
        width="37.223782"
        id="rect28109"
-       style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-267.23358"
        x="-133.27264"
        height="34.04565"
        width="37.243031"
        id="rect28111"
-       style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-267.23358"
        x="-93.080643"
        height="34.04565"
        width="37.243031"
        id="rect28113"
-       style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect28115"
        width="32.45533"
        height="15.379998"
        x="-130.8788"
-       y="-257.90079" />
+       y="-257.90079"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect28117"
        width="32.45533"
        height="15.379998"
        x="-90.68679"
-       y="-257.90079" />
+       y="-257.90079"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
        x="-114.66664"
        y="-281.19305"
-       id="text28121"><tspan
+       id="text28121"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          id="tspan28119"
          sodipodi:role="line"
          x="-114.66664"
@@ -3395,23 +3736,32 @@
        y="-248.75453"
        x="-114.78033"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          style="font-size:4.23333311px;text-align:center;text-anchor:middle;stroke-width:0.12532605"
          y="-248.75453"
          x="-114.78033"
          sodipodi:role="line"
          id="tspan28123">msgconv</tspan></text>
     <path
-       style="display:inline;fill:none;stroke:#000000;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker28153)"
+       style="display:inline;fill:none;stroke:#808080;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker7763)"
        d="m -98.254143,-250.21077 h 7.3784"
        id="path28127"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <text
        id="text28137"
        y="-248.75453"
        x="-74.65136"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          style="font-size:4.23333311px;text-align:center;text-anchor:middle;stroke-width:0.12532605"
          y="-248.75453"
          x="-74.65136"
@@ -3423,300 +3773,429 @@
        height="15.320202"
        width="37.223782"
        id="rect21375"
-       style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect21377"
        width="37.223782"
        height="15.320202"
        x="-133.35332"
-       y="-362.51257" />
+       y="-362.51257"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-362.51257"
        x="-92.856178"
        height="15.320202"
        width="37.223782"
        id="rect21379"
-       style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect21381"
        width="37.223782"
        height="15.320202"
        x="-52.18647"
-       y="-362.51257" />
+       y="-362.51257"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect21385"
        width="37.223782"
        height="15.320202"
        x="31.546793"
-       y="-362.51257" />
+       y="-362.51257"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-362.51257"
        x="72.216499"
        height="15.320202"
        width="37.223782"
        id="rect21387"
-       style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-362.51257"
        x="112.88621"
        height="15.320202"
        width="37.223782"
        id="rect21389"
-       style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect21391"
        width="37.223782"
        height="15.320202"
        x="-133.26303"
-       y="-218.95663" />
+       y="-218.95663"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect21393"
        width="37.223782"
        height="15.320202"
        x="-93.071014"
-       y="-218.95663" />
+       y="-218.95663"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-218.95663"
        x="-51.936016"
        height="15.320202"
        width="37.223782"
        id="rect21395"
-       style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect21397"
        width="37.223782"
        height="15.320202"
        x="-11.264972"
-       y="-153.73509" />
+       y="-153.73509"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect21399"
        width="37.223782"
        height="15.320202"
        x="29.404766"
-       y="-153.73509" />
+       y="-153.73509"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-218.36293"
        x="-11.264972"
        height="15.320202"
        width="37.223782"
        id="rect21401"
-       style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-388.02045"
        x="9.6136866"
        height="20.772091"
        width="37.243031"
        id="rect21405"
-       style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect21407"
        width="32.45533"
        height="15.379998"
        x="12.007546"
-       y="-385.34882" />
+       y="-385.34882"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-344.05273"
        x="-173.76341"
        height="48.813591"
        width="37.232479"
        id="rect21409"
-       style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect21411"
        width="37.232479"
        height="48.813591"
        x="-133.35332"
-       y="-344.05273" />
+       y="-344.05273"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-336.4176"
        x="-92.861443"
        height="34.04565"
        width="37.243031"
        id="rect21413"
-       style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect21415"
        width="37.243031"
        height="34.04565"
        x="-52.191734"
-       y="-336.4176" />
+       y="-336.4176"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect21419"
        width="37.243031"
        height="34.04565"
        x="31.541513"
-       y="-336.4176" />
+       y="-336.4176"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-336.4176"
        x="72.21122"
        height="34.04565"
        width="37.243031"
        id="rect21421"
-       style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-336.4176"
        x="112.88093"
        height="34.04565"
        width="37.243031"
        id="rect21423"
-       style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect21425"
        width="37.243031"
        height="34.04565"
        x="-133.27264"
-       y="-199.00887" />
+       y="-199.00887"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect21427"
        width="37.243031"
        height="34.04565"
        x="-93.080643"
-       y="-199.00887" />
+       y="-199.00887"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-199.00887"
        x="-51.945641"
        height="34.04565"
        width="37.243031"
        id="rect21429"
-       style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect21431"
        width="37.243031"
        height="34.04565"
        x="-11.274596"
-       y="-135.06558" />
+       y="-135.06558"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect21433"
        width="37.243031"
        height="34.04565"
        x="29.395142"
-       y="-135.06558" />
+       y="-135.06558"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-199.69341"
        x="-11.274596"
        height="34.04565"
        width="37.243031"
        id="rect21435"
-       style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect21443"
        width="32.45533"
        height="15.379998"
        x="-171.49362"
-       y="-341.4505" />
+       y="-341.4505"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-313.06479"
        x="-171.49362"
        height="15.379998"
        width="32.45533"
        id="rect21445"
-       style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-341.28098"
        x="-130.7982"
        height="43.772377"
        width="32.116234"
        id="rect21447"
-       style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-327.08478"
        x="-90.467598"
        height="15.379998"
        width="32.45533"
        id="rect21449"
-       style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect21451"
        width="32.45533"
        height="15.379998"
        x="-49.79789"
-       y="-327.08478" />
+       y="-327.08478"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-327.08478"
        x="33.935371"
        height="15.379998"
        width="32.45533"
        id="rect21453"
-       style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect21455"
        width="32.45533"
        height="15.379998"
        x="74.60508"
-       y="-327.08478" />
+       y="-327.08478"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect21457"
        width="32.45533"
        height="15.379998"
        x="115.27479"
-       y="-327.08478" />
+       y="-327.08478"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-189.67606"
        x="-130.8788"
        height="15.379998"
        width="32.45533"
        id="rect21459"
-       style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-189.67606"
        x="-90.68679"
        height="15.379998"
        width="32.45533"
        id="rect21461"
-       style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect21463"
        width="32.45533"
        height="15.379998"
        x="-49.551792"
-       y="-189.67606" />
+       y="-189.67606"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-125.73276"
        x="-8.8807459"
        height="15.379998"
        width="32.45533"
        id="rect21465"
-       style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-125.73276"
        x="31.788992"
        height="15.379998"
        width="32.45533"
        id="rect21467"
-       style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect21469"
        width="32.45533"
        height="15.379998"
        x="-8.8807459"
-       y="-190.36058" />
+       y="-190.36058"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
        x="-155.09586"
        y="-367.5845"
-       id="text21483"><tspan
+       id="text21483"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          sodipodi:role="line"
          x="-155.09586"
          y="-363.14914"
@@ -3739,13 +4218,19 @@
        height="9.5484076"
        width="13.182298"
        id="rect21489"
-       style="display:inline;opacity:1;fill:#7d7d7d;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="display:inline;opacity:1;fill:#7d7d7d;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <path
        sodipodi:nodetypes="ccccc"
        inkscape:connector-curvature="0"
        id="path21491"
        d="m -206.17724,-338.02171 v 8.52809 l 4.8554,-2.17336 -0.017,-4.1105 z"
-       style="display:inline;fill:#7d7d7d;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="display:inline;fill:#7d7d7d;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="display:inline;opacity:1;fill:#7d7d7d;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect21493"
@@ -3753,21 +4238,30 @@
        height="9.5484076"
        x="-199.83476"
        y="-310.01743"
-       ry="2.5878863" />
+       ry="2.5878863"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <path
        style="display:inline;fill:#7d7d7d;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m -206.17724,-309.50441 v 8.52809 l 4.8554,-2.17336 -0.017,-4.1105 z"
        id="path21495"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccc" />
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <text
        transform="rotate(90)"
        id="text21499"
        y="193.59879"
        x="-324.54291"
-       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       xml:space="preserve"><tspan
-         style="stroke-width:0.26458332"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.26458332;"
+       xml:space="preserve"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
+         style="stroke-width:0.26458332;fill:#808080;fill-opacity:1;"
          y="193.59879"
          x="-324.54291"
          id="tspan21497"
@@ -3778,7 +4272,10 @@
        x="-324.54291"
        y="155.80345"
        id="text21503"
-       transform="rotate(90)"><tspan
+       transform="rotate(90)"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          sodipodi:role="line"
          id="tspan21501"
          x="-324.54291"
@@ -3789,7 +4286,10 @@
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
        x="-155.21434"
        y="-332.18231"
-       id="text21507"><tspan
+       id="text21507"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          id="tspan21505"
          sodipodi:role="line"
          x="-155.21434"
@@ -3800,28 +4300,40 @@
        y="-303.7966"
        x="-155.21434"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          style="font-size:4.23333311px;text-align:center;text-anchor:middle;stroke-width:0.12532605"
          y="-303.7966"
          x="-155.21434"
          sodipodi:role="line"
          id="tspan21509">uridecode</tspan></text>
     <path
-       style="display:inline;fill:none;stroke:#000000;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker22033)"
+       style="display:inline;fill:none;stroke:#808080;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker3449)"
        d="m -138.82916,-333.65531 h 7.3784"
        id="path21513"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <path
        inkscape:connector-curvature="0"
        id="path21515"
        d="m -138.92913,-305.34845 h 7.3784"
-       style="display:inline;fill:none;stroke:#000000;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker22313)" />
+       style="display:inline;fill:none;stroke:#808080;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker3903)"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <text
        id="text21523"
        y="-367.10907"
        x="-114.83341"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          id="tspan21517"
          style="font-size:4.23333311px;text-align:center;text-anchor:middle;stroke-width:0.12532605"
          y="-362.67371"
@@ -3842,7 +4354,10 @@
        y="-317.93854"
        x="-114.78558"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          style="font-size:4.23333311px;text-align:center;text-anchor:middle;stroke-width:0.12532605"
          y="-317.93854"
          x="-114.78558"
@@ -3852,23 +4367,35 @@
        inkscape:connector-curvature="0"
        id="path21529"
        d="m -184.09181,-333.65531 h 7.3784"
-       style="display:inline;fill:none;stroke:#000000;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker9492)" />
+       style="display:inline;fill:none;stroke:#808080;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker2559)"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <path
-       style="display:inline;fill:none;stroke:#000000;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker10238)"
+       style="display:inline;fill:none;stroke:#808080;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker3001)"
        d="m -184.19178,-305.34845 h 7.3784"
        id="path21531"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <path
-       style="display:inline;fill:none;stroke:#000000;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker10796)"
+       style="display:inline;fill:none;stroke:#808080;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker4363)"
        d="m -98.431976,-319.3948 h 7.3784"
        id="path21533"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
        x="-74.361061"
        y="-356.40741"
-       id="text21539"><tspan
+       id="text21539"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          sodipodi:role="line"
          x="-74.361061"
          y="-356.40741"
@@ -3884,7 +4411,10 @@
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
        x="-74.288445"
        y="-317.93854"
-       id="text21543"><tspan
+       id="text21543"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          id="tspan21541"
          sodipodi:role="line"
          x="-74.288445"
@@ -3894,13 +4424,19 @@
        inkscape:connector-curvature="0"
        id="path21545"
        d="m -57.762266,-319.3948 h 7.3784"
-       style="display:inline;fill:none;stroke:#000000;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker11013)" />
+       style="display:inline;fill:none;stroke:#808080;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker4829)"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <text
        id="text21551"
        y="-356.40741"
        x="-33.691368"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          style="font-size:4.23333311px;text-align:center;text-anchor:middle;stroke-width:0.12532605"
          y="-356.40741"
          x="-33.691368"
@@ -3916,28 +4452,40 @@
        y="-317.93854"
        x="-33.618736"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          style="font-size:4.23333311px;text-align:center;text-anchor:middle;stroke-width:0.12532605"
          y="-317.93854"
          x="-33.618736"
          sodipodi:role="line"
          id="tspan21553">tracker</tspan></text>
     <path
-       style="display:inline;fill:none;stroke:#000000;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker29019)"
+       style="display:inline;fill:none;stroke:#808080;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker5301)"
        d="m -17.092556,-319.3948 h 7.3784003"
        id="path21557"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <path
        inkscape:connector-curvature="0"
        id="path21569"
        d="m 27.522664,-319.3948 h 5.82673"
-       style="display:inline;fill:none;stroke:#000000;stroke-width:0.18150172px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker30455)" />
+       style="display:inline;fill:none;stroke:#808080;stroke-width:0.18150172px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker6263)"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <text
        id="text21575"
        y="-356.40741"
        x="50.041908"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          style="font-size:4.23333311px;text-align:center;text-anchor:middle;stroke-width:0.12532605"
          y="-356.40741"
          x="50.041908"
@@ -3953,7 +4501,10 @@
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
        x="50.11451"
        y="-317.93854"
-       id="text21579"><tspan
+       id="text21579"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          id="tspan21577"
          sodipodi:role="line"
          x="50.11451"
@@ -3963,29 +4514,41 @@
        inkscape:connector-curvature="0"
        id="path21581"
        d="m 29.304284,-319.42877 v -47.091"
-       style="fill:none;stroke:#000000;stroke-width:0.24653198px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker30951)" />
+       style="fill:none;stroke:#808080;stroke-width:0.24653198px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker5779)"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <text
        id="text21585"
        y="-376.20258"
        x="28.186686"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          style="font-size:4.23333311px;text-align:center;text-anchor:middle;stroke-width:0.12532605"
          y="-376.20258"
          x="28.186686"
          sodipodi:role="line"
          id="tspan21583">probe</tspan></text>
     <path
-       style="display:inline;fill:none;stroke:#000000;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker12197)"
+       style="display:inline;fill:none;stroke:#808080;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker6753)"
        d="m 66.640704,-319.3948 h 7.3784"
        id="path21587"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
        x="90.638222"
        y="-353.31146"
-       id="text21591"><tspan
+       id="text21591"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          id="tspan21589"
          sodipodi:role="line"
          x="90.638222"
@@ -3996,23 +4559,32 @@
        y="-317.93854"
        x="90.784218"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          style="font-size:4.23333311px;text-align:center;text-anchor:middle;stroke-width:0.12532605"
          y="-317.93854"
          x="90.784218"
          sodipodi:role="line"
          id="tspan21593">nvvidconv</tspan></text>
     <path
-       style="display:inline;fill:none;stroke:#000000;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker12671)"
+       style="display:inline;fill:none;stroke:#808080;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker7249)"
        d="m 107.3104,-319.3948 h 7.3784"
        id="path21597"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
        x="131.38133"
        y="-356.40741"
-       id="text21603"><tspan
+       id="text21603"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          id="tspan21599"
          sodipodi:role="line"
          x="131.38133"
@@ -4028,7 +4600,10 @@
        y="-317.93854"
        x="131.45396"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          style="font-size:4.23333311px;text-align:center;text-anchor:middle;stroke-width:0.12532605"
          y="-317.93854"
          x="131.45396"
@@ -4039,7 +4614,10 @@
        y="-209.75552"
        x="-114.71832"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          style="font-size:4.23333311px;text-align:center;text-anchor:middle;stroke-width:0.12532605"
          y="-209.75552"
          x="-114.71832"
@@ -4050,7 +4628,10 @@
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
        x="-114.78033"
        y="-180.52982"
-       id="text21617"><tspan
+       id="text21617"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          id="tspan21615"
          sodipodi:role="line"
          x="-114.78033"
@@ -4060,13 +4641,19 @@
        inkscape:connector-curvature="0"
        id="path21619"
        d="m -98.254143,-181.98607 h 7.3784"
-       style="display:inline;fill:none;stroke:#000000;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker13189)" />
+       style="display:inline;fill:none;stroke:#808080;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker8283)"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <text
        id="text21625"
        y="-212.85147"
        x="-74.379539"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          id="tspan21621"
          style="font-size:4.23333311px;text-align:center;text-anchor:middle;stroke-width:0.12532605"
          y="-212.85147"
@@ -4082,23 +4669,32 @@
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
        x="-74.472557"
        y="-180.52982"
-       id="text21629"><tspan
+       id="text21629"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          id="tspan21627"
          sodipodi:role="line"
          x="-74.472557"
          y="-180.52982"
          style="font-size:4.23333311px;text-align:center;text-anchor:middle;stroke-width:0.12532605">caps</tspan></text>
     <path
-       style="display:inline;fill:none;stroke:#000000;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker14049)"
+       style="display:inline;fill:none;stroke:#808080;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker8797)"
        d="m -57.584443,-181.98607 h 7.3784"
        id="path21631"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
        x="-33.481224"
        y="-212.85147"
-       id="text21637"><tspan
+       id="text21637"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          id="tspan21633"
          sodipodi:role="line"
          x="-33.481224"
@@ -4114,7 +4710,10 @@
        y="-180.52982"
        x="-33.440914"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          style="font-size:4.23333311px;text-align:center;text-anchor:middle;stroke-width:0.12532605"
          y="-180.52982"
          x="-33.440914"
@@ -4124,13 +4723,19 @@
        inkscape:connector-curvature="0"
        id="path21643"
        d="m -16.914713,-181.98607 h 7.3784002"
-       style="display:inline;fill:none;stroke:#000000;stroke-width:0.204;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker23891)" />
+       style="display:inline;fill:none;stroke:#808080;stroke-width:0.204;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker9317)"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <text
        id="text21661"
        y="-147.62996"
        x="7.3190136"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          id="tspan21657"
          style="font-size:4.23333311px;text-align:center;text-anchor:middle;stroke-width:0.12532605"
          y="-147.62996"
@@ -4146,7 +4751,10 @@
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
        x="7.3427854"
        y="-116.58652"
-       id="text21665"><tspan
+       id="text21665"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          id="tspan21663"
          sodipodi:role="line"
          x="7.3427849"
@@ -4156,13 +4764,19 @@
        inkscape:connector-curvature="0"
        id="path21667"
        d="m 23.824597,-118.04275 h 7.3784"
-       style="display:inline;fill:none;stroke:#000000;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker26955)" />
+       style="display:inline;fill:none;stroke:#808080;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker12013)"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <text
        id="text21673"
        y="-147.62996"
        x="47.91227"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          id="tspan21669"
          style="font-size:4.23333311px;text-align:center;text-anchor:middle;stroke-width:0.12532605"
          y="-147.62996"
@@ -4178,7 +4792,10 @@
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
        x="47.893665"
        y="-116.58652"
-       id="text21677"><tspan
+       id="text21677"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          id="tspan21675"
          sodipodi:role="line"
          x="47.893665"
@@ -4189,7 +4806,10 @@
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
        x="7.2508016"
        y="-212.66809"
-       id="text21689"><tspan
+       id="text21689"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          id="tspan21687"
          sodipodi:role="line"
          x="7.2508011"
@@ -4205,7 +4825,10 @@
        y="-181.21434"
        x="7.2177281"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          style="font-size:4.23333311px;text-align:center;text-anchor:middle;stroke-width:0.12532605"
          y="-181.21434"
          x="7.2177281"
@@ -4217,13 +4840,19 @@
        height="15.320202"
        width="37.223782"
        id="rect21725"
-       style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
        x="-158.37357"
        y="-221.05914"
-       id="text21733"><tspan
+       id="text21733"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          id="tspan21731"
          sodipodi:role="line"
          x="-158.37357"
@@ -4240,100 +4869,142 @@
        height="48.813591"
        width="37.232479"
        id="rect21743"
-       style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect21745"
        width="32.116234"
        height="43.772377"
        x="-174.24451"
-       y="-202.882" />
+       y="-202.882"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
        x="-158.23187"
        y="-179.53958"
-       id="text21749"><tspan
+       id="text21749"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          id="tspan21747"
          sodipodi:role="line"
          x="-158.23187"
          y="-179.53958"
          style="font-size:4.23333311px;text-align:center;text-anchor:middle;stroke-width:0.12532605">tee</tspan></text>
     <path
-       style="display:inline;fill:none;stroke:#000000;stroke-width:0.26499999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker2413)"
+       style="display:inline;fill:none;stroke:#808080;stroke-width:0.26499999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker2413)"
        d="m -142.28066,-181.65951 h 10.83161"
        id="path23373"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cc" />
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-154.27359"
        x="-133.26303"
        height="15.320202"
        width="37.223782"
        id="rect24427"
-       style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-154.27359"
        x="-93.071014"
        height="15.320202"
        width="37.223782"
        id="rect24429"
-       style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect24431"
        width="37.223782"
        height="15.320202"
        x="-51.936016"
-       y="-154.27359" />
+       y="-154.27359"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-134.59311"
        x="-133.27264"
        height="34.04565"
        width="37.243031"
        id="rect24433"
-       style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-134.59311"
        x="-93.080643"
        height="34.04565"
        width="37.243031"
        id="rect24435"
-       style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect24437"
        width="37.243031"
        height="34.04565"
        x="-51.945641"
-       y="-134.59311" />
+       y="-134.59311"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect24439"
        width="32.45533"
        height="15.379998"
        x="-130.8788"
-       y="-125.2603" />
+       y="-125.2603"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect24441"
        width="32.45533"
        height="15.379998"
        x="-90.68679"
-       y="-125.2603" />
+       y="-125.2603"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-125.2603"
        x="-49.551792"
        height="15.379998"
        width="32.45533"
        id="rect24443"
-       style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
        x="-114.71832"
        y="-145.07248"
-       id="text24447"><tspan
+       id="text24447"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          id="tspan24445"
          sodipodi:role="line"
          x="-114.71832"
@@ -4344,23 +5015,32 @@
        y="-116.11406"
        x="-114.78033"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          style="font-size:4.23333311px;text-align:center;text-anchor:middle;stroke-width:0.12532605"
          y="-116.11406"
          x="-114.78033"
          sodipodi:role="line"
          id="tspan24449">nvvidconv</tspan></text>
     <path
-       style="display:inline;fill:none;stroke:#000000;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker13189)"
+       style="display:inline;fill:none;stroke:#808080;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker10381)"
        d="m -98.254143,-117.57029 h 7.3784"
        id="path24453"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
        x="-74.379539"
        y="-148.16843"
-       id="text24459"><tspan
+       id="text24459"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          sodipodi:role="line"
          x="-74.379539"
          y="-148.16843"
@@ -4376,7 +5056,10 @@
        y="-116.11406"
        x="-74.472557"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          style="font-size:4.23333311px;text-align:center;text-anchor:middle;stroke-width:0.12532605"
          y="-116.11406"
          x="-74.472557"
@@ -4386,13 +5069,19 @@
        inkscape:connector-curvature="0"
        id="path24465"
        d="m -57.584443,-117.57029 h 7.3784"
-       style="display:inline;fill:none;stroke:#000000;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker14049)" />
+       style="display:inline;fill:none;stroke:#808080;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker10919)"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <text
        id="text24471"
        y="-148.16843"
        x="-33.481224"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          style="font-size:4.23333311px;text-align:center;text-anchor:middle;stroke-width:0.12532605"
          y="-148.16843"
          x="-33.481224"
@@ -4408,55 +5097,79 @@
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
        x="-33.440914"
        y="-116.11406"
-       id="text24475"><tspan
+       id="text24475"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          id="tspan24473"
          sodipodi:role="line"
          x="-33.440914"
          y="-116.11406"
          style="font-size:4.23333311px;text-align:center;text-anchor:middle;stroke-width:0.12532605">encoder</tspan></text>
     <path
-       style="display:inline;fill:none;stroke:#000000;stroke-width:0.204;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker24791)"
+       style="display:inline;fill:none;stroke:#808080;stroke-width:0.204;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker11463)"
        d="m -16.914713,-117.57029 h 7.3784002"
        id="path24477"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.26499999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker2454)"
+       style="fill:none;stroke:#808080;stroke-width:0.26499999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker2454)"
        d="m -142.30804,-168.46329 h 5.79541 v 51.56851 h 4.48362"
        id="path25327"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccc" />
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect26925"
        width="37.223782"
        height="15.320202"
        x="29.404766"
-       y="-218.36293" />
+       y="-218.36293"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect26927"
        width="37.243031"
        height="34.04565"
        x="29.395142"
-       y="-199.69341" />
+       y="-199.69341"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-190.36058"
        x="31.788992"
        height="15.379998"
        width="32.45533"
        id="rect26929"
-       style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <path
-       style="display:inline;fill:none;stroke:#000000;stroke-width:0.204;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker23891)"
+       style="display:inline;fill:none;stroke:#808080;stroke-width:0.204;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker9843)"
        d="m 25.418617,-181.98607 h 7.3784"
        id="path26931"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <text
        id="text26935"
        y="-212.25778"
        x="47.948444"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          style="font-size:4.23333311px;text-align:center;text-anchor:middle;stroke-width:0.12532605"
          y="-212.25778"
          x="47.948444"
@@ -4472,7 +5185,10 @@
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
        x="47.908134"
        y="-181.21434"
-       id="text26939"><tspan
+       id="text26939"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          id="tspan26937"
          sodipodi:role="line"
          x="47.908134"
@@ -4484,32 +5200,47 @@
        height="15.320202"
        width="37.223782"
        id="rect27299"
-       style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="display:inline;opacity:1;fill:#848484;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        y="-135.06558"
        x="70.765266"
        height="34.04565"
        width="37.243031"
        id="rect27301"
-       style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="display:inline;opacity:1;fill:#3bc710;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect27303"
        width="32.45533"
        height="15.379998"
        x="73.159119"
-       y="-125.73276" />
+       y="-125.73276"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <path
-       style="display:inline;fill:none;stroke:#000000;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker2458)"
+       style="display:inline;fill:none;stroke:#808080;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker2458)"
        d="m 64.30805,-118.04275 h 7.3784"
        id="path27305"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
        x="89.318565"
        y="-147.62996"
-       id="text27311"><tspan
+       id="text27311"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          sodipodi:role="line"
          x="89.318565"
          y="-147.62996"
@@ -4525,7 +5256,10 @@
        y="-116.58652"
        x="89.278259"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          style="font-size:4.23333311px;text-align:center;text-anchor:middle;stroke-width:0.12532605"
          y="-116.58652"
          x="89.278259"
@@ -4536,13 +5270,19 @@
        inkscape:connector-curvature="0"
        id="path27333"
        d="m -142.28066,-197.53451 h 5.52814 v -51.56851 h 5.28543"
-       style="fill:none;stroke:#000000;stroke-width:0.26499999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker2450)" />
+       style="fill:none;stroke:#808080;stroke-width:0.26499999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker2450)"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <text
        id="text28145"
        y="-281.19305"
        x="-74.482895"
        style="font-style:normal;font-weight:normal;font-size:5.01304197px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12532605"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697"><tspan
          id="tspan28143"
          style="font-size:4.23333311px;text-align:center;text-anchor:middle;stroke-width:0.12532605"
          y="-281.19305"
@@ -4557,19 +5297,28 @@
        inkscape:connector-curvature="0"
        id="path28503"
        d="m -57.621703,-250.21077 h 7.3784"
-       style="display:inline;fill:none;stroke:#000000;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker2438)" />
+       style="display:inline;fill:none;stroke:#808080;stroke-width:0.20424399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker2438)"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <path
        style="fill:#21a0ff;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m -42.752478,-240.83968 c -9.570187,-4.62296 -2.763812,-12.41579 2.418904,-10.90711 -1.003038,-8.66363 10.403996,-10.12907 13.288741,-4.46267 4.464942,-2.83764 9.194299,1.62223 8.114119,5.09006 3.527452,0.69622 6.048516,7.705 0.315148,10.2414 z"
        id="path2434"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccccc" />
+       sodipodi:nodetypes="cccccc"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <path
        sodipodi:nodetypes="cccccc"
        inkscape:connector-curvature="0"
        id="path2415"
        d="m 148.1081,-319.43076 h 6.04762 v 28.03137 H -192.6038 v 110.04586 h 17.50174"
-       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker2419)" />
+       style="fill:none;stroke:#808080;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker2419)"
+       inkscape:export-filename="/home/pepe/Desktop/mobia-project/deployment/deepstream-main/img/pipeline.png"
+       inkscape:export-xdpi="104.64697"
+       inkscape:export-ydpi="104.64697" />
     <rect
        style="opacity:1;fill:#f0eeef;fill-opacity:1;stroke:#d5d5cf;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect1959"

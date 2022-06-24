@@ -30,7 +30,7 @@ input-object-min-width=40
 #enable-dla=1
 
 [class-attrs-all]
-pre-cluster-threshold=0.3
+pre-cluster-threshold=0.2
 roi-top-offset=0
 roi-bottom-offset=0
 detected-min-w=0

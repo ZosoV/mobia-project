@@ -241,11 +241,12 @@ class MainDeepstreamPipeline(Pipeline):
         #                plugin_name = "tiler")
 
         # Loading specific attributes for this probe
-        nvmsgconv_attribs = dict(self.config_global["nvmsgconv"])
-        self.set_probe(plugin = tiler, 
-                       pad_type = "sink", 
-                       function = probes.send_kafka_msg_probe(nvmsgconv_attribs), 
-                       plugin_name = "tiler")
+        if self.config_global.getint("nvmsgconv", "enable"):
+            nvmsgconv_attribs = dict(self.config_global["nvmsgconv"])
+            self.set_probe(plugin = tiler, 
+                        pad_type = "sink", 
+                        function = probes.send_kafka_msg_probe(nvmsgconv_attribs), 
+                        plugin_name = "tiler")
 
 
     def run_main_loop(self):

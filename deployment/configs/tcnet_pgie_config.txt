@@ -18,7 +18,7 @@ gie-unique-id=1
 output-blob-names=output_bbox/BiasAdd;output_cov/Sigmoid
 
 [class-attrs-0]
-pre-cluster-threshold=0.6
+pre-cluster-threshold=0.4
 eps=0.2
 group-threshold=1
 

@@ -1,20 +1,20 @@
 version: '3'
 services:
   zookeeper:
-    image: ubuntu/zookeeper
+    image: wurstmeister/zookeeper
     container_name: zookeeper
-    network_mode: "host"
-    # ports:
-    #   - '2181:2181'
+    # network_mode: "host"
+    ports:
+      - '2181:2181'
   kafka:
-    image: ubuntu/kafka
+    image: wurstmeister/kafka
     container_name: kafka
-    network_mode: "host"
-    # ports:
-    #   - '9092:9092'
+    # network_mode: "host"
+    ports:
+      - '9092:9092'
     environment:
       KAFKA_ADVERTISED_HOST_NAME: localhost
       KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
-      KAFKA_CREATE_TOPICS: "messages:1:1"
+      KAFKA_CREATE_TOPICS: "wave:1:1"
 
 # docker compose -f docker-compose.yml up -d

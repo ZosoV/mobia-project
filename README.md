@@ -12,7 +12,7 @@ progress, so you can find the workflow updates [[here]](https://docs.google.com/
 
 ![](workflow.png)
 
-1. **Data Preparation**: This module comprises the following tasks: labeler creation, labeling data, cleaning data, format conversion, and data division, among others. To know more about this module, refer to  [preparation](./preparation/)
+1. **Data Preparation**: This module comprises the following tasks: labeler creation, labeling data, cleaning data, format conversion, and data division, among others. To know more about this module, refer to  [data_preparation](./data_preparation/)
 
 2. **Training**: This module comprises the following tasks: training models, training visualization,
 hyperparameter tuning, and ceiling analysis. To know more about this module, refer to  [training](./training).

@@ -1,6 +1,6 @@
 # Automatic License Plate Recognition (Nvidia TAO + Deepstream  Application + Python Bindings)
 
-**Project Page: ** [https://zosov.github.io/portfolio/lpr/](https://zosov.github.io/portfolio/lpr/)
+**Project Page:** [zosov.github.io/portfolio/lpr/](https://zosov.github.io/portfolio/lpr/)
 
 This repository contains a entire process for developing an Automatic License 
 Plate Recognition (ALPR) system using mainly [Nvidia TAO Toolkit](https://developer.nvidia.com/tao-toolkit)

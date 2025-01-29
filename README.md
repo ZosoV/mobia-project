@@ -36,6 +36,23 @@ hyperparameter tuning, and ceiling analysis. To know more about this module, ref
 
 4. **Testing**: (In progress) This module contains the main scripts and notebooks to execute a clear testing in production.
 
+### Performance Estimation
+
+The tcnet, lpdnet, lprnet information was taken from [Overview - NVIDIA Docs](https://docs.nvidia.com/tao/tao-toolkit/text/model_zoo/overview.html#tab-0-0-0) and an estimation of the pipeline latency, throughout and batch size was done.
+
+| **Model** | **Backbone** | **Input Size** | **Precision** | **Batch Size** | **FPS** | **Latency (ms)** | **Throughput (FPS)** | **Pipeline Batch Size** |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| **Jetson Nano Orin NX 16GB** |  |  |  |  |  |  |  |  |
+| tcnet | DetectNet_v2 - ResNet18 | 960x544x3 | INT8 | 16 | 457 | ~2.19 ms |  |  |
+| lpdnet | DetectNet_v2 - ResNet18 | 640x480x3 | INT8 | 32 | 457 | ~2.19 ms |  |  |
+| lprnet | ResNet50 | 96x48x3 | FP16 | 128 | 1498 | ~0.67 ms |  |  |
+| **Pipeline** |  |  |  |  |  | **40 ms** | **200 FPS** | **32** |
+| |  |  |  |  |  |  |  |  |
+| **GPU T4** |  |  |  |  |  |  |  |  |
+| tcnet | DetectNet_v2 - ResNet18 | 960x544x3 | INT8 | 64 | 1725 | ~0.58 ms |  |  |
+| lpdnet | DetectNet_v2 - ResNet18 | 640x480x3 | INT8 | 128 | 6123 | ~0.16 ms |  |  |
+| lprnet | ResNet50 | 96x48x3 | FP16 | 128 | 3959 | ~0.25 ms |  |  |
+| **Pipeline** |  |  |  |  |  | **25 ms** | **400 FPS** | **256** |
 
 ### Script formatting
 
